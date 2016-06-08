@@ -264,7 +264,7 @@ i.fa.fa-search {
     text-align: center;
     margin-top: 5%;
 }
-.banner-text-full-less-space h2 {
+.banner-text-full-less-space  h2 {
     font-size: 2.5em;
     color: #fff;
     line-height: 1.8em;
@@ -276,7 +276,7 @@ i.fa.fa-search {
     padding: 0.7em 3em;
     display: inline-block;
     border: 2px solid #99ABD5;
-    border-radius: 5px;
+    border-radius: 7px;
     margin-top: 2em;
 }
 /* Bounce To Right */
