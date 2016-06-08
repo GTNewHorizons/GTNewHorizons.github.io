@@ -543,7 +543,7 @@ p.text {
     background: #F3F3F3;
     padding: 2em 1em;
     margin-left: 5px;
-    width: 24%;
+    width: 22%;
 }
 .about-team-grids img {
 	width: 100%;
@@ -1402,7 +1402,7 @@ img.zoom-img:hover {
     width: 95%;
 }
 .about-team-grids {
-    width: 24%;
+    width: 22%;
 }
 .footer-grids.footer-mdl {
     padding: 0 3em;
@@ -1566,7 +1566,7 @@ h3.title,h2.title{
     font-size: 2em;
 }
 .about-team-grids {
-    width: 24%;
+    width: 22%;
     float: left;
 }
 .about-team-grids h4 {
@@ -2002,7 +2002,7 @@ div#bs-example-navbar-collapse-1 {
     width: 70%;
 }
 .about-team-grids {
-    width: 38%;
+    width: 36%;
     margin: 0 0 1em 3em;
 }
 .about-team-grids h4 span {
