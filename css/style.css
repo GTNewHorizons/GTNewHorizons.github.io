@@ -351,7 +351,7 @@ i.fa.fa-search {
 .banner-bottom p {
     font-size: 1.1em;
     color: #fff;
-    width: 50%;
+    width: 53%;
     margin: 1em auto 0;
     line-height: 1.8em;
 }
@@ -389,7 +389,7 @@ h3.title,h2.title {
 .welcome-grids {
     border: 2px solid #8EB021;
     padding: 2.5em 2em;
-    width: 20%;
+    width: 21%;
     position: relative;
     transition: .5s all;
 	-webkit-transition: .5s all;
@@ -543,7 +543,7 @@ p.text {
     background: #F3F3F3;
     padding: 2em 1em;
     margin-left: 5px;
-    width: 20%;
+    width: 24.5%;
 }
 .about-team-grids img {
 	width: 100%;
@@ -788,7 +788,7 @@ p.text2 {
     font-size: 1.2em;
     color: #8EB021;
     margin: 1em auto 0;
-    width: 54%;
+    width: 55%;
     line-height: 1.8em;
 }
 /*--about-slid--*/
@@ -1267,7 +1267,7 @@ img.zoom-img:hover {
     margin-top: 2em;
 }
 .contact-form input[type="text"] {
-    width: 36%;
+    width: 37%;
     color: #999;
     background: none;
     outline: none;
@@ -1346,7 +1346,7 @@ img.zoom-img:hover {
 /*---- responsive-design -----*/
 @media(max-width:1440px){
 .banner-bottom p {
-    width: 54%;
+    width: 55%;
 }
 }
 @media(max-width:1366px){
@@ -1354,7 +1354,7 @@ img.zoom-img:hover {
     min-height: 630px;
 }
 .banner-bottom p {
-    width: 62%;
+    width: 63%;
 }
 .select-text {
     margin: 4em auto 0;
@@ -1376,7 +1376,7 @@ img.zoom-img:hover {
     width: 80%;
 }
 .banner-text {
-    width: 54%;
+    width: 56%;
 }
 .welcome, .about-team, .about-page, .codes, .gallery, .contact {
     padding: 6em 0;
@@ -1402,7 +1402,7 @@ img.zoom-img:hover {
     width: 95%;
 }
 .about-team-grids {
-    width: 22%;
+    width: 24.4%;
 }
 .footer-grids.footer-mdl {
     padding: 0 3em;
@@ -1566,7 +1566,7 @@ h3.title,h2.title{
     font-size: 2em;
 }
 .about-team-grids {
-    width: 22%;
+    width: 24.3%;
     float: left;
 }
 .about-team-grids h4 {
@@ -1702,7 +1702,7 @@ p.text2 {
 }
 .col-md-3.gallery-grids {
     float: left;
-    width: 22%;
+    width: 25%;
 }
 .map iframe {
     min-height: 300px;
@@ -1725,7 +1725,7 @@ p.text2 {
 }
 @media(max-width:900px){
 .banner-bottom p {
-    width: 80%;
+    width: 81%;
 }
 .banner {
     min-height: 500px;
@@ -2002,7 +2002,7 @@ div#bs-example-navbar-collapse-1 {
     width: 70%;
 }
 .about-team-grids {
-    width: 36%;
+    width: 38%;
     margin: 0 0 1em 3em;
 }
 .about-team-grids h4 span {
@@ -2437,7 +2437,7 @@ h3.title,h2.title {
     width: 90%;
 }
 .about-team-grids {
-    width: 46%;
+    width: 47%;
 }
 .footer-logo {
     float: none;
