@@ -543,7 +543,7 @@ p.text {
     background: #F3F3F3;
     padding: 2em 1em;
     margin-left: 5px;
-    width: 24.5%;
+    width: 24%;
 }
 .about-team-grids img {
 	width: 100%;
@@ -1566,7 +1566,7 @@ h3.title,h2.title{
     font-size: 2em;
 }
 .about-team-grids {
-    width: 24.3%;
+    width: 24%;
     float: left;
 }
 .about-team-grids h4 {
