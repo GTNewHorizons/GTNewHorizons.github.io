@@ -293,6 +293,7 @@ i.fa.fa-search {
   transition-property: color;
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
+  width: 50%;
 }
 .hvr-bounce-to-right:before {
   content: "";
@@ -1127,9 +1128,12 @@ h2.typoh2{
 	h2.typoh2 {
 		font-size: 1.5em;
 	}
-.grid_4 {
-    margin-top: 30px;
-}
+	.grid_4 {
+	 	margin-top: 30px;
+	}
+	.hvr-bounce-to-right{
+		width: 100%;
+	}
 }
 @media (max-width:480px){
 	.table h1 {
