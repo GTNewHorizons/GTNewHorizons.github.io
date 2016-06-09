@@ -389,7 +389,7 @@ h3.title,h2.title {
 .welcome-grids {
     border: 2px solid #8EB021;
     padding: 2.5em 2em;
-    width: 21%;
+    width: 50%;
     position: relative;
     transition: .5s all;
 	-webkit-transition: .5s all;
@@ -1395,7 +1395,7 @@ img.zoom-img:hover {
 }
 .welcome-grids {
     padding: 2em 1.7em;
-    width: 22%;
+    width: 50%;
 }
 .welcome-row {
     margin: 0 auto;
@@ -2142,7 +2142,7 @@ h3.title,h2.title {
 }
 .welcome-grids {
     padding: 1.8em 1.5em;
-    width: 46%;
+    width: 50%;
 }
 .welcome-grids.welcome-mdl {
     margin: 0 0 1.5em 2em;
@@ -2354,7 +2354,7 @@ h3.title,h2.title {
 }
 .welcome-grids {
     padding: 1.8em 1.2em;
-    width: 48%;
+    width: 50%;
 }
 .welcome-grids.welcome-mdl {
     margin: 0 0 1em 1em;
@@ -2517,7 +2517,7 @@ h3.title,h2.title {
 }
 .welcome-grids {
     padding: 2em;
-    width: 85%;
+    width: 100%;
     margin: 0 auto 1em;
     float: none;
 }
