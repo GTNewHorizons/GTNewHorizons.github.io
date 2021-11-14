@@ -42,7 +42,7 @@ body a:hover{
 /*--banner--*/
 .banner{
 	min-height: 700px;
-	background:url(../images/a.jpg)no-repeat 0px 0px;
+	background:url(../images/a.webp)no-repeat 0px 0px;
 	background-size:cover;
 	position: relative;
 }
@@ -470,7 +470,7 @@ p.text {
     outline: none;
     color: #fff;
     font-size: 1.1em;
-    background: url(../images/arrow.png)no-repeat 97% center;
+    background: url(../images/arrow.webp)no-repeat 97% center;
     -webkit-appearance: none;
 }
 .domain-select:after {
@@ -616,7 +616,7 @@ p.text {
     margin: 0 0.3em;
 }
 .caption ul li a {
-    background: url(../images/img-sp.png) no-repeat 0px 0px;
+    background: url(../images/img-sp.webp) no-repeat 0px 0px;
     display: block;
     height: 24px;
     width: 24px;
@@ -627,10 +627,10 @@ p.text {
     transition: .5s all;
 }
 .caption ul li a.f2 {
-    background: url(../images/img-sp.png) no-repeat 0px -32px;
+    background: url(../images/img-sp.webp) no-repeat 0px -32px;
 }
 .caption ul li a.f3 {
-    background: url(../images/img-sp.png) no-repeat 0px -62px;
+    background: url(../images/img-sp.webp) no-repeat 0px -62px;
 }
 /*--//about-team--*/
 /*--footer--*/
@@ -772,7 +772,7 @@ p.text2 {
 }
 /*--history--*/
 .history {
-    background: url(../images/quest2.jpg)no-repeat 0px 0px fixed;
+    background: url(../images/quest2.webp)no-repeat 0px 0px fixed;
     background-size: cover;
     margin-top: 3em;
     padding: 6em 10em;
@@ -921,7 +921,7 @@ p.text2 {
     text-decoration: none;
     height: 32px;
     width: 27px;
-    background: transparent url("../images/icons.png") no-repeat 0px 0px;
+    background: transparent url("../images/icons.webp") no-repeat 0px 0px;
 }
 .callbacks_nav:active {
   opacity: 1.0;
@@ -929,7 +929,7 @@ p.text2 {
 .callbacks_nav.next {
     left: auto;
     right: 3%;
-    background: url("../images/icons1.png")no-repeat 0px 0px;
+    background: url("../images/icons1.webp")no-repeat 0px 0px;
 }
 /*--//slider end here--*/
 /*--slider-up-arrow--*/
@@ -944,7 +944,7 @@ p.text2 {
 	height: 32px;
 	border: none;
 	text-indent: 100%;
-	background: url("../images/move-up.png") no-repeat 0px 0px;
+	background: url("../images/move-up.webp") no-repeat 0px 0px;
 }
 #toTopHover {
 	width: 32px;
