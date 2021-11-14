@@ -541,10 +541,10 @@ p.text {
     margin-top: 4em;
 }
 .about-team-grids {
-    background: #F3F3F3;
+    background: #FFFFFF;
     padding: 2em 1em;
     margin-left: 5px;
-    width: 24.45%;
+    width: 100%;
 }
 .about-team-grids img {
 	width: 100%;
