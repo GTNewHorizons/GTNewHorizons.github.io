@@ -25,15 +25,19 @@
   const backToTopButton = document.getElementById("back-to-top");
 
   if (backToTopButton) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backToTopButton.classList.remove("opacity-0", "invisible");
-        backToTopButton.classList.add("opacity-100", "visible");
-      } else {
-        backToTopButton.classList.remove("opacity-100", "visible");
-        backToTopButton.classList.add("opacity-0", "invisible");
-      }
-    });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.remove("opacity-0", "invisible");
+          backToTopButton.classList.add("opacity-100", "visible");
+        } else {
+          backToTopButton.classList.remove("opacity-100", "visible");
+          backToTopButton.classList.add("opacity-0", "invisible");
+        }
+      },
+      { passive: true }
+    );
 
     // Smooth scroll to top when clicked
     backToTopButton.addEventListener("click", () => {
