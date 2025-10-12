@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+
+const faqs = [
+  {
+    question: "What launcher should I use?",
+    answer:
+      "GT:NH is availiable through <b>Prism</b>, Technic Launcher and CurseForge. While the last two launchers are convenient, they both have their own quirks, so the GT:NH Team strongly advise you to use <b>Prism</b>, as you will also be able to benefit from better performances if you install the Java 17-25 archive.",
+  },
+  {
+    question: "Which Java version should I use?",
+    answer:
+      "We recommend <b>Java 17-25</b> for current releases. If you must use legacy setups, <i>Java 8</i> builds are also available.",
+  },
+  {
+    question: "How do I install the pack?",
+    answer:
+      "Download our Prism archive from the Downloads page, then drag and drop the archive on the Prism launcher. That's it!",
+  },
+  {
+    question: "Where can I get help?",
+    answer: "You can join our Discord and ask in the support channels, or try our wiki.",
+  },
+];
+---
+
+<BaseLayout title="FAQ">
+  <section class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
+    <div class="text-center mb-6 sm:mb-7">
+      <h1 class="text-2xl sm:text-4xl font-bold">Frequently Asked Questions</h1>
+      <p class="text-gray-300 text-base sm:text-lg mt-1.5">Answers to common questions about the modpack</p>
+    </div>
+
+    <div class="mx-auto max-w-4xl space-y-3 sm:space-y-4">
+      {
+        faqs.map((faq) => (
+          <details class="group rounded-xl bg-[#1a1f26] border border-gray-700">
+            <summary class="list-none px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between cursor-pointer select-none">
+              <span class="text-lg sm:text-xl font-semibold">{faq.question}</span>
+              <span class="ml-3 flex-shrink-0 rounded-lg bg-[#2a3342] p-1.5 text-custom-blue transition-transform group-open:rotate-180">
+                <Icon name="mdi:chevron-down" class="w-5 h-5" />
+              </span>
+            </summary>
+            <div class="px-3 sm:px-4 pb-4 text-gray-300 text-sm sm:text-base leading-relaxed">
+              <div set:html={faq.answer} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import { Image } from "astro:assets";
+
+const { imageIcon, title = "" } = Astro.props;
+---
+
+<div class="w-full min-w-0 h-full p-1.5">
+  <div class="flex items-center gap-2 mb-1.5">
+    <div
+      class="icon-container flex-shrink-0 w-8 sm:w-9 h-8 sm:h-9 bg-[#454c54] rounded-lg flex items-center justify-center p-1"
+    >
+      <Image src={imageIcon} alt="" class="w-full h-full object-contain" />
+    </div>
+    <div class="font-semibold text-lg sm:text-xl min-w-0">{title}</div>
+  </div>
+  <p class="text-gray-300 text-base sm:text-lg leading-relaxed"><slot /></p>
+</div>

@@ -1,0 +1,307 @@
+---
+import CarouselItem from "./CarouselItem.astro";
+import { Picture } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+import image1 from "../../assets/home/carousel/1.png";
+import image2 from "../../assets/home/carousel/2.png";
+import image3 from "../../assets/home/carousel/3.png";
+import image4 from "../../assets/home/carousel/4.png";
+import image5 from "../../assets/home/carousel/5.png";
+import image6 from "../../assets/home/carousel/6.png";
+import image7 from "../../assets/home/carousel/7.png";
+import image8 from "../../assets/home/carousel/8.png";
+import image9 from "../../assets/home/carousel/9.png";
+
+// Slideshow speed in milliseconds
+const SLIDESHOW_SPEED = 5000;
+---
+
+<div class="rounded-xl p-3 max-w-7xl mx-auto">
+  <div class="carousel-container relative overflow-hidden rounded-lg">
+    <!-- Carousel Images -->
+    <div class="carousel-track flex transition-transform duration-500 ease-in-out" id="carousel-track">
+      <CarouselItem title="Mountain" author="iLex">
+        <Picture
+          src={image1}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["webp"]}
+          quality={90}
+          loading="eager"
+          fetchpriority="high"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="Steam engineering" author="Li Muli">
+        <Picture
+          src={image2}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["webp"]}
+          quality={90}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="Rocket museum" author="Audacter">
+        <Picture
+          src={image3}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["webp"]}
+          quality={90}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="GoodVibes™ StarGate base" author="Salsa, MimiKe and duck">
+        <Picture
+          src={image4}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["webp"]}
+          quality={90}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="Light of the new Age" author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN">
+        <Picture
+          src={image5}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["webp"]}
+          quality={90}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="Indescribable Tentacle" author="Suber">
+        <Picture
+          src={image6}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["png"]}
+          quality={100}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="ZPM Base" author="Flaxo">
+        <Picture
+          src={image7}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["png"]}
+          quality={100}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="Forge Of The Gods" author="Qian Jia">
+        <Picture
+          src={image8}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["png"]}
+          quality={100}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="Stargate" author="Repeating Cat">
+        <Picture
+          src={image9}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["png"]}
+          quality={100}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+    </div>
+    <!-- Arrow overlay positioned over the image area -->
+    <!-- Hidden by default, shown only when JavaScript is available -->
+    <div id="carousel-arrow-overlay" class="hidden pointer-events-none absolute inset-x-0 z-10" style="top:0;height:0;">
+      <div class="h-full flex items-center justify-between px-1.5 sm:px-2 md:px-3">
+        <button
+          id="carousel-prev"
+          aria-label="Previous slide"
+          class="pointer-events-auto cursor-pointer select-none rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur p-0.5 sm:p-1.5 md:p-2 shadow focus:outline-none focus:ring-2 focus:ring-white/60"
+        >
+          <Icon name="mdi:arrow-left-bold" class="w-5 h-5 sm:w-7 sm:h-7 md:w-12 md:h-12" />
+        </button>
+        <button
+          id="carousel-next"
+          aria-label="Next slide"
+          class="pointer-events-auto cursor-pointer select-none rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur p-0.5 sm:p-1.5 md:p-2 shadow focus:outline-none focus:ring-2 focus:ring-white/60"
+        >
+          <Icon name="mdi:arrow-right-bold" class="w-5 h-5 sm:w-7 sm:h-7 md:w-12 md:h-12" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ SLIDESHOW_SPEED }}>
+  let track = null;
+  let container = null;
+  let overlay = null;
+  let intervalId = null;
+  let lastManualAt = 0;
+
+  // Number of real slides (without clones)
+  let realSlides = 0;
+  // Current index in the track including clones (0..realSlides+1 when looping)
+  let currentIndex = 0;
+  let loopEnabled = false;
+  let isAnimating = false;
+
+  function initializeSlideshow() {
+    track = document.getElementById("carousel-track");
+    container = track?.closest(".carousel-container");
+    overlay = document.getElementById("carousel-arrow-overlay");
+    realSlides = track?.children?.length || 0;
+
+    if (!track || realSlides === 0) return;
+
+    // Show arrows only if JavaScript is available and we have multiple slides
+    if (realSlides > 1 && overlay) {
+      overlay.classList.remove("hidden");
+    }
+
+    // Enable seamless loop when we have more than 1 slide
+    if (realSlides > 1) {
+      enableSeamlessLoop();
+      resetAutoAdvance();
+    } else {
+      // Single slide: keep index at 0
+      setIndex(0, false);
+    }
+
+    // Wire up arrows
+    const prevBtn = document.getElementById("carousel-prev");
+    const nextBtn = document.getElementById("carousel-next");
+    const handleNav = (delta) => {
+      lastManualAt = performance.now();
+      step(delta);
+      resetAutoAdvance();
+    };
+    prevBtn?.addEventListener("click", () => handleNav(-1));
+    nextBtn?.addEventListener("click", () => handleNav(1));
+
+    // Keep overlay sized/positioned
+    updateOverlay();
+    window.addEventListener("resize", updateOverlay);
+  }
+
+  function enableSeamlessLoop() {
+    if (!track) return;
+    // Clone first and last slides to the ends
+    const firstClone = track.children[0]?.cloneNode(true);
+    const lastClone = track.children[realSlides - 1]?.cloneNode(true);
+    if (firstClone) track.appendChild(firstClone);
+    if (lastClone) track.insertBefore(lastClone, track.firstChild);
+    loopEnabled = true;
+
+    // Start at the first real slide (index 1 because of the leading clone)
+    setIndex(1, false);
+
+    // When the transition ends at a clone, jump instantly to the corresponding real slide
+    track.addEventListener("transitionend", (evt) => {
+      if (!loopEnabled || evt?.propertyName !== "transform") return;
+      isAnimating = false;
+      if (currentIndex === 0) {
+        jumpSilently(realSlides);
+      } else if (currentIndex === realSlides + 1) {
+        jumpSilently(1);
+      }
+    });
+  }
+
+  function setIndex(index, animate = true) {
+    if (!track) return;
+    // Clamp to valid bounds to avoid overshooting into blank space
+    if (loopEnabled) {
+      const minIndex = 0;
+      const maxIndex = realSlides + 1;
+      currentIndex = Math.max(minIndex, Math.min(index, maxIndex));
+    } else {
+      const minIndex = 0;
+      const maxIndex = Math.max(0, realSlides - 1);
+      currentIndex = Math.max(minIndex, Math.min(index, maxIndex));
+    }
+    if (!animate) {
+      track.style.transition = "none";
+    }
+    if (animate) {
+      isAnimating = true;
+    }
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    if (!animate) {
+      // Force reflow, then restore transition
+      void track.offsetWidth;
+      track.style.transition = "";
+    }
+    updateOverlay();
+  }
+
+  function jumpSilently(index) {
+    setIndex(index, false);
+  }
+
+  function step(delta) {
+    if (!loopEnabled) {
+      // Finite mode (<=1 slide): nothing to do or clamp
+      return;
+    }
+    setIndex(currentIndex + delta, true);
+  }
+
+  function updateOverlay() {
+    try {
+      if (!container || !overlay) return;
+      const slide = track?.children?.[currentIndex];
+      const aspect = slide?.querySelector?.(".aspect-video");
+      if (!aspect) return;
+      const containerRect = container.getBoundingClientRect();
+      const rect = aspect.getBoundingClientRect();
+      const top = Math.max(0, rect.top - containerRect.top);
+      const height = rect.height;
+      overlay.style.top = `${top}px`;
+      overlay.style.height = `${height}px`;
+    } catch (_) {
+      // noop
+    }
+  }
+
+  function autoTick() {
+    if (isAnimating) return;
+    if (performance.now() - lastManualAt < 250) return;
+    step(1);
+  }
+
+  function resetAutoAdvance() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+    intervalId = setInterval(autoTick, SLIDESHOW_SPEED);
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    initializeSlideshow();
+  });
+</script>

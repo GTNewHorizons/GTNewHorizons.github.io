@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  --color-custom-dark: #16191c;
+  --color-custom-blue: #7c9de4;
+  --font-audiowide: "Audiowide", "system-ui";
+  --font-space-grotesk: "Space Grotesk Variable", "sans-serif";
+}

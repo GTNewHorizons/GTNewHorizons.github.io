@@ -1,0 +1,429 @@
+---
+import ChallengeCard from "./ChallengeCard.astro";
+import AgePanel from "./AgePanel.astro";
+import AgeBubble from "./AgeBubble.astro";
+import stoneAgeImage from "../../assets/home/ages/stone.png";
+import steamAgeImage from "../../assets/home/ages/steam.png";
+import lvAgeImage from "../../assets/home/ages/lv.png";
+import mvAgeImage from "../../assets/home/ages/mv.png";
+import hvAgeImage from "../../assets/home/ages/hv.png";
+import evAgeImage from "../../assets/home/ages/ev.png";
+import ivAgeImage from "../../assets/home/ages/iv.png";
+import luvAgeImage from "../../assets/home/ages/luv.png";
+import beyondAgeImage from "../../assets/home/ages/beyond.png";
+
+import screenshotStoneAge from "../../assets/home/ages/screens/stone_age.png";
+import screenshotSteamAge from "../../assets/home/ages/screens/steam_age.png";
+import screenshotLVAge from "../../assets/home/ages/screens/lv.png";
+import screenshotMVAge from "../../assets/home/ages/screens/mv.png";
+import screenshotHVAge from "../../assets/home/ages/screens/hv.png";
+import screenshotEVAge from "../../assets/home/ages/screens/ev.png";
+import screenshotIVAge from "../../assets/home/ages/screens/iv.png";
+import screenshotLUVAge from "../../assets/home/ages/screens/luv.png";
+import screenshotBeyond from "../../assets/home/ages/screens/beyond.png";
+
+import challengeStoneExploration from "../../assets/home/ages/challenge_icons/stone_age/exploration.png";
+import challengeStoneSurvival from "../../assets/home/ages/challenge_icons/stone_age/survival.png";
+import challengeSteamProduction from "../../assets/home/ages/challenge_icons/steam_age/steam_production.png";
+import challengeSteamTinkerWeaponry from "../../assets/home/ages/challenge_icons/steam_age/tinker_weapon.png";
+import challengeLVEnergyProduction from "../../assets/home/ages/challenge_icons/lv/steam_turbine.png";
+import ChallengeLVEBF from "../../assets/home/ages/challenge_icons/lv/ebf.png";
+import ChallengeMVSilicon from "../../assets/home/ages/challenge_icons/mv/silicon.png";
+import ChallengeMVKanthal from "../../assets/home/ages/challenge_icons/mv/kanthal.png";
+import challengeHVCleanroom from "../../assets/home/ages/challenge_icons/hv/cleanroom.png";
+import challengeHVRocket from "../../assets/home/ages/challenge_icons/hv/rocket.png";
+import challengeEVAE2 from "../../assets/home/ages/challenge_icons/ev/ae2.gif";
+import challengeEVRadon from "../../assets/home/ages/challenge_icons/ev/radon.png";
+import challengeIVPlatline from "../../assets/home/ages/challenge_icons/iv/platinum.png";
+import challengeIVAssline from "../../assets/home/ages/challenge_icons/iv/assline.png";
+import challengeLUVFusion from "../../assets/home/ages/challenge_icons/luv/fusion.png";
+import challengeLUVNaquadah from "../../assets/home/ages/challenge_icons/luv/naquadah.png";
+import challengeBeyondMM from "../../assets/home/ages/challenge_icons/beyond/mm.png";
+import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyond/stargate.png";
+---
+
+<section class="container mx-auto px-4 sm:py-10">
+  <div class="text-center mb-6">
+    <h2 class="text-xl sm:text-2xl lg:text-4xl font-bold mb-1.5">The Ages Walkthrough</h2>
+    <p class="text-gray-300 text-lg lg:text-xl">
+      Here is how hundreds of mods intertwine to create a directed, deliberate journey
+    </p>
+  </div>
+
+  <div class="relative mt-7 overflow-x-auto snap-x snap-mandatory pb-3" id="ages-track" data-active="stone">
+    <div class="absolute left-0 right-0 h-[10px] rounded-full bg-[#22272c] pointer-events-none z-0" id="ages-base">
+    </div>
+    <div class="absolute left-0 h-[10px] rounded-full bg-[#547dde] pointer-events-none z-0" id="ages-progress"></div>
+    <ul class="relative z-10 flex flex-nowrap items-start gap-4 w-max md:w-full md:justify-between md:gap-1.5 px-1.5">
+      <AgeBubble age="stone" label="Stone Age" image={stoneAgeImage} selected />
+      <AgeBubble age="steam" label="Steam Age" image={steamAgeImage} />
+      <AgeBubble age="lv" label="Low Voltage" image={lvAgeImage} />
+      <AgeBubble age="mv" label="Medium Voltage" image={mvAgeImage} />
+      <AgeBubble age="hv" label="High Voltage" image={hvAgeImage} />
+      <AgeBubble age="ev" label="Extreme Voltage" image={evAgeImage} />
+      <AgeBubble age="iv" label="Insane Voltage" image={ivAgeImage} />
+      <AgeBubble age="luv" label="Ludicrous Voltage" image={luvAgeImage} />
+      <AgeBubble age="beyond" label="...and beyond!" image={beyondAgeImage} />
+    </ul>
+  </div>
+
+  <AgePanel id="panel-stone" title="Stone Age" quests={137} image={screenshotStoneAge} caption="Mountain" author="iLex">
+    <div slot="lead">
+      <p class="text-gray-300 mb-3 text-base sm:text-lg lg:text-xl">
+        Explore the unique GTNH world generation and survive the early game challenges long enough to progress out of
+        here.
+      </p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-6 text-base sm:text-lg lg:text-xl">
+        Dark and harsh nights, various intimidating infernal monsters and a precary food situation awaits you. Only one
+        way out of here mining the necessary for bronze steam boilers !
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeStoneExploration} title="Exploration"
+      >A special ore generation accompanied with an overworld filled with goodies</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={challengeStoneSurvival} title="Survival"
+      >A horde of Infernal monsters while you are at your most vulnerable</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-steam"
+    title="Steam Age"
+    quests={114}
+    image={screenshotSteamAge}
+    caption="Steam engineering"
+    author="Li Muli"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-3 text-base sm:text-lg lg:text-xl">Perform your own industrial revolution!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-6 text-base sm:text-lg lg:text-xl">
+        You will start making your first automations, ranging from coke oven to your first ore processing system. You
+        will also start to have access to your first set of machines to reduce the costs of your crafts.
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeSteamProduction} title="Your First Steam Production"
+      >You will need to develop a solid steam production to sustain your first automations.</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={challengeSteamTinkerWeaponry} title="Your First Weapons"
+      >Mobs will become less of a problem once you will start making your first weapons with Tinker's Construct.</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-lv"
+    title="Low Voltage (LV)"
+    quests={155}
+    image={screenshotLVAge}
+    caption="LP Storage Center"
+    author="GeForceX"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">Your first electrical tier!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        In LV, you will discover how to generate electrical power as well as how to get your first eletric machines,
+        including the Electrical Blast Furnace to make steel ingots faster.
+      </p>
+    </div>
+    <ChallengeCard
+      slot="challenges"
+      imageIcon={challengeLVEnergyProduction}
+      title="Your First Electrical Energy Production"
+      >With LV, you'll have to manage your first electrical energy production, and you will learn how to deal with
+      losses in the wires.</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={ChallengeLVEBF} title="The Electric Blast Furnace"
+      >Your very first electrical multiblock! Unlike single block machines, GT multiblocks will void their production if
+      there is not enough power, so ensure you have enough energy to run them!</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-mv"
+    title="Medium Voltage (MV)"
+    quests={147}
+    image={screenshotMVAge}
+    caption="Mid MV Chaotic Base"
+    author="Mayk"
+    active
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">Improve your base a little!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        In MV, you main tasks will consist in developping reliable aluminium and silicon sources, as well as upgrading
+        your EBF coils from nichrome to kanthal.
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={ChallengeMVSilicon} title="Silicon Solar Grade (Poly SI) Ingots"
+      >The production of Silicon Solar Grade (Poly SI) ingots will be your first long term standing passive production
+      setup, as it is used a lot through the game.</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={ChallengeMVKanthal} title="Kanthal Ingots"
+      >Your first EBF coil upgrade, useful to have faster EBFs.</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-hv"
+    title="High Voltage (HV)"
+    quests={115}
+    image={screenshotHVAge}
+    caption="Rocket Launch Site"
+    author="Ban4iko"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">Your first complex processing lines!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        In HV, you will start many chemical processes to gather many new chemical products: PolyTetraFluoroEthylene,
+        Silicon Rubber, Ammonia, Nitric Acid... It is also the last tier before you unlock AE2. You will also do your
+        first spatial exploration in HV.
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeHVCleanroom} title="The Cleanroom"
+      >As you do technological progress, you lean towards more and more sophisticated circuitry, so you'll need to craft
+      your circuits inside a cleanroom. Make sure the cleanroom is fully operational before crafting, or you might
+      destruct your production!</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={challengeHVRocket} title="Your First Rocket"
+      >It is time for you to become an astronaut! But beware, because space exploration might reserves you some
+      surprises.</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-ev"
+    title="Extreme Voltage (EV)"
+    quests={94}
+    image={screenshotEVAge}
+    caption="AE2 Basement"
+    author="Johny"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">AE unlocked!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        In EV, you will be able to finally get a hand on AE2 components to automate your first crafts, which cause your
+        first massive base rework. Good Luck!
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeEVAE2} title="Your First AE2 System"
+      >With it unlocked, no more microcrafting. But unlike other modpacks, in GT:NH you'll learn how to use 100% of the
+      capabilities AE2 has to offer.</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={challengeEVRadon} title="Get Enough Radon"
+      >In EV, you will start relying on Radon to craft some circuits. It's also useful for EBF smelting, so try to get a
+      solid source!</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-iv"
+    title="Insane Voltage (IV)"
+    quests={132}
+    image={screenshotIVAge}
+    caption="Platinum Group Processing"
+    author="ImpossibleVT"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">The last tier of the early game!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        This is the last tier before your base takes a significant upscaling.
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeIVPlatline} title="The Platinum Line"
+      >One of the most iconic processing lines of GT:NH. This will consist in a good infrastructure challenge, as you'll
+      need the byproducts of this line in great quantities.</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={challengeIVAssline} title="Your First Assembly Line"
+      >Your new assembling machine! You will have a fun time figuring how to insert the recipe ingredients in the
+      correct order, because otherwise the machine will not start. It is strongly advised to find a solid automation,
+      because you will later use way more than a single Assembly Line.</ChallengeCard
+    >
+  </AgePanel>
+
+  <AgePanel
+    id="panel-luv"
+    title="Ludicrous Voltage (LuV)"
+    quests={83}
+    image={screenshotLUVAge}
+    caption="Mid-Late LuV Base"
+    author="Rubydragon, gnommis and woofdoggo"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">
+        Swap your single block machines for their multiblock equivalent!
+      </p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        In this tier you will start replacing your single blocks machines for their much faster multiblock equivalent.
+        You will also face new lines, such as Naquadah and Netherite lines, and you will unlock your first fusion
+        reactor.
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeLUVNaquadah} title="The Naquadah Line"
+      >With this line, you'll need to figure out how to sustain your needs in fluorine, one way or another.</ChallengeCard
+    >
+    <ChallengeCard slot="challenges" imageIcon={challengeLUVFusion} title="Your First Fusion Reactor"
+      >The fusion reactor allows you to get access to precious byproducts, by giving 2 different fluids in input. You
+      main challenge will be able to sustain the fusion process as long as possible to avoid big power draws caused by
+      the start of the fusion reactor.
+    </ChallengeCard>
+  </AgePanel>
+
+  <AgePanel
+    id="panel-beyond"
+    title="...and beyond!"
+    quests={291}
+    image={screenshotBeyond}
+    caption="Light of the new Age"
+    author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN"
+  >
+    <div slot="lead">
+      <p class="text-gray-300 mb-4 text-base sm:text-lg lg:text-xl">Be ready to push your base further and beyond!</p>
+    </div>
+    <div slot="more">
+      <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
+        Be ready to face more and more complex automations the more you progress: the waterline, the black hole
+        compressor, the eye of harmony, the quark gluon plasma, and more! You will also enter in a constant race for
+        faster and bigger production capabilities!
+      </p>
+    </div>
+    <ChallengeCard slot="challenges" imageIcon={challengeBeyondMM} title="Infrastructure Checks"
+      >The progression in GT:NH often forces you to rebuild some part of your base in order to acquire crafting
+      capabilities to get crafts done in a reasonable amount of time. You will become best friend with your matter
+      manipulator!</ChallengeCard
+    >
+    <ChallengeCard
+      slot="challenges"
+      imageIcon={challengeBeyondStargate}
+      title="Craft The Stargate"
+      caption="Light of the new Age"
+      author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN"
+      >The ultimate goal of GT:NH, the stargate is a reward to the most dedicated players, willing to spend thousands of
+      hours to finally beat the modpack.</ChallengeCard
+    >
+  </AgePanel>
+</section>
+
+<script is:inline>
+  (function () {
+    const track = document.getElementById("ages-track");
+    const base = document.getElementById("ages-base");
+    const progress = document.getElementById("ages-progress");
+    const bubbles = Array.from(document.querySelectorAll(".age-bubble"));
+    const panels = {
+      stone: document.getElementById("panel-stone"),
+      steam: document.getElementById("panel-steam"),
+      lv: document.getElementById("panel-lv"),
+      mv: document.getElementById("panel-mv"),
+      hv: document.getElementById("panel-hv"),
+      ev: document.getElementById("panel-ev"),
+      iv: document.getElementById("panel-iv"),
+      luv: document.getElementById("panel-luv"),
+      beyond: document.getElementById("panel-beyond"),
+    };
+
+    let centers = [];
+
+    function indexOfAge(key) {
+      return bubbles.findIndex((b) => b.dataset.age === key);
+    }
+
+    function computeLayout() {
+      const containerRect = track.getBoundingClientRect();
+      centers = bubbles.map((b) => {
+        const el = b.querySelector(".bubble");
+        const r = el.getBoundingClientRect();
+        return r.left - containerRect.left + r.width / 2;
+      });
+
+      if (centers.length < 2) return;
+
+      const first = centers[0];
+      const last = centers[centers.length - 1];
+
+      base.style.right = "auto";
+      base.style.left = first + "px";
+      base.style.width = Math.max(0, last - first) + "px";
+
+      progress.style.right = "auto";
+      progress.style.left = first + "px";
+
+      const firstBubble = bubbles[0].querySelector(".bubble");
+      const bubbleRect = firstBubble.getBoundingClientRect();
+      const centerY = bubbleRect.top + bubbleRect.height / 2 - containerRect.top;
+      base.style.top = centerY - base.offsetHeight / 2 + "px";
+      progress.style.top = centerY - progress.offsetHeight / 2 + "px";
+
+      const activeKey = track.dataset.active || "stone";
+      const idx = indexOfAge(activeKey);
+      updateProgressToIndex(idx);
+    }
+
+    function updateProgressToIndex(index) {
+      if (!centers.length) return;
+      const first = centers[0];
+      const last = centers[centers.length - 1];
+      const current = centers[Math.max(0, Math.min(index, centers.length - 1))];
+      const width = Math.max(0, Math.min(current - first, last - first));
+      progress.style.width = width + "px";
+    }
+
+    function setActive(key) {
+      track.dataset.active = key;
+      const currentIndex = indexOfAge(key);
+
+      bubbles.forEach((b, i) => {
+        const bubble = b.querySelector(".bubble");
+        const label = b.querySelector(".label");
+        const isCurrent = i === currentIndex;
+        if (!bubble) return;
+        if (i <= currentIndex) {
+          bubble.classList.add("bg-[#547dde]", "border-[#547dde]", "border-0", "shadow-none");
+          bubble.classList.remove("bg-[#13171b]", "border-[#2a2f37]", "bg-[#1a1f26]", "border-2", "shadow-sm");
+        } else {
+          bubble.classList.add("bg-[#13171b]", "border-[#2a2f37]", "border-2", "shadow-sm");
+          bubble.classList.remove("bg-[#547dde]", "border-[#547dde]", "bg-[#1a1f26]", "border-0", "shadow-none");
+        }
+        if (label) {
+          if (isCurrent) label.classList.add("font-semibold");
+          else label.classList.remove("font-semibold");
+        }
+      });
+
+      Object.entries(panels).forEach(([k, el]) => {
+        if (!el) return;
+        if (k === key) el.classList.remove("hidden");
+        else el.classList.add("hidden");
+      });
+
+      if (currentIndex >= 0) updateProgressToIndex(currentIndex);
+    }
+
+    function initialize() {
+      bubbles.forEach((b) => b.addEventListener("click", () => setActive(b.dataset.age)));
+      computeLayout();
+      setActive(track.dataset.active || "stone");
+      window.addEventListener("resize", computeLayout);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initialize);
+    } else {
+      initialize();
+    }
+  })();
+</script>

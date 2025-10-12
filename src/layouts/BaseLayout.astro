@@ -1,0 +1,29 @@
+---
+import "@fontsource/audiowide";
+import "@fontsource-variable/space-grotesk";
+import "../styles/global.css";
+import Footer from "../components/baselayout/Footer.astro";
+import Header from "../components/baselayout/Header.astro";
+
+const {
+  title = "Unnamed Page",
+  description = "A hardcore, content rich and meticulously crafted technical modpack for Minecraft 1.7.10.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>GregTech: New Horizons - {title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="font-space-grotesk bg-custom-dark text-[#ededec]">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>

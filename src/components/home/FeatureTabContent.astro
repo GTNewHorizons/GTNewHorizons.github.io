@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
+
+interface Props {
+  id: string;
+  iconImage: ImageMetadata;
+  title: string;
+  image: ImageMetadata;
+  forceVisible?: boolean;
+}
+
+const { id, iconImage, title, image, forceVisible = false } = Astro.props;
+---
+
+<div class={`tab-content${forceVisible ? "" : " hidden"}`} data-tab={id}>
+  <div class="border-gray-500 border-1 rounded-xl">
+    <!-- Title section -->
+    <div class="hidden sm:flex items-center gap-3 p-4 lg:px-12 lg:pt-12 lg:pb-0">
+      <div
+        class="icon-container flex-shrink-0 w-8 sm:w-9 h-8 sm:h-9 bg-[#454c54] rounded-lg flex items-center justify-center p-1"
+      >
+        <Image src={iconImage} alt="" class="w-full h-full object-contain" color="#547dde" />
+      </div>
+      <h3 class="font-semibold text-lg sm:text-xl md:text-2xl min-w-0">{title}</h3>
+    </div>
+
+    <!-- Content section -->
+    <div class="flex flex-col lg:flex-row gap-0 lg:gap-12">
+      <!-- Text content -->
+      <div class="w-full lg:w-4/10 p-4 lg:px-12 lg:pb-12 lg:pt-4 order-1">
+        <div class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300">
+          <slot />
+        </div>
+      </div>
+
+      <!-- Image content -->
+      <div class="w-full lg:w-6/10 p-4 lg:pr-0 lg:pb-12 lg:pt-4 lg:pl-0 order-2">
+        <Picture
+          src={image}
+          alt={`${title}`}
+          widths={[360, 640, 960, 1280, 1440]}
+          sizes="(max-width: 640px) 360px, (max-width: 1024px) 90vw, 60vw"
+          formats={["webp"]}
+          loading="lazy"
+          class="w-full max-h-[450px] object-contain border-1 border-gray-500 rounded-xl"
+        />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DownloadsCard from "../components/downloads/DownloadsCard.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+import technicImage from "../assets/downloads/technic.png";
+import curseforgeImage from "../assets/downloads/curseforge.png";
+import zipImage from "../assets/downloads/zip.png";
+import prismImage from "../assets/downloads/prism.png";
+import serverImage from "../assets/downloads/server.png";
+import config from "../config";
+
+const latestVersion = config.versions[config.latestVersion];
+---
+
+<BaseLayout title="Downloads">
+  <section class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
+    <div class="text-center mb-6 sm:mb-7">
+      <h1 class="text-2xl sm:text-4xl font-bold">
+        Download <span class="text-custom-blue font-audiowide">GregTech: New Horizons</span>
+      </h1>
+      <p class="text-gray-300 text-base sm:text-lg mt-1.5">
+        Available for many platforms and launchers. Pick your distribution below
+      </p>
+    </div>
+
+    <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">Direct ZIP Downloads</h2>
+    <div class="grid gap-3 sm:gap-4 md:grid-cols-3 mb-7">
+      <DownloadsCard
+        title="Prism ZIPs"
+        links={[
+          {
+            label: `Latest (${config.latestVersion}) for Java 17-${latestVersion.maxJavaVersion}`,
+            href: latestVersion.mmc?.java17_2XUrl!,
+            icon: "material-symbols:download-rounded",
+            external: true,
+            bold: true,
+          },
+          {
+            label: `Latest (${config.latestVersion}) for Java 8`,
+            href: latestVersion.mmc?.java8Url!,
+            icon: "material-symbols:download-rounded",
+            external: true,
+          },
+          {
+            label: "Version history",
+            href: "/version-history",
+            icon: "mdi:open-in-new",
+          },
+        ]}
+        note="Recommended option"
+        noteIcon="mdi:check-circle"
+        noteColorClass="text-green-400"
+        variant="highlight"
+        accentColor="#05df72"
+      >
+        <div slot="image">
+          <Image
+            src={prismImage}
+            alt="MultiMC/Prism screenshot"
+            class="w-full h-full object-cover object-left-top block"
+            loading="eager"
+          />
+        </div>
+      </DownloadsCard>
+
+      <DownloadsCard
+        title="Server ZIPs"
+        links={[
+          {
+            label: `Latest (${config.latestVersion}) for Java 17-${latestVersion.maxJavaVersion}`,
+            href: latestVersion.server?.java17_2XUrl!,
+            icon: "material-symbols:download-rounded",
+            external: true,
+            bold: true,
+          },
+          {
+            label: `Latest (${config.latestVersion}) for Java 8`,
+            href: latestVersion.server?.java8Url!,
+            icon: "material-symbols:download-rounded",
+            external: true,
+          },
+          {
+            label: "Version history",
+            href: "/version-history",
+            icon: "mdi:open-in-new",
+          },
+        ]}
+        note="Recommended option"
+        noteIcon="mdi:check-circle"
+        noteColorClass="text-green-400"
+        variant="highlight"
+        accentColor="#05df72"
+      >
+        <div slot="image">
+          <Image
+            src={serverImage}
+            alt="Server screenshot"
+            class="w-full h-full object-cover object-left-top block"
+            loading="eager"
+          />
+        </div>
+      </DownloadsCard>
+
+      <DownloadsCard
+        title="Vanilla Launcher ZIP"
+        links={[
+          {
+            label: `Latest (${config.latestVersion}) for Java 8`,
+            href: latestVersion.client?.java8Url!,
+            icon: "material-symbols:download-rounded",
+            external: true,
+          },
+          {
+            label: "Version history",
+            href: "/version-history",
+            icon: "mdi:open-in-new",
+          },
+        ]}
+        note="Provided for advanced users."
+        noteIcon="mdi:alert-circle-outline"
+        noteColorClass="text-amber-300"
+        variant="solid"
+      >
+        <div slot="image">
+          <Image
+            src={zipImage}
+            alt="Client screenshot"
+            class="w-full h-full object-cover object-left-top block"
+            loading="eager"
+          />
+        </div>
+      </DownloadsCard>
+    </div>
+
+    <div class="md:w-2/3">
+      <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">Launcher Downloads</h2>
+    </div>
+    <div class="grid gap-3 sm:gap-4 md:grid-cols-3 items-start">
+      <DownloadsCard
+        title="Technic Launcher"
+        links={[{ label: "Modpack page", href: config.technicUrl, icon: "mdi:open-in-new", external: true }]}
+        note="Not recommended, provided for convenience."
+        noteIcon="mdi:alert-circle-outline"
+        noteColorClass="text-amber-300"
+        variant="solid"
+      >
+        <div slot="image">
+          <Image
+            src={technicImage}
+            alt="Technic Launcher screenshot"
+            class="w-full h-full object-cover object-left-top block"
+            loading="eager"
+          />
+        </div>
+      </DownloadsCard>
+
+      <DownloadsCard
+        title="CurseForge"
+        links={[{ label: "Modpack page", href: config.curseforgeUrl, icon: "mdi:open-in-new", external: true }]}
+        note="Not recommended, provided for convenience."
+        noteIcon="mdi:alert-circle-outline"
+        noteColorClass="text-amber-300"
+        variant="solid"
+      >
+        <div slot="image">
+          <Image
+            src={curseforgeImage}
+            alt="CurseForge screenshot"
+            class="w-full h-full object-cover object-left-top block"
+            loading="eager"
+          />
+        </div>
+      </DownloadsCard>
+
+      <div class="h-full">
+        <div class="rounded-xl p-3 sm:p-4 bg-[#1a1f26] border border-gray-700 h-full">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
+              <Icon name="mdi:headset" class="w-5 h-5 text-custom-blue" />
+            </div>
+            <h3 class="text-lg sm:text-xl font-semibold">Need help?</h3>
+          </div>
+
+          <div>
+            <p class="text-gray-300 text-sm sm:text-base mb-2">
+              You can check our wiki for advice on installing and migrating
+            </p>
+            <a
+              href={config.installGuideUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-custom-blue hover:underline mb-3 text-sm sm:text-base"
+            >
+              <Icon name="mdi:open-in-new" class="w-5 h-5" />
+              <span>Check our wiki</span>
+            </a>
+            <p class="text-gray-300 text-sm sm:text-base mb-2">
+              Generic instructions didn't help? Join our Discord and ask for help there!
+            </p>
+            <!-- Discord Button -->
+            <a
+              href={config.discordUrl}
+              target="_blank"
+              class="inline-flex gap-1 sm:gap-1.5 items-center justify-center w-48 whitespace-nowrap bg-[#5864f2] hover:bg-[#587cf2] text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-base sm:text-lg md:text-xl transition-colors duration-200"
+            >
+              <Icon name="ic:baseline-discord" class="w-6 sm:w-7 h-6 sm:h-7" />
+              Join Discord
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

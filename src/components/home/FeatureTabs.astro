@@ -1,0 +1,153 @@
+---
+import FeatureTabButton from "./FeatureTabButton.astro";
+import FeatureTabContent from "./FeatureTabContent.astro";
+import FeatureTabBody from "./FeatureTabBody.astro";
+
+import techAdventureImage from "../../assets/home/features/tech-adventure.png";
+import journeyImage from "../../assets/home/features/journey.png";
+import playstylesImage from "../../assets/home/features/playstyles.png";
+import technicalImage from "../../assets/home/features/technical.png";
+import communityImage from "../../assets/home/features/community.png";
+
+import techAdventureIcon from "../../assets/home/features/icons/tech-adventure.png";
+import journeyIcon from "../../assets/home/features/icons/journey.png";
+import playstylesIcon from "../../assets/home/features/icons/playstyles.png";
+import technicalIcon from "../../assets/home/features/icons/technical.gif";
+import communityIcon from "../../assets/home/features/icons/community.gif";
+
+const tabs = [
+  {
+    id: "techAdventure",
+    iconImage: techAdventureIcon,
+    title: "The Ultimate Tech Adventure",
+    subtitle: "A modpack where effort pays off, and every step matters",
+    image: techAdventureImage,
+  },
+  {
+    id: "journey",
+    iconImage: journeyIcon,
+    title: "Curated journey",
+    subtitle:
+      "Hundreds of mods, each a piece of a seamless puzzle, with over 3900 quests to guide you through each of them",
+    image: journeyImage,
+  },
+  {
+    id: "playstyles",
+    iconImage: playstylesIcon,
+    title: "Numerous Playstyles Availiable",
+    subtitle: "Adapt your playing style as you see fit",
+    image: playstylesImage, // Spaghetti by Twilight Sparkles
+  },
+  {
+    id: "technical",
+    iconImage: technicalIcon,
+    title: "Technical Excellence",
+    subtitle: "From custom recipes to custom mods, purpose-built for GTNH",
+    image: technicalImage,
+  },
+  {
+    id: "community",
+    iconImage: communityIcon,
+    title: "A Technical, Supportive, and Worldwide Community",
+    subtitle: "An active playerbase fostering collaboration and support",
+    image: communityImage,
+  },
+];
+---
+
+<section class="w-full text-white px-3 py-6">
+  <!-- Top clickable boxes (desktop/tablet) -->
+  <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6" id="tab-buttons-desktop">
+    {tabs.map((t) => <FeatureTabButton id={t.id} iconImage={t.iconImage} title={t.title} subtitle={t.subtitle} />)}
+  </div>
+
+  <!-- Mobile disclosures: each button reveals its content directly below -->
+  <div class="flex flex-col gap-3 mb-6 sm:hidden" id="tab-disclosures-mobile">
+    {
+      tabs.map((t, i) => (
+        <details class="disclosure flex flex-col gap-2" open={i === 0}>
+          <summary class="list-none">
+            <FeatureTabButton as="div" id={t.id} iconImage={t.iconImage} title={t.title} subtitle={t.subtitle} />
+          </summary>
+          <FeatureTabContent forceVisible={true} id={t.id} iconImage={t.iconImage} title={t.title} image={t.image}>
+            <FeatureTabBody id={t.id} />
+          </FeatureTabContent>
+        </details>
+      ))
+    }
+  </div>
+
+  <!-- Big box below with all content (desktop only) -->
+  <div class="bg-[#2e3338] rounded-xl prose prose-invert max-w-none hidden sm:block" id="tab-content-desktop">
+    {
+      tabs.map((t) => (
+        <FeatureTabContent id={t.id} iconImage={t.iconImage} title={t.title} image={t.image}>
+          <FeatureTabBody id={t.id} />
+        </FeatureTabContent>
+      ))
+    }
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    // Desktop: simple CSS-only hidden panels toggled via data-state classes on buttons
+    const desktopButtons = document.querySelectorAll("#tab-buttons-desktop .tab-btn");
+    const desktopPanels = document.querySelectorAll("#tab-content-desktop .tab-content");
+
+    function activateDesktop(id) {
+      desktopButtons.forEach((btn) => {
+        const isActive = btn.dataset.tab === id;
+        const iconContainer = btn.querySelector(".icon-container");
+        const icon = btn.querySelector(".icon");
+        btn.classList.toggle("bg-[#547dde]", isActive);
+        btn.classList.toggle("bg-[#2e3338]", !isActive);
+        btn.classList.toggle("hover:bg-gray-700", !isActive);
+        if (iconContainer) iconContainer.style.backgroundColor = isActive ? "#d4def7" : "";
+        if (icon) icon.style.color = isActive ? "#547dde" : "#547dde";
+      });
+      desktopPanels.forEach((panel) => {
+        panel.classList.toggle("hidden", panel.dataset.tab !== id);
+      });
+    }
+
+    desktopButtons.forEach((btn) => {
+      btn.addEventListener("click", () => activateDesktop(btn.dataset.tab));
+    });
+    // default selection for desktop
+    activateDesktop("techAdventure");
+
+    // Mobile: ensure only one <details> is open at a time and sync button selected styles
+    const mobileDetails = document.querySelectorAll("#tab-disclosures-mobile details");
+
+    function updateMobileVisuals() {
+      mobileDetails.forEach((wrap) => {
+        const btn = wrap.querySelector(".tab-btn");
+        const iconContainer = btn?.querySelector(".icon-container");
+        const icon = btn?.querySelector(".icon");
+        const isActive = wrap.open;
+        if (btn) {
+          btn.classList.toggle("bg-[#547dde]", isActive);
+          btn.classList.toggle("bg-[#2e3338]", !isActive);
+          btn.classList.toggle("hover:bg-gray-700", !isActive);
+        }
+        if (iconContainer) iconContainer.style.backgroundColor = isActive ? "#d4def7" : "";
+        if (icon) icon.style.color = "#547dde";
+      });
+    }
+
+    mobileDetails.forEach((d) => {
+      d.addEventListener("toggle", () => {
+        if (d.open) {
+          mobileDetails.forEach((other) => {
+            if (other !== d) other.open = false;
+          });
+        }
+        updateMobileVisuals();
+      });
+    });
+
+    // Apply initial visual state (first details is open by markup)
+    updateMobileVisuals();
+  })();
+</script>

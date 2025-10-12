@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import config from "../config";
+import type { VersionEntry } from "../types";
+
+const sortedVersions = Object.entries(config.versions).sort((a, b) => {
+  const da = a[1].releaseDate ?? "";
+  const db = b[1].releaseDate ?? "";
+  return db.localeCompare(da); // newest first
+});
+const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 25}`;
+---
+
+<BaseLayout title="Version History">
+  <section class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
+    <div class="text-center mb-6 sm:mb-7">
+      <h1 class="text-2xl sm:text-4xl font-bold">Version History</h1>
+      <p class="text-gray-300 text-base sm:text-lg mt-1.5">Browse past releases and their downloads</p>
+    </div>
+
+    {
+      sortedVersions.length === 0 ? (
+        <div class="mx-auto max-w-3xl rounded-xl bg-[#1a1f26] border border-gray-700 p-4 text-center">
+          <p class="text-gray-300 text-base">No versions available yet.</p>
+        </div>
+      ) : (
+        <div class="mx-auto max-w-4xl space-y-3 sm:space-y-4">
+          {sortedVersions.map(([version, v]) => {
+            return (
+              <details class="group rounded-xl bg-[#1a1f26] border border-gray-700">
+                <summary class="list-none px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between cursor-pointer select-none">
+                  <div class="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1.5">
+                    <span class="text-lg sm:text-xl font-semibold">{version}</span>
+                    {v?.title && <span class="text-gray-300 text-sm sm:text-base">{v.title}</span>}
+                  </div>
+                  <div class="flex items-center gap-2">
+                    {v?.releaseDate && (
+                      <span class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] px-2 py-0.5 text-xs text-gray-200">
+                        <Icon name="mdi:calendar" class="w-3 h-3 text-custom-blue" />
+                        <span>{v.releaseDate}</span>
+                      </span>
+                    )}
+                    <span class="ml-1.5 sm:ml-3 flex-shrink-0 rounded-lg bg-[#2a3342] p-1.5 text-custom-blue transition-transform group-open:rotate-180">
+                      <Icon name="mdi:chevron-down" class="w-5 h-5" />
+                    </span>
+                  </div>
+                </summary>
+
+                <div class="px-3 sm:px-4 pb-4 text-gray-300 text-sm sm:text-base leading-relaxed">
+                  {v?.description && <p class="mb-4 text-gray-300" set:html={v.description} />}
+
+                  <div class="grid gap-3 sm:gap-4 md:grid-cols-3">
+                    {/* MMC / Prism */}
+                    <div class="rounded-xl p-3 sm:p-4 bg-[#1a1f26] border border-gray-700">
+                      <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
+                          <Icon name="material-symbols:folder-zip-outline" class="w-5 h-5 text-custom-blue" />
+                        </div>
+                        <h3 class="text-base sm:text-lg font-semibold">MultiMC/Prism ZIPs</h3>
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        {v?.mmc?.java17_2XUrl && (
+                          <a
+                            href={v.mmc.java17_2XUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center justify-between gap-2 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
+                          >
+                            <span class="inline-flex items-center gap-1.5">
+                              <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
+                              <span>{getJavaRangeLabel(v)} ZIP</span>
+                            </span>
+                          </a>
+                        )}
+                        {v?.mmc?.java8Url && (
+                          <a
+                            href={v.mmc.java8Url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
+                          >
+                            <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
+                            <span>Java 8 ZIP</span>
+                          </a>
+                        )}
+                        {!v?.mmc?.java17_2XUrl && !v?.mmc?.java8Url && (
+                          <p class="text-xs text-gray-400">No MMC downloads for this version.</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Server */}
+                    <div class="rounded-xl p-3 sm:p-4 bg-[#1a1f26] border border-gray-700">
+                      <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
+                          <Icon name="mdi:server" class="w-5 h-5 text-custom-blue" />
+                        </div>
+                        <h3 class="text-base sm:text-lg font-semibold">Server ZIPs</h3>
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        {v?.server?.java17_2XUrl && (
+                          <a
+                            href={v.server.java17_2XUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
+                          >
+                            <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
+                            <span>{getJavaRangeLabel(v)} ZIP</span>
+                          </a>
+                        )}
+                        {v?.server?.java8Url && (
+                          <a
+                            href={v.server.java8Url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
+                          >
+                            <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
+                            <span>Java 8 ZIP</span>
+                          </a>
+                        )}
+                        {!v?.server?.java17_2XUrl && !v?.server?.java8Url && (
+                          <p class="text-xs text-gray-400">No server downloads for this version.</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Client */}
+                    <div class="rounded-xl p-3 sm:p-4 bg-[#1a1f26] border border-gray-700">
+                      <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
+                          <Icon name="mdi:laptop" class="w-5 h-5 text-custom-blue" />
+                        </div>
+                        <h3 class="text-base sm:text-lg font-semibold">Vanilla Launcher ZIP</h3>
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        {v?.client?.java8Url && (
+                          <a
+                            href={v.client.java8Url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
+                          >
+                            <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
+                            <span>Java 8 ZIP</span>
+                          </a>
+                        )}
+                        {!v?.client?.java8Url && (
+                          <p class="text-xs text-gray-400">No vanilla client ZIP for this version.</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            );
+          })}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
