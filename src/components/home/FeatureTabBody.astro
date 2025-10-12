@@ -1,0 +1,115 @@
+---
+import { Icon } from "astro-icon/components";
+import config from "../../config";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+{
+  id === "techAdventure" && (
+    <>
+      <p>
+        Think you know modded Minecraft? Forget everything. GregTech: New Horizons is a hardcore journey through one of
+        the most ambitious, complex, and rewarding modpacks ever created.
+      </p>
+      <br />
+      <p>
+        You begin with a stick and a rock and you will end up building quantum machines, space stations, and even
+        interdimensional bases. Every step forward is earned. Every achievement, hard-won.
+      </p>
+      <br />
+      <p>
+        GT:NH isn’t for those who want instant gratification. It’s for players who love understanding systems,
+        optimizing builds, and slowly building a technological empire. If you crave challenge, this is it.
+      </p>
+    </>
+  )
+}
+
+{
+  id === "journey" && (
+    <>
+      <p>
+        With over 300 carefully integrated mods, dense tech trees, a logical progression system, and deeply
+        interconnected mechanics, GT:NH offers a truly unique experience.
+      </p>
+      <br />
+      <p>
+        But you’ll never feel lost. A detailed questbook with over 3900 quests will guides you through complex systems,
+        goals, and unlocks, making learning part of the fun.
+      </p>
+    </>
+  )
+}
+
+{
+  id === "playstyles" && (
+    <>
+      <p>
+        In GT:NH, there is never just one way to progress in the game. Whether you are a fan of complex production
+        chains and advanced optimizations, a renowned thaumaturge, an advocate of renewable production, an outstanding
+        beekeeper, or a master of botany, GT:NH has something to offer you.
+      </p>
+      <br />
+      <p>
+        What's more, even for your play style, GT:NH offers you various ways to solve a problem, imposing only the
+        milestones of your progress.
+      </p>
+      <br />
+      <p>Be the sole master of your progress!</p>
+    </>
+  )
+}
+
+{
+  id === "technical" && (
+    <>
+      <p>
+        GTNH isn't a bunch of JARs dumped into /mods, it's a big project with deliberate vision that doesn't limit
+        itself to off-the-shelf solutions.
+      </p>
+      <br />
+      <p>We develop and maintain:</p>
+      <ul class="list-disc ml-10">
+        <li>Dozens of forks of popular mods</li>
+        <li>Many exclusive mods, made for GTNH from the ground up</li>
+        <li>Resource packs, shader packs, localizations and more!</li>
+        <li>We are even compatible with LWJGL3 and Java 25!</li>
+      </ul>
+      <br />
+      <p>As a result, GT:NH is able to run on modest computers!</p>
+      <div class="mt-6">
+        <a
+          href={config.githubUrl}
+          target="_blank"
+          class="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-xl text-lg font-semibold hover:bg-gray-300 transition-colors"
+        >
+          <Icon name="mdi:github" class="w-7 h-7" />
+          Our Github
+        </a>
+      </div>
+    </>
+  )
+}
+
+{
+  id === "community" && (
+    <>
+      <p>
+        The GT:NH community is made up of highly technical and passionate players: engineers, science enthusiasts, and
+        logic lovers who thrive on complexity and optimization. While the community is generally helpful and welcoming,
+        it expects you to make an effort and do your research before asking for help.
+      </p>
+      <br />
+      <p>
+        Most discussions, guides, and spreadsheets are in English, but we also have dedicated channels for Chinese,
+        French, German, Polish, Portuguese, Russian and Spanish speakers. If you enjoy learning, problem-solving, and
+        engaging with like-minded players, you’ll feel right at home.
+      </p>
+    </>
+  )
+}

@@ -1,0 +1,11 @@
+---
+const { href, class: className, blank = false } = Astro.props;
+---
+
+<a
+  href={href}
+  target={blank ? "_blank" : undefined}
+  class={className ? `${className}` : `text-white hover:text-gray-300 transition-colors duration-200`}
+>
+  <slot />
+</a>

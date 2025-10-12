@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  id: string;
+  iconImage: ImageMetadata;
+  title: string;
+  subtitle: string;
+  as?: "button" | "div";
+}
+
+const { id, iconImage, title, subtitle, as = "button" } = Astro.props;
+---
+
+{
+  as === "button" ? (
+    <button
+      type="button"
+      class={`tab-btn rounded-2xl border-gray-500 border-1 p-4 text-left flex flex-col gap-1.5 cursor-pointer transition-colors`}
+      data-tab={id}
+    >
+      <div class="icon-container w-8 sm:w-9 h-8 sm:h-9 bg-[#454c54] rounded-lg flex items-center justify-center sm:mb-3">
+        <Image src={iconImage} alt="" class="w-6 sm:w-7 h-6 sm:h-7" color="#547dde" />
+      </div>
+      <h3 class="font-semibold text-base sm:text-lg">{title}</h3>
+      <p class="text-sm sm:text-base md:text-lg text-gray-300">{subtitle}</p>
+    </button>
+  ) : (
+    <div
+      role="button"
+      tabindex="0"
+      class={`tab-btn rounded-2xl border-gray-500 border-1 p-4 text-left flex flex-col gap-1.5 cursor-pointer transition-colors`}
+      data-tab={id}
+    >
+      <div class="icon-container w-8 sm:w-9 h-8 sm:h-9 bg-[#454c54] rounded-lg flex items-center justify-center sm:mb-3">
+        <Image src={iconImage} alt="" class="w-6 sm:w-7 h-6 sm:h-7" color="#547dde" />
+      </div>
+      <h3 class="font-semibold text-base sm:text-lg">{title}</h3>
+      <p class="text-sm sm:text-base md:text-lg text-gray-300">{subtitle}</p>
+    </div>
+  )
+}

@@ -1,0 +1,157 @@
+---
+import Link from "../shared/Link.astro";
+import LogoNhWhite from "../../assets/logo-nh-white.svg";
+import { Icon } from "astro-icon/components";
+import config from "../../config";
+---
+
+<header class="bg-custom-dark text-white border-b border-gray-700">
+  <div class="container mx-auto px-3">
+    <div class="flex items-center justify-between h-14">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-1.5">
+        <LogoNhWhite class="h-12 w-12 flex-shrink-0" />
+        <span class="text-lg font-audiowide">New Horizons</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <Link
+          href="/downloads"
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
+        >
+          <Icon name="material-symbols:download-rounded" class="w-6 h-6" />
+          <span>Downloads</span>
+        </Link>
+        <Link href="/faq" class="text-gray-300 hover:text-white transition-colors duration-200 text-lg"> FAQ </Link>
+        <Link href={config.wikiUrl} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg" blank>
+          Wiki
+        </Link>
+        <Link
+          href={config.githubUrl}
+          blank
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
+        >
+          <Icon name="mdi:github" class="w-6 h-6" />
+          <span>GitHub</span>
+        </Link>
+        <Link
+          href={config.discordUrl}
+          blank
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
+        >
+          <Icon name="ic:baseline-discord" class="w-6 h-6" />
+          <span>Discord</span>
+        </Link>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden flex items-center justify-center w-6 h-6"
+        aria-label="Toggle menu"
+      >
+        <div class="space-y-0.5">
+          <div class="w-4 h-0.5 bg-white transition-transform hamburger-line-1"></div>
+          <div class="w-4 h-0.5 bg-white transition-opacity hamburger-line-2"></div>
+          <div class="w-4 h-0.5 bg-white transition-transform hamburger-line-3"></div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="md:hidden py-3 border-t border-gray-700 hidden">
+      <div class="flex flex-col space-y-2">
+        <Link
+          href="/downloads"
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
+        >
+          <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
+          Downloads
+        </Link>
+        <Link
+          href="/faq"
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link"
+        >
+          FAQ
+        </Link>
+        <Link
+          href={config.wikiUrl}
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link"
+          blank
+        >
+          Wiki
+        </Link>
+        <Link
+          href={config.githubUrl}
+          blank
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
+        >
+          <Icon name="mdi:github" class="w-5 h-5" />
+          GitHub
+        </Link>
+        <Link
+          href={config.discordUrl}
+          blank
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
+        >
+          <Icon name="ic:baseline-discord" class="w-5 h-5" />
+          Discord
+        </Link>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle functionality
+  let isMenuOpen = false;
+
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamburgerLine1 = document.querySelector(".hamburger-line-1");
+  const hamburgerLine2 = document.querySelector(".hamburger-line-2");
+  const hamburgerLine3 = document.querySelector(".hamburger-line-3");
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+
+    if (isMenuOpen) {
+      // Show menu
+      mobileMenu?.classList.remove("hidden");
+      // Animate hamburger to X
+      hamburgerLine1?.classList.add("rotate-45", "translate-y-1.5");
+      hamburgerLine2?.classList.add("opacity-0");
+      hamburgerLine3?.classList.add("-rotate-45", "-translate-y-1.5");
+    } else {
+      // Hide menu
+      mobileMenu?.classList.add("hidden");
+      // Animate X back to hamburger
+      hamburgerLine1?.classList.remove("rotate-45", "translate-y-1.5");
+      hamburgerLine2?.classList.remove("opacity-0");
+      hamburgerLine3?.classList.remove("-rotate-45", "-translate-y-1.5");
+    }
+  }
+
+  // Add click event listener to menu button
+  mobileMenuButton?.addEventListener("click", toggleMenu);
+
+  // Close menu when clicking on mobile nav links
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (isMenuOpen) {
+        toggleMenu();
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Additional styles for smooth transitions */
+  .hamburger-line-1,
+  .hamburger-line-2,
+  .hamburger-line-3 {
+    transform-origin: center;
+  }
+</style>

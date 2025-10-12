@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+
+const { id, title, quests, image, caption = "Screenshot", author = "Someone", active = false } = Astro.props;
+---
+
+<div id={id} class={`age-panel grid grid-cols-1 lg:grid-cols-2 gap-7 mt-9 ${active ? "" : "hidden"}`}>
+  <div>
+    <div class="flex items-baseline justify-between text-gray-400 mb-3 text-sm sm:text-base">
+      <div><span class="text-gray-300 font-semibold">{quests}</span> quests</div>
+    </div>
+
+    <h3 class="text-xl lg:text-3xl font-bold mb-2">{title}</h3>
+    <slot name="lead" />
+    <slot name="more" />
+
+    <h4 class="text-lg font-semibold mb-3">Challenges</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <slot name="challenges" />
+    </div>
+  </div>
+
+  <div>
+    <div class="mb-1.5 sm:mb-3">
+      <div class="border border-gray-300 rounded-2xl overflow-hidden">
+        <div class="aspect-video">
+          <Image src={image} alt={`${title} screenshot`} loading="lazy" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-center text-center gap-1.5 text-sm sm:text-lg md:text-xl">
+      <p class="text-white font-bold">{caption}</p>
+      <p class="text-gray-300">by {author}</p>
+    </div>
+  </div>
+</div>

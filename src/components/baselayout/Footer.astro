@@ -1,0 +1,73 @@
+---
+import Link from "../shared/Link.astro";
+import LogoNhWhite from "../../assets/logo-nh-white.svg";
+import config from "../../config";
+
+// Footer sections data
+const footerSections = [
+  {
+    title: "Downloads",
+    links: [
+      { name: "Downloads Page", href: "/downloads" },
+      { name: "Technic", href: config.technicUrl, external: true },
+      { name: "CurseForge", href: config.curseforgeUrl, external: true },
+      { name: "Version History", href: "/version-history" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { name: "Wiki", href: config.wikiUrl, external: true },
+      { name: "FAQ", href: "/faq" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { name: "Discord Server", href: config.discordUrl, external: true },
+      { name: "GitHub", href: config.githubUrl, external: true },
+      { name: "Bug Reports", href: config.bugReportsUrl, external: true },
+    ],
+  },
+];
+---
+
+<footer class="bg-custom-dark text-white border-t border-gray-700">
+  <div class="container mx-auto px-3 py-7">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+      <!-- Logo and Description -->
+      <div class="lg:col-span-3">
+        <div class="flex items-center space-x-1.5 mb-1.5 sm:mb-3">
+          <LogoNhWhite class="h-12 w-12 flex-shrink-0" />
+          <span class="text-lg font-audiowide">New Horizons</span>
+        </div>
+        <p class="text-gray-500 text-sm sm:text-base">Powered by {Astro.generator}</p>
+        <p class="text-gray-500 text-sm sm:text-base">
+          Open source, <Link href={config.repoUrl} blank>fork me!</Link>
+        </p>
+      </div>
+
+      <!-- Footer Links -->
+      {
+        footerSections.map((section) => (
+          <div class="lg:col-span-1">
+            <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-3">{section.title}</h3>
+            <ul class="space-y-1.5">
+              {section.links.map((link) => (
+                <li>
+                  <Link
+                    href={link.href}
+                    class="text-gray-400 hover:text-white transition-colors duration-200 text-base sm:text-lg"
+                    blank={link.external}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</footer>

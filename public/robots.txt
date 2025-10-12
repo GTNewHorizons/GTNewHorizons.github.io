@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.gtnewhorizons.com/sitemap-index.xml

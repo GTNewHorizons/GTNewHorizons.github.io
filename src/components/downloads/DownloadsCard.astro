@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface LinkItem {
+  label: string;
+  href: string;
+  icon?: string;
+  external?: boolean;
+  bold?: boolean;
+}
+
+export interface Props {
+  title: string;
+  links?: LinkItem[];
+  note?: string;
+  noteIcon?: string;
+  noteColorClass?: string;
+  variant?: "solid" | "outline" | "highlight";
+  accentColor?: string; // for outline/highlight borders
+}
+
+const {
+  title,
+  links = [],
+  note,
+  noteIcon,
+  noteColorClass = "text-green-400",
+  variant = "solid",
+  accentColor = "#547dde",
+} = Astro.props as Props;
+
+const isOutline = variant === "outline";
+const isHighlight = variant === "highlight";
+---
+
+<div
+  class={`relative rounded-xl overflow-hidden p-0 h-full ${
+    isOutline
+      ? "bg-transparent border-2"
+      : isHighlight
+        ? "bg-[#1c2330] border border-[#394354]"
+        : "bg-[#1a1f26] border border-gray-700"
+  }`}
+  style={isOutline || isHighlight ? `border-color: ${accentColor};` : undefined}
+>
+  <div class="relative z-10 flex flex-col h-full p-3 sm:p-4 pb-21 sm:pb-27 md:pb-33">
+    <div class="mb-2">
+      <h3 class="text-lg sm:text-xl font-semibold">{title}</h3>
+    </div>
+
+    {
+      links?.length > 0 && (
+        <ul class="space-y-1 mb-2">
+          {links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                target={l.external ? "_blank" : undefined}
+                class={`inline-flex items-center gap-1.5 text-custom-blue hover:underline text-sm sm:text-base ${l.bold ? "font-bold" : ""}`}
+              >
+                {l.icon && <Icon name={l.icon} class="w-5 h-5" />}
+                <span>{l.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      note && (
+        <div class={`flex items-center gap-1.5 mb-2 ${noteColorClass}`}>
+          {noteIcon && <Icon name={noteIcon} class="w-4 h-4" />}
+          <span class="text-sm sm:text-base">{note}</span>
+        </div>
+      )
+    }
+    <!-- Integrated image anchored to bottom-right -->
+    <div
+      class="absolute bottom-0 right-0 z-0 pointer-events-none w-[94%] sm:w-[92%] md:w-[86%] h-21 sm:h-27 md:h-33 rounded-tl-xl overflow-hidden"
+    >
+      <div class="image-wrap w-full h-full origin-top-left scale-110 sm:scale-110 md:scale-125">
+        <slot name="image" />
+      </div>
+    </div>
+  </div>
+</div>
