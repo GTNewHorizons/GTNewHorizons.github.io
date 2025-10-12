@@ -50,12 +50,9 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
     </p>
   </div>
 
-  <div class="relative mt-7 overflow-x-auto snap-x snap-mandatory pb-3" id="ages-track" data-active="stone">
-    <div class="absolute left-0 right-0 h-[10px] rounded-full bg-[#22272c] pointer-events-none z-0" id="ages-base">
-    </div>
-    <div class="absolute left-0 h-[10px] rounded-full bg-[#547dde] pointer-events-none z-0" id="ages-progress"></div>
-    <ul class="relative z-10 flex flex-nowrap items-start gap-4 w-max md:w-full md:justify-between md:gap-1.5 px-1.5">
-      <AgeBubble age="stone" label="Stone Age" image={stoneAgeImage} selected />
+  <div class="mt-7 overflow-x-auto snap-x snap-mandatory pb-3" id="ages-track" data-active="stone">
+    <ul class="flex flex-nowrap items-start w-max md:w-full px-1.5">
+      <AgeBubble age="stone" label="Stone Age" image={stoneAgeImage} />
       <AgeBubble age="steam" label="Steam Age" image={steamAgeImage} />
       <AgeBubble age="lv" label="Low Voltage" image={lvAgeImage} />
       <AgeBubble age="mv" label="Medium Voltage" image={mvAgeImage} />
@@ -63,7 +60,7 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       <AgeBubble age="ev" label="Extreme Voltage" image={evAgeImage} />
       <AgeBubble age="iv" label="Insane Voltage" image={ivAgeImage} />
       <AgeBubble age="luv" label="Ludicrous Voltage" image={luvAgeImage} />
-      <AgeBubble age="beyond" label="...and beyond!" image={beyondAgeImage} />
+      <AgeBubble age="beyond" label="...and beyond!" image={beyondAgeImage} isLast={true} />
     </ul>
   </div>
 
@@ -76,8 +73,8 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
     </div>
     <div slot="more">
       <p class="text-gray-300 mb-6 text-base sm:text-lg lg:text-xl">
-        Dark and harsh nights, various intimidating infernal monsters and a precarious food situation awaits you. Only one
-        way out of here: mining the necessary materials for bronze steam boilers!
+        Dark and harsh nights, various intimidating infernal monsters and a precarious food situation awaits you. Only
+        one way out of here: mining the necessary materials for bronze steam boilers!
       </p>
     </div>
     <ChallengeCard slot="challenges" imageIcon={challengeStoneExploration} title="Exploration"
@@ -126,8 +123,8 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
     </div>
     <div slot="more">
       <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
-        In LV, you will discover how to generate electrical power and build your first electric machines,
-        including the Electrical Blast Furnace to make steel ingots faster.
+        In LV, you will discover how to generate electrical power and build your first electric machines, including the
+        Electrical Blast Furnace to make steel ingots faster.
       </p>
     </div>
     <ChallengeCard
@@ -162,8 +159,8 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       </p>
     </div>
     <ChallengeCard slot="challenges" imageIcon={ChallengeMVSilicon} title="Silicon Solar Grade (Poly SI) Ingots"
-      >The production of Silicon Solar Grade (Poly SI) ingots will be your first long-standing passive production
-      setup, as it is used a lot throughout the game.</ChallengeCard
+      >The production of Silicon Solar Grade (Poly SI) ingots will be your first long-standing passive production setup,
+      as it is used a lot throughout the game.</ChallengeCard
     >
     <ChallengeCard slot="challenges" imageIcon={ChallengeMVKanthal} title="Kanthal Ingots"
       >Your first EBF coil upgrade, improving speed and unlocking new recipes.</ChallengeCard
@@ -243,13 +240,13 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       </p>
     </div>
     <ChallengeCard slot="challenges" imageIcon={challengeIVPlatline} title="The Platinum Line"
-      >One of the most iconic processing lines in GT:NH. This poses a large infrastructure challenge, as you'll
-      need the byproducts of this line in great quantities.</ChallengeCard
+      >One of the most iconic processing lines in GT:NH. This poses a large infrastructure challenge, as you'll need the
+      byproducts of this line in great quantities.</ChallengeCard
     >
     <ChallengeCard slot="challenges" imageIcon={challengeIVAssline} title="Your First Assembly Line"
-      >Your new assembling machine! You will need to figure out how to insert the recipe ingredients in the
-      correct order for the machine to run. Make sure you automate this well,
-      as you will need many Assembly Lines in the future.</ChallengeCard
+      >Your new assembling machine! You will need to figure out how to insert the recipe ingredients in the correct
+      order for the machine to run. Make sure you automate this well, as you will need many Assembly Lines in the
+      future.</ChallengeCard
     >
   </AgePanel>
 
@@ -277,8 +274,8 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       >With this line, you'll need to figure out how to produce lots of fluorine, one way or another.</ChallengeCard
     >
     <ChallengeCard slot="challenges" imageIcon={challengeLUVFusion} title="Your First Fusion Reactor"
-      >The fusion reactor allows you to access precious new materials by fusing 2 different fluids. Your
-      main challenge will be to sustain the fusion process as long as possible to avoid large fusion startup costs.
+      >The fusion reactor allows you to access precious new materials by fusing 2 different fluids. Your main challenge
+      will be to sustain the fusion process as long as possible to avoid large fusion startup costs.
     </ChallengeCard>
   </AgePanel>
 
@@ -295,15 +292,15 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
     </div>
     <div slot="more">
       <p class="text-gray-300 mb-8 text-base sm:text-lg lg:text-xl">
-        Face more and more complex automations as you progress: the Waterline, the Black Hole
-        Compressor, the Eye of Harmony, the creation of Quark Gluon Plasma, and more! You will also begin an endless race for
-        faster and bigger production capabilities!
+        Face more and more complex automations as you progress: the Waterline, the Black Hole Compressor, the Eye of
+        Harmony, the creation of Quark Gluon Plasma, and more! You will also begin an endless race for faster and bigger
+        production capabilities!
       </p>
     </div>
     <ChallengeCard slot="challenges" imageIcon={challengeBeyondMM} title="Infrastructure Checks"
       >The progression in GT:NH often forces you to rebuild some part of your base in order to improve crafting
-      capabilities, so that you can get crafts done in a reasonable amount of time. Your matter
-      manipulator will become your best friend!</ChallengeCard
+      capabilities, so that you can get crafts done in a reasonable amount of time. Your matter manipulator will become
+      your best friend!</ChallengeCard
     >
     <ChallengeCard
       slot="challenges"
@@ -320,9 +317,7 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
 <script is:inline>
   (function () {
     const track = document.getElementById("ages-track");
-    const base = document.getElementById("ages-base");
-    const progress = document.getElementById("ages-progress");
-    const bubbles = Array.from(document.querySelectorAll(".age-bubble"));
+    const ageItems = Array.from(document.querySelectorAll(".age-item"));
     const panels = {
       stone: document.getElementById("panel-stone"),
       steam: document.getElementById("panel-steam"),
@@ -335,88 +330,43 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       beyond: document.getElementById("panel-beyond"),
     };
 
-    let centers = [];
+    function setActive(age) {
+      track.dataset.active = age;
+      const activeIndex = ageItems.findIndex((item) => item.dataset.age === age);
 
-    function indexOfAge(key) {
-      return bubbles.findIndex((b) => b.dataset.age === key);
-    }
+      // Update age items with classes
+      ageItems.forEach((item, index) => {
+        item.classList.remove("active", "completed");
 
-    function computeLayout() {
-      const containerRect = track.getBoundingClientRect();
-      centers = bubbles.map((b) => {
-        const el = b.querySelector(".bubble");
-        const r = el.getBoundingClientRect();
-        return r.left - containerRect.left + r.width / 2;
+        if (index === activeIndex) {
+          item.classList.add("active");
+        } else if (index < activeIndex) {
+          item.classList.add("completed");
+        }
       });
 
-      if (centers.length < 2) return;
-
-      const first = centers[0];
-      const last = centers[centers.length - 1];
-
-      base.style.right = "auto";
-      base.style.left = first + "px";
-      base.style.width = Math.max(0, last - first) + "px";
-
-      progress.style.right = "auto";
-      progress.style.left = first + "px";
-
-      const firstBubble = bubbles[0].querySelector(".bubble");
-      const bubbleRect = firstBubble.getBoundingClientRect();
-      const centerY = bubbleRect.top + bubbleRect.height / 2 - containerRect.top;
-      base.style.top = centerY - base.offsetHeight / 2 + "px";
-      progress.style.top = centerY - progress.offsetHeight / 2 + "px";
-
-      const activeKey = track.dataset.active || "stone";
-      const idx = indexOfAge(activeKey);
-      updateProgressToIndex(idx);
-    }
-
-    function updateProgressToIndex(index) {
-      if (!centers.length) return;
-      const first = centers[0];
-      const last = centers[centers.length - 1];
-      const current = centers[Math.max(0, Math.min(index, centers.length - 1))];
-      const width = Math.max(0, Math.min(current - first, last - first));
-      progress.style.width = width + "px";
-    }
-
-    function setActive(key) {
-      track.dataset.active = key;
-      const currentIndex = indexOfAge(key);
-
-      bubbles.forEach((b, i) => {
-        const bubble = b.querySelector(".bubble");
-        const label = b.querySelector(".label");
-        const isCurrent = i === currentIndex;
-        if (!bubble) return;
-        if (i <= currentIndex) {
-          bubble.classList.add("bg-[#547dde]", "border-[#547dde]", "border-0", "shadow-none");
-          bubble.classList.remove("bg-[#13171b]", "border-[#2a2f37]", "bg-[#1a1f26]", "border-2", "shadow-sm");
+      // Show/hide panels
+      Object.entries(panels).forEach(([key, panel]) => {
+        if (!panel) return;
+        if (key === age) {
+          panel.classList.remove("hidden");
         } else {
-          bubble.classList.add("bg-[#13171b]", "border-[#2a2f37]", "border-2", "shadow-sm");
-          bubble.classList.remove("bg-[#547dde]", "border-[#547dde]", "bg-[#1a1f26]", "border-0", "shadow-none");
-        }
-        if (label) {
-          if (isCurrent) label.classList.add("font-semibold");
-          else label.classList.remove("font-semibold");
+          panel.classList.add("hidden");
         }
       });
-
-      Object.entries(panels).forEach(([k, el]) => {
-        if (!el) return;
-        if (k === key) el.classList.remove("hidden");
-        else el.classList.add("hidden");
-      });
-
-      if (currentIndex >= 0) updateProgressToIndex(currentIndex);
     }
 
     function initialize() {
-      bubbles.forEach((b) => b.addEventListener("click", () => setActive(b.dataset.age)));
-      computeLayout();
+      // Add click listeners to all age buttons
+      ageItems.forEach((item) => {
+        const button = item.querySelector(".age-bubble");
+        if (button) {
+          button.addEventListener("click", () => setActive(item.dataset.age));
+        }
+      });
+
+      // Set initial active state
       setActive(track.dataset.active || "stone");
-      window.addEventListener("resize", computeLayout);
     }
 
     if (document.readyState === "loading") {
