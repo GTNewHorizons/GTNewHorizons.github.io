@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /spreadsheet
 
 Sitemap: https://www.gtnewhorizons.com/sitemap-index.xml
