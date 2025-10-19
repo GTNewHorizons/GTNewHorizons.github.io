@@ -1,0 +1,50 @@
+<button
+  id="back-to-top"
+  class="fixed bottom-8 right-8 w-16 h-16 md:w-20 md:h-20 rounded-full bg-custom-blue text-custom-dark border-none cursor-pointer opacity-0 invisible transition-all duration-300 z-[1000] flex items-center justify-center shadow-lg hover:bg-[#9ab5f0] hover:-translate-y-1 hover:shadow-xl active:translate-y-0"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="md:w-10 md:h-10"
+  >
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<script>
+  // Show/hide button based on scroll position
+  const backToTopButton = document.getElementById("back-to-top");
+
+  if (backToTopButton) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.remove("opacity-0", "invisible");
+          backToTopButton.classList.add("opacity-100", "visible");
+        } else {
+          backToTopButton.classList.remove("opacity-100", "visible");
+          backToTopButton.classList.add("opacity-0", "invisible");
+        }
+      },
+      { passive: true }
+    );
+
+    // Smooth scroll to top when clicked
+    backToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
+</script>

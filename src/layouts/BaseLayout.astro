@@ -4,6 +4,7 @@ import "@fontsource-variable/space-grotesk";
 import "../styles/global.css";
 import Footer from "../components/baselayout/Footer.astro";
 import Header from "../components/baselayout/Header.astro";
+import BackToTop from "../components/shared/BackToTop.astro";
 
 const {
   title = "Unnamed Page",
@@ -25,5 +26,6 @@ const {
     <Header />
     <slot />
     <Footer />
+    <BackToTop />
   </body>
 </html>
