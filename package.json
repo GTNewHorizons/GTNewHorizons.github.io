@@ -15,11 +15,11 @@
     "@fontsource-variable/space-grotesk": "5.2.10",
     "@fontsource/audiowide": "5.2.7",
     "@iconify-json/ic": "1.2.4",
-    "@iconify-json/material-symbols": "1.2.42",
+    "@iconify-json/material-symbols": "1.2.47",
     "@iconify-json/mdi": "1.2.3",
-    "@tailwindcss/vite": "4.1.14",
-    "astro": "5.14.6",
+    "@tailwindcss/vite": "4.1.17",
+    "astro": "5.16.0",
     "astro-icon": "1.1.5",
-    "tailwindcss": "4.1.14"
+    "tailwindcss": "4.1.17"
   }
 }
