@@ -1,16 +1,68 @@
 ---
 import { Image } from "astro:assets";
 
-const { age, label, image } = Astro.props;
+const { age, label, image, isLast } = Astro.props;
 ---
 
-<li class="flex flex-col items-center text-center select-none snap-center">
-  <button class="age-bubble flex flex-col items-center w-15 cursor-pointer" data-age={age} aria-label={label}>
-    <div
-      class={`bubble relative z-10 flex items-center justify-center w-15 h-15 rounded-full border-2 shadow-sm bg-[#13171b] border-[#2a2f37]`}
+<li
+  class="age-item flex items-start flex-shrink-0 snap-center select-none md:flex-1 md:last:flex-[0_0_auto]"
+  data-age={age}
+>
+  <div class="flex items-start w-full">
+    <button
+      class="age-bubble flex flex-col items-center text-center bg-transparent border-0 p-0 flex-shrink-0 relative cursor-pointer"
+      aria-label={label}
     >
-      <Image src={image} alt="" width={96} height={96} class="icon w-10 h-10 object-contain" />
-    </div>
-    <span class="label mt-1.5 text-sm md:text-base text-gray-300 max-w-[6rem] text-center block">{label}</span>
-  </button>
+      <div
+        class="bubble relative z-[2] flex items-center justify-center w-15 h-15 rounded-full border-2 border-[#2a2f37] bg-[#13171b] shadow-sm transition-all duration-300"
+      >
+        <Image src={image} alt="" width={96} height={96} class="w-10 h-10 object-contain" />
+      </div>
+      <span
+        class="label mt-1.5 text-sm md:text-base text-gray-300 w-[4.5rem] text-center block relative z-[2] transition-[font-weight] duration-300 leading-snug"
+        >{label}</span
+      >
+    </button>
+    {
+      !isLast && (
+        <div class="age-line h-[10px] bg-[#22272c] relative z-[1] transition-colors duration-300" aria-hidden="true" />
+      )
+    }
+  </div>
 </li>
+
+<style>
+  /* Line positioning - can't be done with Tailwind due to calc and negative margins */
+  .age-line {
+    border-radius: 0;
+    margin-top: calc((3.75rem - 10px) / 2);
+    width: calc(3rem + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  @media (min-width: 768px) {
+    .age-line {
+      flex: 1 1 0;
+      width: auto;
+      min-width: 0;
+    }
+  }
+
+  /* Active states */
+  .age-item.active .bubble,
+  .age-item.completed .bubble {
+    background-color: #547dde;
+    border-color: #547dde;
+    border-width: 0;
+    box-shadow: none;
+  }
+
+  .age-item.active .label {
+    font-weight: 600;
+  }
+
+  .age-item.completed .age-line {
+    background-color: #547dde;
+  }
+</style>
