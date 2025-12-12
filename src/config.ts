@@ -10,9 +10,27 @@ const config: Config = {
   bugReportsUrl: "https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues",
   repoUrl: "https://github.com/GTNewHorizons/GTNewHorizons.github.io",
   // Will be used for the Downloads page, should point to a valid version
-  latestVersion: "2.8.2",
+  latestVersion: "2.8.3",
   // Will be used for the Versions History page
   versions: {
+    "2.8.3": {
+      title: "Stable release",
+      description:
+        '<a class="underline text-blue-400 hover:text-blue-200" target="_blank" href="https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.8.2%20to%202.8.3.md">Click here to get the changelog</a>',
+      releaseDate: "2025/12/12",
+      maxJavaVersion: 25,
+      mmc: {
+        java8Url: "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.3_Java_8.zip",
+        java17_2XUrl: "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.3_Java_17-25.zip",
+      },
+      server: {
+        java8Url: "https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.8.3_Server_Java_8.zip",
+        java17_2XUrl: "https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.8.3_Server_Java_17-25.zip",
+      },
+      client: {
+        java8Url: "https://downloads.gtnewhorizons.com/ClientPacks/GT_New_Horizons_2.8.3_Client_Java_8.zip",
+      },
+    },
       "2.8.2": {
       title: "Stable release",
       description:
