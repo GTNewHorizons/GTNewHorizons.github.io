@@ -50,12 +50,9 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
     </p>
   </div>
 
-  <div class="relative mt-7 overflow-x-auto snap-x snap-mandatory pb-3" id="ages-track" data-active="stone">
-    <div class="absolute left-0 right-0 h-[10px] rounded-full bg-[#22272c] pointer-events-none z-0" id="ages-base">
-    </div>
-    <div class="absolute left-0 h-[10px] rounded-full bg-[#547dde] pointer-events-none z-0" id="ages-progress"></div>
-    <ul class="relative z-10 flex flex-nowrap items-start gap-4 w-max md:w-full md:justify-between md:gap-1.5 px-1.5">
-      <AgeBubble age="stone" label="Stone Age" image={stoneAgeImage} selected />
+  <div class="mt-7 overflow-x-auto snap-x snap-mandatory pb-3" id="ages-track" data-active="stone">
+    <ul class="flex flex-nowrap items-start w-max md:w-full px-1.5">
+      <AgeBubble age="stone" label="Stone Age" image={stoneAgeImage} />
       <AgeBubble age="steam" label="Steam Age" image={steamAgeImage} />
       <AgeBubble age="lv" label="Low Voltage" image={lvAgeImage} />
       <AgeBubble age="mv" label="Medium Voltage" image={mvAgeImage} />
@@ -63,7 +60,7 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       <AgeBubble age="ev" label="Extreme Voltage" image={evAgeImage} />
       <AgeBubble age="iv" label="Insane Voltage" image={ivAgeImage} />
       <AgeBubble age="luv" label="Ludicrous Voltage" image={luvAgeImage} />
-      <AgeBubble age="beyond" label="...and beyond!" image={beyondAgeImage} />
+      <AgeBubble age="beyond" label="...and beyond!" image={beyondAgeImage} isLast={true} />
     </ul>
   </div>
 
@@ -320,9 +317,7 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
 <script is:inline>
   (function () {
     const track = document.getElementById("ages-track");
-    const base = document.getElementById("ages-base");
-    const progress = document.getElementById("ages-progress");
-    const bubbles = Array.from(document.querySelectorAll(".age-bubble"));
+    const ageItems = Array.from(document.querySelectorAll(".age-item"));
     const panels = {
       stone: document.getElementById("panel-stone"),
       steam: document.getElementById("panel-steam"),
@@ -335,88 +330,43 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
       beyond: document.getElementById("panel-beyond"),
     };
 
-    let centers = [];
+    function setActive(age) {
+      track.dataset.active = age;
+      const activeIndex = ageItems.findIndex((item) => item.dataset.age === age);
 
-    function indexOfAge(key) {
-      return bubbles.findIndex((b) => b.dataset.age === key);
-    }
+      // Update age items with classes
+      ageItems.forEach((item, index) => {
+        item.classList.remove("active", "completed");
 
-    function computeLayout() {
-      const containerRect = track.getBoundingClientRect();
-      centers = bubbles.map((b) => {
-        const el = b.querySelector(".bubble");
-        const r = el.getBoundingClientRect();
-        return r.left - containerRect.left + r.width / 2;
+        if (index === activeIndex) {
+          item.classList.add("active");
+        } else if (index < activeIndex) {
+          item.classList.add("completed");
+        }
       });
 
-      if (centers.length < 2) return;
-
-      const first = centers[0];
-      const last = centers[centers.length - 1];
-
-      base.style.right = "auto";
-      base.style.left = first + "px";
-      base.style.width = Math.max(0, last - first) + "px";
-
-      progress.style.right = "auto";
-      progress.style.left = first + "px";
-
-      const firstBubble = bubbles[0].querySelector(".bubble");
-      const bubbleRect = firstBubble.getBoundingClientRect();
-      const centerY = bubbleRect.top + bubbleRect.height / 2 - containerRect.top;
-      base.style.top = centerY - base.offsetHeight / 2 + "px";
-      progress.style.top = centerY - progress.offsetHeight / 2 + "px";
-
-      const activeKey = track.dataset.active || "stone";
-      const idx = indexOfAge(activeKey);
-      updateProgressToIndex(idx);
-    }
-
-    function updateProgressToIndex(index) {
-      if (!centers.length) return;
-      const first = centers[0];
-      const last = centers[centers.length - 1];
-      const current = centers[Math.max(0, Math.min(index, centers.length - 1))];
-      const width = Math.max(0, Math.min(current - first, last - first));
-      progress.style.width = width + "px";
-    }
-
-    function setActive(key) {
-      track.dataset.active = key;
-      const currentIndex = indexOfAge(key);
-
-      bubbles.forEach((b, i) => {
-        const bubble = b.querySelector(".bubble");
-        const label = b.querySelector(".label");
-        const isCurrent = i === currentIndex;
-        if (!bubble) return;
-        if (i <= currentIndex) {
-          bubble.classList.add("bg-[#547dde]", "border-[#547dde]", "border-0", "shadow-none");
-          bubble.classList.remove("bg-[#13171b]", "border-[#2a2f37]", "bg-[#1a1f26]", "border-2", "shadow-sm");
+      // Show/hide panels
+      Object.entries(panels).forEach(([key, panel]) => {
+        if (!panel) return;
+        if (key === age) {
+          panel.classList.remove("hidden");
         } else {
-          bubble.classList.add("bg-[#13171b]", "border-[#2a2f37]", "border-2", "shadow-sm");
-          bubble.classList.remove("bg-[#547dde]", "border-[#547dde]", "bg-[#1a1f26]", "border-0", "shadow-none");
-        }
-        if (label) {
-          if (isCurrent) label.classList.add("font-semibold");
-          else label.classList.remove("font-semibold");
+          panel.classList.add("hidden");
         }
       });
-
-      Object.entries(panels).forEach(([k, el]) => {
-        if (!el) return;
-        if (k === key) el.classList.remove("hidden");
-        else el.classList.add("hidden");
-      });
-
-      if (currentIndex >= 0) updateProgressToIndex(currentIndex);
     }
 
     function initialize() {
-      bubbles.forEach((b) => b.addEventListener("click", () => setActive(b.dataset.age)));
-      computeLayout();
+      // Add click listeners to all age buttons
+      ageItems.forEach((item) => {
+        const button = item.querySelector(".age-bubble");
+        if (button) {
+          button.addEventListener("click", () => setActive(item.dataset.age));
+        }
+      });
+
+      // Set initial active state
       setActive(track.dataset.active || "stone");
-      window.addEventListener("resize", computeLayout);
     }
 
     if (document.readyState === "loading") {
