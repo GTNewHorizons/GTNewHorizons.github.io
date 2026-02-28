@@ -12,6 +12,7 @@ import image6 from "../../assets/home/carousel/6.png";
 import image7 from "../../assets/home/carousel/7.png";
 import image8 from "../../assets/home/carousel/8.png";
 import image9 from "../../assets/home/carousel/9.png";
+import world_record from "../../assets/home/carousel/world_record2.png";
 
 // Slideshow speed in milliseconds
 const SLIDESHOW_SPEED = 5000;
@@ -121,6 +122,18 @@ const SLIDESHOW_SPEED = 5000;
       <CarouselItem title="Stargate" author="Repeating Cat">
         <Picture
           src={image9}
+          alt=""
+          widths={[360, 640, 960, 1280, 1920]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
+          formats={["png"]}
+          quality={100}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      </CarouselItem>
+      <CarouselItem title="World's fastest Stargate run: 22 days, 16 hours and 45 minutes" author="Ducked, AverageGregTechPlayer, Soycake, VorTex, LazyFlesh, lhaxq, kyouki, Elephant, Pxx500, Dymorius, Nick, Adam and Lord Peverell">
+        <Picture
+          src={world_record}
           alt=""
           widths={[360, 640, 960, 1280, 1920]}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1280px"
