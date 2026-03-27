@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
-import versions from "../versions.json";
+import versions from "../../public/versions.json";
 import type { VersionEntry } from "../types";
 
 const typedVersions = versions as Record<string, VersionEntry>;
