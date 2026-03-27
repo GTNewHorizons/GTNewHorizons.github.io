@@ -1,3 +1,5 @@
+export type VersionKey = keyof typeof versions;
+
 export type Config = {
   technicUrl: string;
   curseforgeUrl: string;
@@ -7,8 +9,7 @@ export type Config = {
   githubUrl: string;
   bugReportsUrl: string;
   repoUrl: string;
-  latestVersion: string;
-  versions: Record<string, VersionEntry>;
+  latestVersion: VersionKey;
 };
 
 export type VersionEntry = {

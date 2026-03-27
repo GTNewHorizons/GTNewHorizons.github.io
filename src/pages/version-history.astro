@@ -1,13 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
-import config from "../config";
+import versions from "../../public/versions.json";
 import type { VersionEntry } from "../types";
 
-const sortedVersions = Object.entries(config.versions).sort((a, b) => {
-  const da = a[1].releaseDate ?? "";
-  const db = b[1].releaseDate ?? "";
-  return db.localeCompare(da); // newest first
+const typedVersions = versions as Record<string, VersionEntry>;
+
+const sortedVersions = Object.entries(typedVersions).sort((a, b) => {
+  const da = new Date(a[1].releaseDate ?? 0).getTime();
+  const db = new Date(b[1].releaseDate ?? 0).getTime();
+  return db - da;
 });
 const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 25}`;
 ---

@@ -10,8 +10,9 @@ import zipImage from "../assets/downloads/zip.png";
 import prismImage from "../assets/downloads/prism.png";
 import serverImage from "../assets/downloads/server.png";
 import config from "../config";
+import versions from "../../public/versions.json";
 
-const latestVersion = config.versions[config.latestVersion];
+const latestVersion = versions[config.latestVersion as keyof typeof versions];
 ---
 
 <BaseLayout title="Downloads">
@@ -31,14 +32,14 @@ const latestVersion = config.versions[config.latestVersion];
         title="Prism ZIPs"
         links={[
           {
-            label: `Latest (${config.latestVersion}) for Java 17-${latestVersion.maxJavaVersion}`,
+            label: `Latest (${String(config.latestVersion)}) for Java 17-${latestVersion.maxJavaVersion}`,
             href: latestVersion.mmc?.java17_2XUrl!,
             icon: "material-symbols:download-rounded",
             external: true,
             bold: true,
           },
           {
-            label: `Latest (${config.latestVersion}) for Java 8`,
+            label: `Latest (${String(config.latestVersion)}) for Java 8`,
             href: latestVersion.mmc?.java8Url!,
             icon: "material-symbols:download-rounded",
             external: true,
@@ -69,14 +70,14 @@ const latestVersion = config.versions[config.latestVersion];
         title="Server ZIPs"
         links={[
           {
-            label: `Latest (${config.latestVersion}) for Java 17-${latestVersion.maxJavaVersion}`,
+            label: `Latest (${String(config.latestVersion)}) for Java 17-${latestVersion.maxJavaVersion}`,
             href: latestVersion.server?.java17_2XUrl!,
             icon: "material-symbols:download-rounded",
             external: true,
             bold: true,
           },
           {
-            label: `Latest (${config.latestVersion}) for Java 8`,
+            label: `Latest (${String(config.latestVersion)}) for Java 8`,
             href: latestVersion.server?.java8Url!,
             icon: "material-symbols:download-rounded",
             external: true,
@@ -107,7 +108,7 @@ const latestVersion = config.versions[config.latestVersion];
         title="Vanilla Launcher ZIP"
         links={[
           {
-            label: `Latest (${config.latestVersion}) for Java 8`,
+            label: `Latest (${String(config.latestVersion)}) for Java 8`,
             href: latestVersion.client?.java8Url!,
             icon: "material-symbols:download-rounded",
             external: true,
