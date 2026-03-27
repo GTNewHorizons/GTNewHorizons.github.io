@@ -11,16 +11,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "3.6.0",
+    "@astrojs/sitemap": "3.7.2",
     "@fontsource-variable/space-grotesk": "5.2.10",
     "@fontsource/audiowide": "5.2.7",
     "@iconify-json/ic": "1.2.4",
-    "@iconify-json/material-symbols": "1.2.49",
+    "@iconify-json/material-symbols": "1.2.63",
     "@iconify-json/mdi": "1.2.3",
-    "@tailwindcss/vite": "4.1.17",
-    "astro": "5.16.4",
+    "@tailwindcss/vite": "4.2.2",
+    "astro": "6.1.1",
     "astro-icon": "1.1.5",
-    "tailwindcss": "4.1.17"
+    "tailwindcss": "4.2.2"
   },
   "engines": {
     "node": ">=24.0.0",
