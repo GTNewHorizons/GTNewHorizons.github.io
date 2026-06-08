@@ -10,7 +10,7 @@
     },
     "server": {
       "java8Url": "https://downloads.gtnewhorizons.com/ServerPacks/betas/GT_New_Horizons_2.9.0-beta-1_Server_Java_8.zip",
-      "java17_2XUrl": "https://downloads.gtnewhorizons.com/ServerPacks/betas/GT_New_Horizons_2.9.0-beta-1_Server_Java_17-25"
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/ServerPacks/betas/GT_New_Horizons_2.9.0-beta-1_Server_Java_17-25.zip"
     },
     "client": {
       "java8Url": "https://downloads.gtnewhorizons.com/ClientPacks/betas/GT_New_Horizons_2.9.0-beta-1_Client_Java_8.zip"
