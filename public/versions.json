@@ -1,4 +1,21 @@
-{  
+{
+    "2.9.0-beta-2": {
+    "title": "Beta release",
+    "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.9.0-beta-1%20to%202.9.0-beta-2.md\">Click here to get the changelog</a>",
+    "releaseDate": "2026/07/05",
+    "maxJavaVersion": 25,
+    "mmc": {
+      "java8Url": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/betas/GT_New_Horizons_2.9.0-beta-2_Java_8.zip",
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/betas/GT_New_Horizons_2.9.0-beta-2_Java_17-25.zip"
+    },
+    "server": {
+      "java8Url": "https://downloads.gtnewhorizons.com/ServerPacks/betas/GT_New_Horizons_2.9.0-beta-2_Server_Java_8.zip",
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/ServerPacks/betas/GT_New_Horizons_2.9.0-beta-2_Server_Java_17-25.zip"
+    },
+    "client": {
+      "java8Url": "https://downloads.gtnewhorizons.com/ClientPacks/betas/GT_New_Horizons_2.9.0-beta-2_Client_Java_8.zip"
+    }
+  },    
     "2.9.0-beta-1": {
     "title": "Beta release",
     "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.8.4%20to%202.9.0-beta-1.md\">Click here to get the changelog</a>",
