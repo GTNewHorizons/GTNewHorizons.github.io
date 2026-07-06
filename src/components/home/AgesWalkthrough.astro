@@ -46,7 +46,7 @@ import challengeBeyondStargate from "../../assets/home/ages/challenge_icons/beyo
 
 const { locale = "en" } = Astro.props as { locale: Locale };
 const t = useTranslations(locale);
-const q = t("home.ages.stone.quests");
+const q = t("home.agePanels.quests");
 const ch = t("home.agePanels.challenges");
 ---
 
@@ -60,19 +60,28 @@ const ch = t("home.agePanels.challenges");
 
   <div class="mt-7 overflow-x-auto snap-x snap-mandatory pb-3" id="ages-track" data-active="stone">
     <ul class="flex flex-nowrap items-start w-max md:w-full px-1.5">
-      <AgeBubble age="stone" label={t("home.ages.stone.label")} image={stoneAgeImage} />
-      <AgeBubble age="steam" label={t("home.ages.steam.label")} image={steamAgeImage} />
-      <AgeBubble age="lv" label={t("home.ages.lv.label")} image={lvAgeImage} />
-      <AgeBubble age="mv" label={t("home.ages.mv.label")} image={mvAgeImage} />
-      <AgeBubble age="hv" label={t("home.ages.hv.label")} image={hvAgeImage} />
-      <AgeBubble age="ev" label={t("home.ages.ev.label")} image={evAgeImage} />
-      <AgeBubble age="iv" label={t("home.ages.iv.label")} image={ivAgeImage} />
-      <AgeBubble age="luv" label={t("home.ages.luv.label")} image={luvAgeImage} />
-      <AgeBubble age="beyond" label={t("home.ages.beyond.label")} image={beyondAgeImage} isLast={true} />
+      <AgeBubble age="stone" label={t("home.ages.stone")} image={stoneAgeImage} />
+      <AgeBubble age="steam" label={t("home.ages.steam")} image={steamAgeImage} />
+      <AgeBubble age="lv" label={t("home.ages.lv")} image={lvAgeImage} />
+      <AgeBubble age="mv" label={t("home.ages.mv")} image={mvAgeImage} />
+      <AgeBubble age="hv" label={t("home.ages.hv")} image={hvAgeImage} />
+      <AgeBubble age="ev" label={t("home.ages.ev")} image={evAgeImage} />
+      <AgeBubble age="iv" label={t("home.ages.iv")} image={ivAgeImage} />
+      <AgeBubble age="luv" label={t("home.ages.luv")} image={luvAgeImage} />
+      <AgeBubble age="beyond" label={t("home.ages.beyond")} image={beyondAgeImage} isLast={true} />
     </ul>
   </div>
 
-  <AgePanel id="panel-stone" title={t("home.ages.stone.label")} quests={137} questsLabel={q} challengesLabel={ch} image={screenshotStoneAge} caption="Mountain" author="iLex">
+  <AgePanel
+    id="panel-stone"
+    title={t("home.ages.stone")}
+    quests={137}
+    questsLabel={q}
+    challengesLabel={ch}
+    image={screenshotStoneAge}
+    caption="Mountain"
+    author="iLex"
+  >
     <div slot="lead">
       <p class="text-gray-300 mb-3 text-base sm:text-lg lg:text-xl">
         {t("home.agePanels.stone.lead")}
@@ -83,8 +92,10 @@ const ch = t("home.agePanels.challenges");
         {t("home.agePanels.stone.more")}
       </p>
     </div>
-    <ChallengeCard slot="challenges" imageIcon={challengeStoneExploration} title={t("home.agePanels.stone.exploration.title")}
-      >{t("home.agePanels.stone.exploration.desc")}</ChallengeCard
+    <ChallengeCard
+      slot="challenges"
+      imageIcon={challengeStoneExploration}
+      title={t("home.agePanels.stone.exploration.title")}>{t("home.agePanels.stone.exploration.desc")}</ChallengeCard
     >
     <ChallengeCard slot="challenges" imageIcon={challengeStoneSurvival} title={t("home.agePanels.stone.survival.title")}
       >{t("home.agePanels.stone.survival.desc")}</ChallengeCard
@@ -93,9 +104,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-steam"
-    title={t("home.ages.steam.label")}
+    title={t("home.ages.steam")}
     quests={114}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotSteamAge}
     caption="Steam Engineering"
     author="Li Muli"
@@ -108,19 +120,25 @@ const ch = t("home.agePanels.challenges");
         {t("home.agePanels.steam.more")}
       </p>
     </div>
-    <ChallengeCard slot="challenges" imageIcon={challengeSteamProduction} title={t("home.agePanels.steam.steamProduction.title")}
+    <ChallengeCard
+      slot="challenges"
+      imageIcon={challengeSteamProduction}
+      title={t("home.agePanels.steam.steamProduction.title")}
       >{t("home.agePanels.steam.steamProduction.desc")}</ChallengeCard
     >
-    <ChallengeCard slot="challenges" imageIcon={challengeSteamTinkerWeaponry} title={t("home.agePanels.steam.weapons.title")}
-      >{t("home.agePanels.steam.weapons.desc")}</ChallengeCard
+    <ChallengeCard
+      slot="challenges"
+      imageIcon={challengeSteamTinkerWeaponry}
+      title={t("home.agePanels.steam.weapons.title")}>{t("home.agePanels.steam.weapons.desc")}</ChallengeCard
     >
   </AgePanel>
 
   <AgePanel
     id="panel-lv"
-    title={t("home.ages.lv.label")}
+    title={t("home.ages.lv")}
     quests={155}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotLVAge}
     caption="Logistics Pipes Storage Center"
     author="GeForceX"
@@ -133,10 +151,7 @@ const ch = t("home.agePanels.challenges");
         {t("home.agePanels.lv.more")}
       </p>
     </div>
-    <ChallengeCard
-      slot="challenges"
-      imageIcon={challengeLVEnergyProduction}
-      title={t("home.agePanels.lv.energy.title")}
+    <ChallengeCard slot="challenges" imageIcon={challengeLVEnergyProduction} title={t("home.agePanels.lv.energy.title")}
       >{t("home.agePanels.lv.energy.desc")}</ChallengeCard
     >
     <ChallengeCard slot="challenges" imageIcon={ChallengeLVEBF} title={t("home.agePanels.lv.ebf.title")}
@@ -146,9 +161,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-mv"
-    title={t("home.ages.mv.label")}
+    title={t("home.ages.mv")}
     quests={147}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotMVAge}
     caption="Mid MV Chaotic Base"
     author="Mayk"
@@ -172,9 +188,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-hv"
-    title={t("home.ages.hv.label")}
+    title={t("home.ages.hv")}
     quests={115}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotHVAge}
     caption="Rocket Launch Site"
     author="Ban4iko"
@@ -197,9 +214,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-ev"
-    title={t("home.ages.ev.label")}
+    title={t("home.ages.ev")}
     quests={94}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotEVAge}
     caption="AE2 Basement"
     author="Johny"
@@ -222,9 +240,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-iv"
-    title={t("home.ages.iv.label")}
+    title={t("home.ages.iv")}
     quests={132}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotIVAge}
     caption="Platinum Group Processing"
     author="ImpossibleVT"
@@ -247,9 +266,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-luv"
-    title={t("home.ages.luv.label")}
+    title={t("home.ages.luv")}
     quests={83}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotLUVAge}
     caption="Mid-Late LuV Base"
     author="Rubydragon, gnommis and woofdoggo"
@@ -274,9 +294,10 @@ const ch = t("home.agePanels.challenges");
 
   <AgePanel
     id="panel-beyond"
-    title={t("home.ages.beyond.label")}
+    title={t("home.ages.beyond")}
     quests={291}
-    questsLabel={q} challengesLabel={ch}
+    questsLabel={q}
+    challengesLabel={ch}
     image={screenshotBeyond}
     caption="Light of the New Age"
     author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN"
@@ -289,7 +310,10 @@ const ch = t("home.agePanels.challenges");
         {t("home.agePanels.beyond.more")}
       </p>
     </div>
-    <ChallengeCard slot="challenges" imageIcon={challengeBeyondMM} title={t("home.agePanels.beyond.infrastructure.title")}
+    <ChallengeCard
+      slot="challenges"
+      imageIcon={challengeBeyondMM}
+      title={t("home.agePanels.beyond.infrastructure.title")}
       >{t("home.agePanels.beyond.infrastructure.desc")}</ChallengeCard
     >
     <ChallengeCard
@@ -297,8 +321,7 @@ const ch = t("home.agePanels.challenges");
       imageIcon={challengeBeyondStargate}
       title={t("home.agePanels.beyond.stargate.title")}
       caption="Light of the new Age"
-      author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN"
-      >{t("home.agePanels.beyond.stargate.desc")}</ChallengeCard
+      author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN">{t("home.agePanels.beyond.stargate.desc")}</ChallengeCard
     >
   </AgePanel>
 </section>
@@ -312,14 +335,14 @@ const ch = t("home.agePanels.challenges");
       try {
         var data = JSON.parse(localStorage.getItem(STORAGE_KEY));
         if (data && data.value && Date.now() < data.expires) return data.value;
-      } catch(e) {}
+      } catch (e) {}
       return null;
     }
 
     function saveAge(age) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ value: age, expires: Date.now() + 30 * 60 * 1000 }));
-      } catch(e) {}
+      } catch (e) {}
     }
 
     const track = document.getElementById("ages-track");

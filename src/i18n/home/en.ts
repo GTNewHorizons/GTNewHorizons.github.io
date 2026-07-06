@@ -63,18 +63,19 @@ Most discussions, guides, and spreadsheets are in English, but we also have dedi
   },
 
   ages: {
-    stone: { label: "Stone Age", quests: "quests" },
-    steam: { label: "Steam Age", quests: "quests" },
-    lv: { label: "Low Voltage", quests: "quests" },
-    mv: { label: "Medium Voltage", quests: "quests" },
-    hv: { label: "High Voltage", quests: "quests" },
-    ev: { label: "Extreme Voltage", quests: "quests" },
-    iv: { label: "Insane Voltage", quests: "quests" },
-    luv: { label: "Ludicrous Voltage", quests: "quests" },
-    beyond: { label: "...and beyond!", quests: "quests" },
+    stone: "Stone Age",
+    steam: "Steam Age",
+    lv: "Low Voltage",
+    mv: "Medium Voltage",
+    hv: "High Voltage",
+    ev: "Extreme Voltage",
+    iv: "Insane Voltage",
+    luv: "Ludicrous Voltage",
+    beyond: "...and beyond!",
   },
 
   agePanels: {
+    quests: "quests",
     challenges: "Challenges",
     stone: {
       lead: "Explore the unique GT:NH world generation and survive the early game challenges long enough to progress out of here.",

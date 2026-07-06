@@ -46,18 +46,19 @@ export const home = {
   },
 
   ages: {
-    stone: { label: "石器时代", quests: "个任务" },
-    steam: { label: "蒸汽时代", quests: "任务" },
-    lv: { label: "低压 (LV)", quests: "任务" },
-    mv: { label: "中压 (MV)", quests: "任务" },
-    hv: { label: "高压 (HV)", quests: "任务" },
-    ev: { label: "超高压 (EV)", quests: "任务" },
-    iv: { label: "强导压 (IV)", quests: "任务" },
-    luv: { label: "剧差压 (LuV)", quests: "任务" },
-    beyond: { label: "然后……超越！", quests: "任务" },
+    stone: "石器时代",
+    steam: "蒸汽时代",
+    lv: "低压 (LV)",
+    mv: "中压 (MV)",
+    hv: "高压 (HV)",
+    ev: "超高压 (EV)",
+    iv: "强导压 (IV)",
+    luv: "剧差压 (LuV)",
+    beyond: "然后……超越！",
   },
 
   agePanels: {
+    quests: "个任务",
     challenges: "挑战",
     stone: {
       lead: "探索独特的 GT:NH 世界生成，在早期游戏挑战中生存足够久，直到你有能力进入下一个阶段。",
@@ -97,7 +98,7 @@ export const home = {
     },
     mv: {
       lead: "稍微升级一下你的基地！",
-      more: "在 MV 阶段，你的主要任务包括维持可靠的铝和硅来源，以及将你的电高线圈从白铜升级到坎塔尔合金。 ",
+      more: "在 MV 阶段，你的主要任务包括维持可靠的铝和硅来源，以及将你的电高线圈从白铜升级到坎塔尔合金。",
       silicon: {
         title: "太阳能级硅锭",
         desc: "你将为太阳能级硅锭的生产搭建第一个长期被动生产设施，因为它在整个游戏中被大量使用。",
