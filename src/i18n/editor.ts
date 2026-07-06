@@ -6,12 +6,10 @@ let activeEl: HTMLElement | null = null;
 let hoverKey: string | null = null;
 
 function decodeMeta(encoded: string): string {
-  return encoded.split("\u200D").map(part =>
-    String.fromCharCode(parseInt(
-      part.replace(/\u200B/g, "0").replace(/\u200C/g, "1"),
-      2
-    ))
-  ).join("");
+  return encoded
+    .split("\u200D")
+    .map((part) => String.fromCharCode(parseInt(part.replace(/\u200B/g, "0").replace(/\u200C/g, "1"), 2)))
+    .join("");
 }
 
 export function enableEditing() {
@@ -20,6 +18,7 @@ export function enableEditing() {
   document.addEventListener("mouseover", onHover, false);
   document.addEventListener("mouseout", onHoverOut, false);
   document.addEventListener("click", onClick, false);
+  document.addEventListener("copy", onCopy, true);
 }
 
 export function disableEditing() {
@@ -27,6 +26,7 @@ export function disableEditing() {
   document.removeEventListener("mouseover", onHover, false);
   document.removeEventListener("mouseout", onHoverOut, false);
   document.removeEventListener("click", onClick, false);
+  document.removeEventListener("copy", onCopy, true);
   removePopover();
   removeAllHighlights();
 }
@@ -98,6 +98,18 @@ function onHoverOut(e: Event) {
   }
 }
 
+const ZW_TEST = /[\u200B\u200C\u200D\u2060\uFEFF]/;
+const ZW_CLEAN = /[\u200B\u200C\u200D\u2060\uFEFF]/g;
+
+function onCopy(e: ClipboardEvent) {
+  const selection = window.getSelection();
+  if (!selection || !selection.toString()) return;
+  if (ZW_TEST.test(selection.toString())) {
+    e.preventDefault();
+    e.clipboardData?.setData("text/plain", selection.toString().replace(ZW_CLEAN, ""));
+  }
+}
+
 function onClick(e: Event) {
   const target = e.target as HTMLElement;
   if (target.closest("#i18n-popover")) return;
@@ -125,11 +137,9 @@ function highlightSameKey(locale: string, key: string, exclude: HTMLElement) {
 
 function encodeMeta(locale: string, key: string): string {
   const text = locale + "|" + key;
-  return Array.from(text).map(char =>
-    char.charCodeAt(0).toString(2).padStart(16, "0")
-      .replace(/0/g, "\u200B")
-      .replace(/1/g, "\u200C")
-  ).join("\u200D");
+  return Array.from(text)
+    .map((char) => char.charCodeAt(0).toString(2).padStart(16, "0").replace(/0/g, "\u200B").replace(/1/g, "\u200C"))
+    .join("\u200D");
 }
 
 function showPopover(el: HTMLElement, info: { locale: string; key: string; node: Text; value: string }) {
@@ -242,7 +252,7 @@ export async function toggleCompare(btn: HTMLElement, pageLocale: string) {
 
   let enDict: Record<string, string>;
   try {
-    enDict = await fetch("/__i18n_en_dict__").then(r => r.json());
+    enDict = await fetch("/__i18n_en_dict__").then((r) => r.json());
   } catch {
     btn.style.background = "";
     btn.style.color = "";
