@@ -4,18 +4,19 @@ import LogoNhWhite from "../../assets/logo-nh-white.svg";
 import { Icon } from "astro-icon/components";
 import config from "../../config";
 import LanguagePicker from "../shared/LanguagePicker.astro";
-import { useTranslations, localizePath } from "../../i18n";
+import { useTranslations, useLocalizePath } from "../../i18n";
 import type { Locale } from "../../i18n";
 
 const { locale = "en" } = Astro.props as { locale: Locale };
 const t = useTranslations(locale);
+const p = useLocalizePath(locale);
 ---
 
 <header class="bg-custom-dark text-white border-b border-gray-700">
   <div class="container mx-auto px-3">
     <div class="flex items-center justify-between h-14">
       <!-- Logo -->
-      <a href={localizePath(locale, "/")} class="flex items-center space-x-1.5">
+      <a href={p( "/")} class="flex items-center space-x-1.5">
         <LogoNhWhite class="h-12 w-12 flex-shrink-0" />
         <span class="text-lg font-audiowide">{t("common.brand.short")}</span>
       </a>
@@ -23,13 +24,13 @@ const t = useTranslations(locale);
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center space-x-6">
         <Link
-          href={localizePath(locale, "/downloads")}
+          href={p( "/downloads")}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
         >
           <Icon name="material-symbols:download-rounded" class="w-6 h-6" />
           <span>{t("common.nav.downloads")}</span>
         </Link>
-        <Link href={localizePath(locale, "/faq")} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg"> {t("common.nav.faq")} </Link>
+        <Link href={p( "/faq")} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg"> {t("common.nav.faq")} </Link>
         <Link href={config.wikiUrl} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg" blank>
           {t("common.nav.wiki")}
         </Link>
@@ -70,14 +71,14 @@ const t = useTranslations(locale);
     <nav id="mobile-menu" class="md:hidden py-3 border-t border-gray-700 hidden">
       <div class="flex flex-col space-y-2">
         <Link
-          href={localizePath(locale, "/downloads")}
+          href={p( "/downloads")}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
         >
           <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
           {t("common.nav.downloads")}
         </Link>
         <Link
-          href={localizePath(locale, "/faq")}
+          href={p( "/faq")}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link"
         >
           {t("common.nav.faq")}

@@ -6,7 +6,7 @@ import FeatureTabs from "../../components/home/FeatureTabs.astro";
 import Carousel from "../../components/home/Carousel.astro";
 import CallToAction from "../../components/home/CallToAction.astro";
 import AgesWalkthrough from "../../components/home/AgesWalkthrough.astro";
-import { useTranslations, locales, localizePath } from "../../i18n";
+import { useTranslations, locales, useLocalizePath } from "../../i18n";
 import type { Locale } from "../../i18n";
 
 export async function getStaticPaths() {
@@ -15,6 +15,7 @@ export async function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
+const p = useLocalizePath(locale);
 ---
 
 <BaseLayout locale={locale} title={t("home.welcome")}>
@@ -30,7 +31,7 @@ const t = useTranslations(locale);
             {t("home.subtitle")}
           </p>
           <a
-            href={localizePath(locale, "/downloads")}
+            href={p("/downloads")}
             class="inline-flex gap-1.5 items-center bg-[#557dde] hover:bg-[#558ede] text-white px-3 py-1.5 rounded-xl text-lg sm:text-xl transition-colors duration-200"
           >
             <Icon name="material-symbols:download-rounded" width={36} height={36} />

@@ -55,6 +55,10 @@ export function localizePath(locale: Locale, path: string): string {
   return `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
+export function useLocalizePath(locale: Locale) {
+  return (path: string) => localizePath(locale, path);
+}
+
 export function useTranslations(locale: Locale) {
   return (key: string, params?: Record<string, string>): string => t(locale, key, params);
 }

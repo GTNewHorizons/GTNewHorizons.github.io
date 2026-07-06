@@ -2,28 +2,29 @@
 import Link from "../shared/Link.astro";
 import LogoNhWhite from "../../assets/logo-nh-white.svg";
 import config from "../../config";
-import { useTranslations, localizePath } from "../../i18n";
+import { useTranslations, useLocalizePath } from "../../i18n";
 import type { Locale } from "../../i18n";
 
 const { locale = "en" } = Astro.props as { locale: Locale };
 const t = useTranslations(locale);
+const p = useLocalizePath(locale);
 
 // Footer sections data
 const footerSections = [
   {
     title: t("common.footer.downloads"),
     links: [
-      { name: t("common.footer.downloadsPage"), href: localizePath(locale, "/downloads") },
+      { name: t("common.footer.downloadsPage"), href: p( "/downloads") },
       { name: t("common.footer.technic"), href: config.technicUrl, external: true },
       { name: t("common.footer.curseforge"), href: config.curseforgeUrl, external: true },
-      { name: t("common.footer.versionHistory"), href: localizePath(locale, "/version-history") },
+      { name: t("common.footer.versionHistory"), href: p( "/version-history") },
     ],
   },
   {
     title: t("common.footer.resources"),
     links: [
       { name: t("common.footer.wiki"), href: config.wikiUrl, external: true },
-      { name: t("common.footer.faq"), href: localizePath(locale, "/faq") },
+      { name: t("common.footer.faq"), href: p( "/faq") },
     ],
   },
   {

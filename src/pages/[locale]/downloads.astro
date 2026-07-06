@@ -11,7 +11,7 @@ import prismImage from "../../assets/downloads/prism.png";
 import serverImage from "../../assets/downloads/server.png";
 import config from "../../config";
 import versions from "../../../public/versions.json";
-import { useTranslations, locales, localizePath } from "../../i18n";
+import { useTranslations, locales, useLocalizePath } from "../../i18n";
 import type { Locale } from "../../i18n";
 
 export async function getStaticPaths() {
@@ -20,6 +20,7 @@ export async function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
+const p = useLocalizePath(locale);
 const latestVersion = versions[config.latestVersion as keyof typeof versions];
 ---
 
@@ -54,7 +55,7 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
           },
           {
             label: t("downloads.versionHistory"),
-            href: localizePath(locale, "/version-history"),
+            href: p("/version-history"),
             icon: "mdi:open-in-new",
           },
         ]}
@@ -92,7 +93,7 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
           },
           {
             label: t("downloads.versionHistory"),
-            href: localizePath(locale, "/version-history"),
+            href: p("/version-history"),
             icon: "mdi:open-in-new",
           },
         ]}
@@ -123,7 +124,7 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
           },
           {
             label: t("downloads.versionHistory"),
-            href: localizePath(locale, "/version-history"),
+            href: p("/version-history"),
             icon: "mdi:open-in-new",
           },
         ]}
