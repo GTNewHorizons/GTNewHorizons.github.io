@@ -1,5 +1,9 @@
 export const common = {
   _langName: "English",
+  brand: {
+    full: "GregTech: New Horizons",
+    short: "New Horizons",
+  },
   nav: {
     downloads: "Downloads",
     faq: "FAQ",
@@ -23,6 +27,11 @@ export const common = {
     poweredBy: "Powered by {generator}",
     openSource: "Open source,",
     forkMe: "fork me!",
+  },
+  "404": {
+    title: "Page not found",
+    description: "The page you're looking for doesn't exist or has been moved.",
+    goHome: "Go to Home",
   },
   banner: {
     viewingIn: "You're viewing in {current}.",

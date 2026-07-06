@@ -4,9 +4,6 @@ import { Icon } from "astro-icon/components";
 import { useTranslations, locales } from "../../i18n";
 import type { Locale } from "../../i18n";
 import { faq as faqEn } from "../../i18n/faq/en";
-import { faq as faqZhCN } from "../../i18n/faq/zh-CN";
-
-const faqDict: Record<string, { items: { q: string; a: string }[] }> = { en: faqEn, "zh-CN": faqZhCN };
 
 export async function getStaticPaths() {
   return locales.map(locale => ({ params: { locale } }));
@@ -14,7 +11,10 @@ export async function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
-const faqItems = faqDict[locale]?.items ?? faqEn.items;
+const faqItems = faqEn.items.map((_, i) => ({
+  q: t(`faq.items.${i}.q`),
+  a: t(`faq.items.${i}.a`),
+}));
 ---
 
 <BaseLayout locale={locale} title={t("faq.title")}>

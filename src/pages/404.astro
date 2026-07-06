@@ -1,0 +1,65 @@
+---
+import "@fontsource/audiowide";
+import "@fontsource-variable/space-grotesk";
+import "../styles/global.css";
+import { locales, t } from "../i18n";
+const localeList = locales;
+const defaultLocale = locales[0];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - GregTech: New Horizons</title>
+  </head>
+  <body class="font-space-grotesk bg-custom-dark text-[#ededec] flex items-center justify-center min-h-screen m-0">
+    <div class="text-center px-6 max-w-lg">
+      <h1 class="font-audiowide text-8xl sm:text-9xl text-custom-blue mb-2">404</h1>
+      <div class="w-16 h-0.5 bg-gray-600 mx-auto mb-6"></div>
+      <p id="i18n-404-title" class="text-xl sm:text-2xl text-gray-300 mb-2">{t(defaultLocale, "common.404.title")}</p>
+      <p id="i18n-404-desc" class="text-gray-500 mb-8">{t(defaultLocale, "common.404.description")}</p>
+      <a
+        id="i18n-404-link"
+        href="/"
+        class="inline-flex items-center gap-2 bg-[#557dde] hover:bg-[#558ede] text-white px-5 py-2.5 rounded-xl text-lg transition-colors duration-200 no-underline"
+      >
+        {t(defaultLocale, "common.404.goHome")}
+      </a>
+    </div>
+
+    <script is:inline define:vars={{ localeList, defaultLocale }}>
+      (function() {
+        var texts = {"en":{"title":"Page not found","desc":"The page you're looking for doesn't exist or has been moved.","goHome":"Go to Home"},"zh-CN":{"title":"页面未找到","desc":"你访问的页面不存在或已被移动。","goHome":"返回首页"}};
+
+        var first = window.location.pathname.split("/")[1] || "";
+        var locale = defaultLocale;
+        for (var i = 0; i < localeList.length; i++) {
+          if (localeList[i] === first) { locale = first; break; }
+        }
+
+        // No locale prefix → redirect
+        if (locale === first && first !== "") {
+          var t = texts[locale];
+          if (t) {
+            document.getElementById("i18n-404-title").textContent = t.title;
+            document.getElementById("i18n-404-desc").textContent = t.desc;
+            document.getElementById("i18n-404-link").textContent = t.goHome;
+          }
+        } else {
+          var lang = navigator.language || navigator.languages?.[0] || defaultLocale;
+          var target = "/" + defaultLocale + "/";
+          for (i = 0; i < localeList.length; i++) {
+            var code = localeList[i];
+            if (lang === code || lang.indexOf(code + "-") === 0 || lang.indexOf(code + "_") === 0) {
+              target = "/" + code + "/";
+              break;
+            }
+          }
+          window.location.replace(target.replace(/\/$/, "") + window.location.pathname);
+        }
+      })();
+    </script>
+  </body>
+</html>

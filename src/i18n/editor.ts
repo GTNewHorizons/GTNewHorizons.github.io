@@ -2,6 +2,9 @@ const SAVE_URL = "/__i18n_save__";
 
 const MARK = "\u2060";
 
+let activeEl: HTMLElement | null = null;
+let hoverKey: string | null = null;
+
 function decodeMeta(encoded: string): string {
   return encoded.split("\u200D").map(part =>
     String.fromCharCode(parseInt(
@@ -10,8 +13,6 @@ function decodeMeta(encoded: string): string {
     ))
   ).join("");
 }
-
-let activeEl: HTMLElement | null = null;
 
 export function enableEditing() {
   if (document.querySelector("#i18n-editor-styles")) return;
@@ -27,7 +28,7 @@ export function disableEditing() {
   document.removeEventListener("mouseout", onHoverOut, false);
   document.removeEventListener("click", onClick, false);
   removePopover();
-  removeHighlights();
+  removeAllHighlights();
 }
 
 function injectStyles() {
@@ -36,6 +37,7 @@ function injectStyles() {
   style.textContent = `
     .i18n-edit-ready { outline: 1px dashed #7c9de4 !important; cursor: pointer !important; }
     .i18n-edit-ready:hover { outline: 2px solid #7c9de4 !important; background: rgba(124,157,228,0.08) !important; }
+    .i18n-same-key { outline: 2px solid #eab308 !important; background: rgba(234,179,8,0.08) !important; }
     #i18n-popover { position: fixed; z-index: 99999; background: #1a1f26; border: 1px solid #394354; border-radius: 8px; padding: 12px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); font-family: system-ui, sans-serif; font-size: 14px; min-width: 420px; max-width: 640px; width: min(90vw, 640px); color: #e2e8f0; }
     #i18n-popover label { display: block; font-size: 12px; color: #94a3b8; margin-bottom: 2px; }
     #i18n-popover .key { font-family: monospace; font-size: 12px; color: #7c9de4; margin-bottom: 8px; word-break: break-all; }
@@ -77,8 +79,13 @@ function onHover(e: Event) {
   const target = e.target as HTMLElement;
   if (target.closest("#i18n-popover")) return;
   const info = findI18nNode(target);
+  removeAllHighlights();
   if (info) {
     target.classList.add("i18n-edit-ready");
+    hoverKey = info.key;
+    highlightSameKey(info.locale, info.key, target);
+  } else {
+    hoverKey = null;
   }
 }
 
@@ -86,6 +93,8 @@ function onHoverOut(e: Event) {
   const target = e.target as HTMLElement;
   if (!target.closest("#i18n-popover")) {
     target.classList.remove("i18n-edit-ready");
+    removeSameKeyHighlights();
+    hoverKey = null;
   }
 }
 
@@ -98,6 +107,29 @@ function onClick(e: Event) {
     e.stopPropagation();
     showPopover(target, info);
   }
+}
+
+function highlightSameKey(locale: string, key: string, exclude: HTMLElement) {
+  const marker = MARK + encodeMeta(locale, key) + MARK;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+  while (walker.nextNode()) {
+    const text = walker.currentNode as Text;
+    if (text.textContent?.includes(marker)) {
+      const parent = text.parentElement;
+      if (parent && parent !== exclude) {
+        parent.classList.add("i18n-same-key");
+      }
+    }
+  }
+}
+
+function encodeMeta(locale: string, key: string): string {
+  const text = locale + "|" + key;
+  return Array.from(text).map(char =>
+    char.charCodeAt(0).toString(2).padStart(16, "0")
+      .replace(/0/g, "\u200B")
+      .replace(/1/g, "\u200C")
+  ).join("\u200D");
 }
 
 function showPopover(el: HTMLElement, info: { locale: string; key: string; node: Text; value: string }) {
@@ -170,9 +202,16 @@ function removePopover() {
   activeEl = null;
 }
 
-function removeHighlights() {
+function removeAllHighlights() {
+  removeSameKeyHighlights();
   for (const el of document.querySelectorAll(".i18n-edit-ready")) {
     el.classList.remove("i18n-edit-ready");
+  }
+}
+
+function removeSameKeyHighlights() {
+  for (const el of document.querySelectorAll(".i18n-same-key")) {
+    el.classList.remove("i18n-same-key");
   }
 }
 

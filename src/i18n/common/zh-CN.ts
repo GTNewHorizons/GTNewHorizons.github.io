@@ -1,15 +1,19 @@
 export const common = {
   _langName: "中文",
+  brand: {
+    full: "格雷科技：新视野",
+    short: "新视野",
+  },
   nav: {
     downloads: "下载",
     faq: "常见问题",
-    wiki: "Wiki",
+    wiki: "维基",
     github: "GitHub",
     discord: "Discord",
   },
   footer: {
     downloads: "下载",
-    downloadsPage: "下载页面",
+    downloadsPage: "下载页",
     technic: "Technic",
     curseforge: "CurseForge",
     versionHistory: "版本历史",
@@ -19,10 +23,15 @@ export const common = {
     community: "社区",
     discordServer: "Discord 服务器",
     github: "GitHub",
-    bugReports: "Bug 反馈",
+    bugReports: "Bug 报告",
     poweredBy: "由 {generator} 驱动",
     openSource: "开源项目，",
     forkMe: "可分叉！",
+  },
+  "404": {
+    title: "页面未找到",
+    description: "你访问的页面不存在或已被移动。",
+    goHome: "返回首页",
   },
   banner: {
     viewingIn: "你正在浏览{current}版。",
