@@ -108,6 +108,40 @@ export default function i18nDevPlugin(): Plugin {
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(dict));
       });
+
+      s.middlewares.use("/__i18n_raw__", async (req, res) => {
+        if (req.method !== "GET") {
+          res.statusCode = 405;
+          return res.end("Method not allowed");
+        }
+        const url = new URL(req.url || "", "http://localhost");
+        const locale = url.searchParams.get("locale");
+        const key = url.searchParams.get("key");
+        if (!locale || !key) {
+          res.statusCode = 400;
+          return res.end("Missing locale or key");
+        }
+        const [modName] = key.split(".");
+        const filePath = join(process.cwd(), "src/i18n", modName, `${locale}.ts`);
+        try {
+          const mod = await s.ssrLoadModule(filePath);
+          const segs = key.split(".");
+          let val: unknown = mod;
+          for (const seg of segs) {
+            if (typeof val !== "object" || val === null) { val = undefined; break; }
+            val = (val as Record<string, unknown>)[seg];
+          }
+          if (typeof val !== "string") {
+            res.statusCode = 404;
+            return res.end("Key not found");
+          }
+          res.setHeader("Content-Type", "text/plain; charset=utf-8");
+          res.end(val);
+        } catch (e) {
+          res.statusCode = 500;
+          res.end(String(e));
+        }
+      });
     },
   };
 }

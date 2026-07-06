@@ -153,8 +153,7 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
   popover.id = "i18n-popover";
   popover.innerHTML = `
     <div class="key">${info.locale} | ${info.key}</div>
-    <label for="i18n-input">Value</label>
-    <textarea id="i18n-input" rows="6">${escapeHtml(info.value)}</textarea>
+    <textarea id="i18n-input" rows="6">loading...</textarea>
     <div class="hint">${isCompare ? "Compare mode — turn off EN to edit" : "Enter to save · Shift+Enter newline · Esc cancel"}</div>
     <div class="actions">
       <button class="btn-cancel" id="i18n-cancel">Cancel</button>
@@ -164,6 +163,13 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
   `;
 
   document.body.appendChild(popover);
+
+  const textarea = popover.querySelector("#i18n-input") as HTMLTextAreaElement;
+
+  fetch("/__i18n_raw__?locale=" + encodeURIComponent(info.locale) + "&key=" + encodeURIComponent(info.key))
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(raw => { textarea.value = raw; textarea.focus(); textarea.select(); })
+    .catch(() => { textarea.value = info.value; textarea.focus(); textarea.select(); });
 
   const pw = popover.offsetWidth;
   const ph = popover.offsetHeight;
@@ -175,10 +181,6 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
   if (top < 8) top = 8;
   popover.style.left = left + "px";
   popover.style.top = top + "px";
-
-  const textarea = popover.querySelector("#i18n-input") as HTMLTextAreaElement;
-  textarea.focus();
-  textarea.select();
 
   popover.querySelector("#i18n-cancel")?.addEventListener("click", removePopover);
   const saveBtn = popover.querySelector("#i18n-save");
