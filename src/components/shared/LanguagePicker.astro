@@ -1,31 +1,64 @@
 ---
-import { locales, getLocaleLabel, localizePath } from "../../i18n";
+import { locales, getLocaleLabel } from "../../i18n";
 import type { Locale } from "../../i18n";
 
 const { locale = locales[0] } = Astro.props as { locale: Locale };
 ---
 
 <div class="relative inline-block">
-  <select
-    id="lang-picker"
-    class="appearance-none bg-transparent text-gray-300 hover:text-white cursor-pointer text-base pr-4 focus:outline-none"
-    aria-label="Switch language"
-  >
-    {locales.map((l) => (
-      <option value={l} selected={l === locale}>{getLocaleLabel(l)}</option>
-    ))}
-  </select>
-  <span class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-gray-400">
-    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+  <button type="button" id="lang-btn" class="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors duration-200 text-base cursor-pointer bg-transparent border-0 p-0 font-space-grotesk">
+    {getLocaleLabel(locale)}
+    <svg class="w-3 h-3 mt-0.5 text-gray-400 transition-transform duration-200" id="lang-chevron" fill="currentColor" viewBox="0 0 20 20">
       <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
     </svg>
-  </span>
+  </button>
+
+  <div id="lang-menu" class="absolute right-0 mt-2 min-w-[140px] bg-[#1a1f26] border border-gray-700 rounded-xl shadow-lg py-1 hidden z-[1002]">
+    {locales.map((l) => (
+      <button
+        type="button"
+        class="lang-option w-full text-left px-4 py-2 text-sm transition-colors duration-150 font-space-grotesk cursor-pointer border-0"
+        class:list={[l === locale ? "text-white bg-[#2a3342]" : "text-gray-400 hover:text-white hover:bg-[#2a3342]"]}
+        data-locale={l}
+      >
+        {getLocaleLabel(l)}
+      </button>
+    ))}
+  </div>
 </div>
 
 <script>
-  document.getElementById("lang-picker")?.addEventListener("change", function() {
-    const targetLocale = this.value;
-    const newPath = window.location.pathname.replace(/^\/[^\/]+/, "/" + targetLocale);
-    window.location.href = newPath + window.location.search + window.location.hash;
-  });
+  (function() {
+    const btn = document.getElementById("lang-btn");
+    const menu = document.getElementById("lang-menu");
+    const chevron = document.getElementById("lang-chevron");
+    if (!btn || !menu) return;
+
+    function close() {
+      menu.classList.add("hidden");
+      if (chevron) chevron.style.transform = "";
+    }
+
+    btn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      const isOpen = !menu.classList.contains("hidden");
+      close();
+      if (!isOpen) {
+        menu.classList.remove("hidden");
+        if (chevron) chevron.style.transform = "rotate(180deg)";
+      }
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!menu.contains(e.target as Node) && e.target !== btn) close();
+    });
+
+    menu.querySelectorAll(".lang-option").forEach(function(opt) {
+      opt.addEventListener("click", function() {
+        const targetLocale = this.dataset.locale;
+        const newPath = window.location.pathname.replace(/^\/[^\/]+/, "/" + targetLocale);
+        window.location.href = newPath + window.location.search + window.location.hash;
+      });
+    });
+  })();
 </script>
