@@ -1,5 +1,5 @@
 export const common = {
-  _langName: "简体中文",
+  langName: "简体中文",
   brand: {
     full: "格雷科技：新视野",
     short: "新视野",

@@ -1,5 +1,5 @@
 export const common = {
-  _langName: "English",
+  langName: "English",
   brand: {
     full: "GregTech: New Horizons",
     short: "New Horizons",

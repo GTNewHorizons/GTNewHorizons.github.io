@@ -10,36 +10,18 @@ for (const [path, mod] of Object.entries(modules)) {
 }
 
 const allLocales = Object.keys(modules)
-  .map(path => path.replace(/^.*\//, "").replace(/\.ts$/, ""))
+  .map((path) => path.replace(/^.*\//, "").replace(/\.ts$/, ""))
   .filter((v, i, a) => a.indexOf(v) === i)
   .sort();
 
 export const locales = allLocales;
 export type Locale = (typeof locales)[number];
 
-export function t(locale: Locale, key: string, params?: Record<string, string>): string {
-  let value = dict[locale]?.[key];
-  if (value === undefined) {
-    value = dict[locales[0]]?.[key] ?? key;
-  }
-  if (params) {
-    for (const [k, v] of Object.entries(params)) {
-      value = value.replace(`{${k}}`, v);
-    }
-  }
-  if (import.meta.env.DEV) {
-    return `\u2060${encodeMeta(locale, key)}\u2060${value}`;
-  }
-  return value;
-}
-
 function encodeMeta(locale: string, key: string): string {
   const text = `${locale}|${key}`;
-  return Array.from(text).map(char =>
-    char.charCodeAt(0).toString(2).padStart(16, "0")
-      .replace(/0/g, "\u200B")
-      .replace(/1/g, "\u200C")
-  ).join("\u200D");
+  return Array.from(text)
+    .map((char) => char.charCodeAt(0).toString(2).padStart(16, "0").replace(/0/g, "\u200B").replace(/1/g, "\u200C"))
+    .join("\u200D");
 }
 
 export function getLangFromUrl(url: URL): Locale {
@@ -48,17 +30,27 @@ export function getLangFromUrl(url: URL): Locale {
 }
 
 export function getLocaleLabel(locale: Locale): string {
-  return t(locale, "common._langName") || locale;
-}
-
-export function localizePath(locale: Locale, path: string): string {
-  return `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
+  return useTranslations(locale)("common.langName") || locale;
 }
 
 export function useLocalizePath(locale: Locale) {
-  return (path: string) => localizePath(locale, path);
+  return (path: string) => `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 export function useTranslations(locale: Locale) {
-  return (key: string, params?: Record<string, string>): string => t(locale, key, params);
+  return (key: string, params?: Record<string, string>): string => {
+    let value = dict[locale]?.[key];
+    if (value === undefined) {
+      value = dict[locales[0]]?.[key] ?? key;
+    }
+    if (params) {
+      for (const [k, v] of Object.entries(params)) {
+        value = value.replace(`{${k}}`, v);
+      }
+    }
+    if (import.meta.env.DEV) {
+      return `\u2060${encodeMeta(locale, key)}\u2060${value}`;
+    }
+    return value;
+  };
 }
