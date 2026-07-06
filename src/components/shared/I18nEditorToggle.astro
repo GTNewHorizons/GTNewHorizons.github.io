@@ -1,14 +1,29 @@
-<button id="i18n-toggle" class="fixed bottom-20 right-8 z-[1001] w-12 h-12 rounded-full bg-[#2a3342] border border-[#394354] text-[#7c9de4] cursor-pointer flex items-center justify-center shadow-lg hover:bg-[#364259] transition-colors text-sm leading-none" title="Toggle i18n editor" aria-label="Toggle i18n editor">
-  ✎
-</button>
+<div class="fixed bottom-20 right-8 z-[1001] flex flex-col gap-2">
+  <button id="i18n-toggle" class="w-12 h-12 rounded-full bg-[#2a3342] border border-[#394354] text-[#7c9de4] cursor-pointer flex items-center justify-center shadow-lg hover:bg-[#364259] transition-colors text-sm leading-none" title="Toggle i18n editor" aria-label="Toggle i18n editor">
+    ✎
+  </button>
+  <button id="i18n-compare" class="w-12 h-12 rounded-full bg-[#2a3342] border border-[#394354] text-[#7c9de4] cursor-pointer flex items-center justify-center shadow-lg hover:bg-[#364259] transition-colors text-xs leading-tight font-semibold opacity-30" title="Compare with English" aria-label="Compare with English">
+    EN
+  </button>
+</div>
 
 <script>
   (function() {
     const btn = document.getElementById("i18n-toggle");
-    if (!btn) return;
+    const cmp = document.getElementById("i18n-compare");
+    if (!btn || !cmp) return;
 
     const url = new URL(location.href);
     let active = url.searchParams.has("edit_i18n");
+    let compareOn = false;
+
+    // Determine if page is already English
+    const pageLocale = url.pathname.split("/")[1] || "en";
+    var isEnglish = pageLocale === "en" || pageLocale === "";
+    if (isEnglish) {
+      cmp.style.opacity = "0.15";
+      cmp.style.cursor = "default";
+    }
 
     if (active) {
       btn.style.background = "#557dde";
@@ -32,7 +47,20 @@
         btn.style.color = "";
         const mod = await import("../../i18n/editor.ts");
         mod.disableEditing();
+        if (compareOn) {
+          compareOn = false;
+          cmp.style.background = "";
+          cmp.style.color = "";
+          mod.toggleCompare(cmp, pageLocale);
+        }
       }
+    });
+
+    cmp.addEventListener("click", async () => {
+      if (isEnglish) return;
+      const mod = await import("../../i18n/editor.ts");
+      compareOn = !compareOn;
+      mod.toggleCompare(cmp, pageLocale);
     });
 
     async function loadEditor() {

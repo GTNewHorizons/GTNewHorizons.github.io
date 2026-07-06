@@ -136,6 +136,8 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
   activeEl = el;
   removePopover();
 
+  const isCompare = info.locale === "en" && compareTexts !== null;
+
   const rect = el.getBoundingClientRect();
   const popover = document.createElement("div");
   popover.id = "i18n-popover";
@@ -143,10 +145,10 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
     <div class="key">${info.locale} | ${info.key}</div>
     <label for="i18n-input">Value</label>
     <textarea id="i18n-input" rows="6">${escapeHtml(info.value)}</textarea>
-    <div class="hint">Enter to save · Shift+Enter newline · Esc cancel</div>
+    <div class="hint">${isCompare ? "Compare mode — turn off EN to edit" : "Enter to save · Shift+Enter newline · Esc cancel"}</div>
     <div class="actions">
       <button class="btn-cancel" id="i18n-cancel">Cancel</button>
-      <button class="btn-save" id="i18n-save">Save</button>
+      ${isCompare ? "" : '<button class="btn-save" id="i18n-save">Save</button>'}
     </div>
     <div class="status" id="i18n-status"></div>
   `;
@@ -169,11 +171,12 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
   textarea.select();
 
   popover.querySelector("#i18n-cancel")?.addEventListener("click", removePopover);
-  popover.querySelector("#i18n-save")?.addEventListener("click", () => doSave(info, textarea.value));
+  const saveBtn = popover.querySelector("#i18n-save");
+  if (saveBtn) saveBtn.addEventListener("click", () => doSave(info, textarea.value));
   textarea.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey && !e.metaKey) {
       e.preventDefault();
-      doSave(info, textarea.value);
+      if (saveBtn) doSave(info, textarea.value);
     }
     if (e.key === "Escape") removePopover();
   });
@@ -217,4 +220,70 @@ function removeSameKeyHighlights() {
 
 function escapeHtml(s: string) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+type TextRecord = { text: Text; original: string; english: string };
+let compareTexts: TextRecord[] | null = null;
+
+export async function toggleCompare(btn: HTMLElement, pageLocale: string) {
+  if (compareTexts) {
+    // Restore originals
+    for (const t of compareTexts) {
+      t.text.textContent = t.original;
+    }
+    compareTexts = null;
+    btn.style.background = "";
+    btn.style.color = "";
+    return;
+  }
+
+  btn.style.background = "#557dde";
+  btn.style.color = "white";
+
+  let enDict: Record<string, string>;
+  try {
+    enDict = await fetch("/__i18n_en_dict__").then(r => r.json());
+  } catch {
+    btn.style.background = "";
+    btn.style.color = "";
+    return;
+  }
+
+  const records: TextRecord[] = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+  while (walker.nextNode()) {
+    const text = walker.currentNode as Text;
+    const content = text.textContent || "";
+    const start = content.indexOf(MARK);
+    if (start === -1) continue;
+    const end = content.indexOf(MARK, start + 1);
+    if (end === -1) continue;
+    const decoded = decodeMeta(content.slice(start + 1, end));
+    const bar = decoded.indexOf("|");
+    if (bar === -1) continue;
+    const locale = decoded.slice(0, bar);
+    if (locale === "en") continue;
+    const key = decoded.slice(bar + 1);
+    const enValue = enDict[key];
+    if (enValue === undefined) continue;
+
+    const before = content.slice(0, start);
+    const after = content.slice(end + 1);
+    if (after.trim() === enValue.trim()) continue;
+    records.push({ text, original: content, english: before + MARK + encodeMeta("en", key) + MARK + enValue });
+  }
+
+  if (records.length === 0) {
+    btn.style.background = "";
+    btn.style.color = "";
+    return;
+  }
+
+  compareTexts = records;
+  for (const r of records) {
+    r.text.textContent = r.english;
+  }
+
+  // Keep the English dict cached in case user saves
+  (window as any).__i18n_en_dict = enDict;
 }
