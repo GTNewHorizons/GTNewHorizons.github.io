@@ -1,6 +1,6 @@
 export const downloads = {
   title: "下载格雷科技：新视野",
-  subtitle: "支持多种平台和启动器。请在下方选择你喜欢的分发渠道 ",
+  subtitle: "支持多种平台和启动器。请在下方选择你喜欢的分发渠道",
   directZip: "直接下载压缩包",
   launcherDownloads: "启动器下载",
   prismZips: "Prism 包",
