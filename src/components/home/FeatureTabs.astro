@@ -95,6 +95,23 @@ const tabs = [
 
 <script is:inline>
   (function () {
+    var STORAGE_KEY = "gtnh:featureTab";
+    var DEFAULT_TAB = "techAdventure";
+
+    function loadSaved() {
+      try {
+        var data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (data && data.value && Date.now() < data.expires) return data.value;
+      } catch(e) {}
+      return null;
+    }
+
+    function saveTab(id) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ value: id, expires: Date.now() + 30 * 60 * 1000 }));
+      } catch(e) {}
+    }
+
     // Desktop: simple CSS-only hidden panels toggled via data-state classes on buttons
     const desktopButtons = document.querySelectorAll("#tab-buttons-desktop .tab-btn");
     const desktopPanels = document.querySelectorAll("#tab-content-desktop .tab-content");
@@ -116,10 +133,13 @@ const tabs = [
     }
 
     desktopButtons.forEach((btn) => {
-      btn.addEventListener("click", () => activateDesktop(btn.dataset.tab));
+      btn.addEventListener("click", function () {
+        activateDesktop(this.dataset.tab);
+        saveTab(this.dataset.tab);
+      });
     });
-    // default selection for desktop
-    activateDesktop("techAdventure");
+    // default selection for desktop (saved or default)
+    activateDesktop(loadSaved() || DEFAULT_TAB);
 
     // Mobile: ensure only one <details> is open at a time and sync button selected styles
     const mobileDetails = document.querySelectorAll("#tab-disclosures-mobile details");

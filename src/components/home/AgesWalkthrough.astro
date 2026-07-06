@@ -305,6 +305,23 @@ const ch = t("home.agePanels.challenges");
 
 <script is:inline>
   (function () {
+    var STORAGE_KEY = "gtnh:ageTab";
+    var DEFAULT_AGE = "stone";
+
+    function loadSaved() {
+      try {
+        var data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (data && data.value && Date.now() < data.expires) return data.value;
+      } catch(e) {}
+      return null;
+    }
+
+    function saveAge(age) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ value: age, expires: Date.now() + 30 * 60 * 1000 }));
+      } catch(e) {}
+    }
+
     const track = document.getElementById("ages-track");
     const ageItems = Array.from(document.querySelectorAll(".age-item"));
     const panels = {
@@ -350,12 +367,15 @@ const ch = t("home.agePanels.challenges");
       ageItems.forEach((item) => {
         const button = item.querySelector(".age-bubble");
         if (button) {
-          button.addEventListener("click", () => setActive(item.dataset.age));
+          button.addEventListener("click", function () {
+            setActive(this.closest(".age-item").dataset.age);
+            saveAge(this.closest(".age-item").dataset.age);
+          });
         }
       });
 
-      // Set initial active state
-      setActive(track.dataset.active || "stone");
+      // Set initial active state (saved or default)
+      setActive(loadSaved() || track.dataset.active || DEFAULT_AGE);
     }
 
     if (document.readyState === "loading") {
