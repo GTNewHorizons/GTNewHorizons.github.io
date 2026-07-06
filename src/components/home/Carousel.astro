@@ -2,6 +2,11 @@
 import CarouselItem from "./CarouselItem.astro";
 import { Picture } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import { useTranslations } from "../../i18n";
+import type { Locale } from "../../i18n";
+
+const { locale = "en" as Locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
 
 import image1 from "../../assets/home/carousel/1.png";
 import image2 from "../../assets/home/carousel/2.png";
@@ -22,7 +27,7 @@ const SLIDESHOW_SPEED = 5000;
   <div class="carousel-container relative overflow-hidden rounded-lg">
     <!-- Carousel Images -->
     <div class="carousel-track flex transition-transform duration-500 ease-in-out" id="carousel-track">
-      <CarouselItem title="Mountain" author="iLex">
+      <CarouselItem title={t("common.media.mountain")} author="iLex">
         <Picture
           src={image1}
           alt=""
@@ -35,7 +40,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="Steam Engineering" author="Li Muli">
+      <CarouselItem title={t("common.media.steamEngineering")} author="Li Muli">
         <Picture
           src={image2}
           alt=""
@@ -47,7 +52,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="Rocket Museum" author="Audacter">
+      <CarouselItem title={t("common.media.rocketMuseum")} author="Audacter">
         <Picture
           src={image3}
           alt=""
@@ -59,7 +64,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="GoodVibes™ Stargate Base" author="Salsa, MimiKe and duck">
+      <CarouselItem title={t("common.media.goodVibesStargate")} author="Salsa, MimiKe and duck">
         <Picture
           src={image4}
           alt=""
@@ -71,7 +76,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="Light of the New Age" author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN">
+      <CarouselItem title={t("common.media.lightOfTheNewAge")} author="Semetix, Bl1nkle, Tbone, lui993 and P_A_JN">
         <Picture
           src={image5}
           alt=""
@@ -83,7 +88,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="Indescribable Tentacle" author="Suber">
+      <CarouselItem title={t("common.media.indescribableTentacle")} author="Suber">
         <Picture
           src={image6}
           alt=""
@@ -95,7 +100,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="ZPM Base" author="Flaxo">
+      <CarouselItem title={t("common.media.zpmBase")} author="Flaxo">
         <Picture
           src={image7}
           alt=""
@@ -107,7 +112,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="Forge Of The Gods" author="Qian Jia">
+      <CarouselItem title={t("common.media.forgeOfTheGods")} author="Qian Jia">
         <Picture
           src={image8}
           alt=""
@@ -119,7 +124,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="Stargate" author="Repeating Cat">
+      <CarouselItem title={t("common.media.stargate")} author="Repeating Cat">
         <Picture
           src={image9}
           alt=""
@@ -131,7 +136,7 @@ const SLIDESHOW_SPEED = 5000;
           class="w-full h-full object-cover"
         />
       </CarouselItem>
-      <CarouselItem title="World's fastest Stargate run: 22 days, 16 hours and 45 minutes" author="Ducked, AverageGregTechPlayer, Soycake, VorTex, LazyFlesh, lhaxq, kyouki, Elephant, Pxx500, Dymorius, Nick, Adam and Lord Peverell">
+      <CarouselItem title={t("common.media.fastestStargateRun")} author="Ducked, AverageGregTechPlayer, Soycake, VorTex, LazyFlesh, lhaxq, kyouki, Elephant, Pxx500, Dymorius, Nick, Adam and Lord Peverell">
         <Picture
           src={world_record}
           alt=""
