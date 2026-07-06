@@ -2,31 +2,36 @@
 import Link from "../shared/Link.astro";
 import LogoNhWhite from "../../assets/logo-nh-white.svg";
 import config from "../../config";
+import { useTranslations, localizePath } from "../../i18n";
+import type { Locale } from "../../i18n";
+
+const { locale = "en" } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
 
 // Footer sections data
 const footerSections = [
   {
-    title: "Downloads",
+    title: t("common.footer.downloads"),
     links: [
-      { name: "Downloads Page", href: "/downloads" },
-      { name: "Technic", href: config.technicUrl, external: true },
-      { name: "CurseForge", href: config.curseforgeUrl, external: true },
-      { name: "Version History", href: "/version-history" },
+      { name: t("common.footer.downloadsPage"), href: localizePath(locale, "/downloads") },
+      { name: t("common.footer.technic"), href: config.technicUrl, external: true },
+      { name: t("common.footer.curseforge"), href: config.curseforgeUrl, external: true },
+      { name: t("common.footer.versionHistory"), href: localizePath(locale, "/version-history") },
     ],
   },
   {
-    title: "Resources",
+    title: t("common.footer.resources"),
     links: [
-      { name: "Wiki", href: config.wikiUrl, external: true },
-      { name: "FAQ", href: "/faq" },
+      { name: t("common.footer.wiki"), href: config.wikiUrl, external: true },
+      { name: t("common.footer.faq"), href: localizePath(locale, "/faq") },
     ],
   },
   {
-    title: "Community",
+    title: t("common.footer.community"),
     links: [
-      { name: "Discord Server", href: config.discordUrl, external: true },
-      { name: "GitHub", href: config.githubUrl, external: true },
-      { name: "Bug Reports", href: config.bugReportsUrl, external: true },
+      { name: t("common.footer.discordServer"), href: config.discordUrl, external: true },
+      { name: t("common.footer.github"), href: config.githubUrl, external: true },
+      { name: t("common.footer.bugReports"), href: config.bugReportsUrl, external: true },
     ],
   },
 ];
@@ -41,9 +46,9 @@ const footerSections = [
           <LogoNhWhite class="h-12 w-12 flex-shrink-0" />
           <span class="text-lg font-audiowide">New Horizons</span>
         </div>
-        <p class="text-gray-500 text-sm sm:text-base">Powered by {Astro.generator}</p>
+        <p class="text-gray-500 text-sm sm:text-base">{t("common.footer.poweredBy", { generator: Astro.generator })}</p>
         <p class="text-gray-500 text-sm sm:text-base">
-          Open source, <Link href={config.repoUrl} blank>fork me!</Link>
+          {t("common.footer.openSource")} <Link href={config.repoUrl} blank>{t("common.footer.forkMe")}</Link>
         </p>
       </div>
 

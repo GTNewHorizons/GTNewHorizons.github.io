@@ -1,9 +1,17 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
-import versions from "../../public/versions.json";
-import type { VersionEntry } from "../types";
+import versions from "../../../public/versions.json";
+import type { VersionEntry } from "../../types";
+import { useTranslations, locales } from "../../i18n";
+import type { Locale } from "../../i18n";
 
+export async function getStaticPaths() {
+  return locales.map(locale => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
 const typedVersions = versions as Record<string, VersionEntry>;
 
 const sortedVersions = Object.entries(typedVersions).sort((a, b) => {
@@ -11,20 +19,20 @@ const sortedVersions = Object.entries(typedVersions).sort((a, b) => {
   const db = new Date(b[1].releaseDate ?? 0).getTime();
   return db - da;
 });
-const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 25}`;
+const getJavaRangeLabel = (v?: VersionEntry) => t("versionHistory.downloads.java17", { max: String(v?.maxJavaVersion ?? 25) });
 ---
 
-<BaseLayout title="Version History">
+<BaseLayout locale={locale} title={t("versionHistory.title")}>
   <section class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
     <div class="text-center mb-6 sm:mb-7">
-      <h1 class="text-2xl sm:text-4xl font-bold">Version History</h1>
-      <p class="text-gray-300 text-base sm:text-lg mt-1.5">Browse past releases and their downloads</p>
+      <h1 class="text-2xl sm:text-4xl font-bold">{t("versionHistory.title")}</h1>
+      <p class="text-gray-300 text-base sm:text-lg mt-1.5">{t("versionHistory.subtitle")}</p>
     </div>
 
     {
       sortedVersions.length === 0 ? (
         <div class="mx-auto max-w-3xl rounded-xl bg-[#1a1f26] border border-gray-700 p-4 text-center">
-          <p class="text-gray-300 text-base">No versions available yet.</p>
+          <p class="text-gray-300 text-base">{t("versionHistory.noVersions")}</p>
         </div>
       ) : (
         <div class="mx-auto max-w-4xl space-y-3 sm:space-y-4">
@@ -59,7 +67,7 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                         <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
                           <Icon name="material-symbols:folder-zip-outline" class="w-5 h-5 text-custom-blue" />
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold">MultiMC/Prism ZIPs</h3>
+                        <h3 class="text-base sm:text-lg font-semibold">{t("versionHistory.downloads.mmc")}</h3>
                       </div>
                       <div class="flex flex-col gap-2">
                         {v?.mmc?.java17_2XUrl && (
@@ -71,7 +79,7 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                           >
                             <span class="inline-flex items-center gap-1.5">
                               <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
-                              <span>{getJavaRangeLabel(v)} ZIP</span>
+                              <span>{getJavaRangeLabel(v)}</span>
                             </span>
                           </a>
                         )}
@@ -83,11 +91,11 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                             class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
                           >
                             <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
-                            <span>Java 8 ZIP</span>
+                            <span>{t("versionHistory.downloads.java8")}</span>
                           </a>
                         )}
                         {!v?.mmc?.java17_2XUrl && !v?.mmc?.java8Url && (
-                          <p class="text-xs text-gray-400">No MMC downloads for this version.</p>
+                          <p class="text-xs text-gray-400">{t("versionHistory.downloads.noMmc")}</p>
                         )}
                       </div>
                     </div>
@@ -98,7 +106,7 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                         <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
                           <Icon name="mdi:server" class="w-5 h-5 text-custom-blue" />
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold">Server ZIPs</h3>
+                        <h3 class="text-base sm:text-lg font-semibold">{t("versionHistory.downloads.server")}</h3>
                       </div>
                       <div class="flex flex-col gap-2">
                         {v?.server?.java17_2XUrl && (
@@ -109,7 +117,7 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                             class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
                           >
                             <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
-                            <span>{getJavaRangeLabel(v)} ZIP</span>
+                            <span>{getJavaRangeLabel(v)}</span>
                           </a>
                         )}
                         {v?.server?.java8Url && (
@@ -120,11 +128,11 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                             class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
                           >
                             <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
-                            <span>Java 8 ZIP</span>
+                            <span>{t("versionHistory.downloads.java8")}</span>
                           </a>
                         )}
                         {!v?.server?.java17_2XUrl && !v?.server?.java8Url && (
-                          <p class="text-xs text-gray-400">No server downloads for this version.</p>
+                          <p class="text-xs text-gray-400">{t("versionHistory.downloads.noServer")}</p>
                         )}
                       </div>
                     </div>
@@ -135,7 +143,7 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                         <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
                           <Icon name="mdi:laptop" class="w-5 h-5 text-custom-blue" />
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold">Vanilla Launcher ZIP</h3>
+                        <h3 class="text-base sm:text-lg font-semibold">{t("versionHistory.downloads.client")}</h3>
                       </div>
                       <div class="flex flex-col gap-2">
                         {v?.client?.java8Url && (
@@ -146,11 +154,11 @@ const getJavaRangeLabel = (v?: VersionEntry) => `Java 17-${v?.maxJavaVersion ?? 
                             class="inline-flex items-center gap-1.5 rounded-lg bg-[#2a3342] hover:bg-[#364259] text-white px-3 py-1.5"
                           >
                             <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
-                            <span>Java 8 ZIP</span>
+                            <span>{t("versionHistory.downloads.java8")}</span>
                           </a>
                         )}
                         {!v?.client?.java8Url && (
-                          <p class="text-xs text-gray-400">No vanilla client ZIP for this version.</p>
+                          <p class="text-xs text-gray-400">{t("versionHistory.downloads.noClient")}</p>
                         )}
                       </div>
                     </div>

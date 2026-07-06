@@ -5,15 +5,19 @@ import "../styles/global.css";
 import Footer from "../components/baselayout/Footer.astro";
 import Header from "../components/baselayout/Header.astro";
 import BackToTop from "../components/shared/BackToTop.astro";
+import LanguageBanner from "../components/shared/LanguageBanner.astro";
+import I18nEditorToggle from "../components/shared/I18nEditorToggle.astro";
+import type { Locale } from "../i18n";
 
 const {
+  locale = "en" as Locale,
   title = "Unnamed Page",
   description = "A hardcore, content rich and meticulously crafted technical modpack for Minecraft 1.7.10.",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -23,9 +27,11 @@ const {
     <meta name="description" content={description} />
   </head>
   <body class="font-space-grotesk bg-custom-dark text-[#ededec]">
-    <Header />
+    <LanguageBanner locale={locale} />
+    <Header locale={locale} />
     <slot />
-    <Footer />
+    <Footer locale={locale} />
+    {import.meta.env.DEV && <I18nEditorToggle />}
     <BackToTop />
   </body>
 </html>

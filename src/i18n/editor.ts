@@ -1,0 +1,181 @@
+const SAVE_URL = "/__i18n_save__";
+
+const MARK = "\u2060";
+
+function decodeMeta(encoded: string): string {
+  return encoded.split("\u200D").map(part =>
+    String.fromCharCode(parseInt(
+      part.replace(/\u200B/g, "0").replace(/\u200C/g, "1"),
+      2
+    ))
+  ).join("");
+}
+
+let activeEl: HTMLElement | null = null;
+
+export function enableEditing() {
+  if (document.querySelector("#i18n-editor-styles")) return;
+  injectStyles();
+  document.addEventListener("mouseover", onHover, false);
+  document.addEventListener("mouseout", onHoverOut, false);
+  document.addEventListener("click", onClick, false);
+}
+
+export function disableEditing() {
+  document.querySelector("#i18n-editor-styles")?.remove();
+  document.removeEventListener("mouseover", onHover, false);
+  document.removeEventListener("mouseout", onHoverOut, false);
+  document.removeEventListener("click", onClick, false);
+  removePopover();
+  removeHighlights();
+}
+
+function injectStyles() {
+  const style = document.createElement("style");
+  style.id = "i18n-editor-styles";
+  style.textContent = `
+    .i18n-edit-ready { outline: 1px dashed #7c9de4 !important; cursor: pointer !important; }
+    .i18n-edit-ready:hover { outline: 2px solid #7c9de4 !important; background: rgba(124,157,228,0.08) !important; }
+    #i18n-popover { position: fixed; z-index: 99999; background: #1a1f26; border: 1px solid #394354; border-radius: 8px; padding: 12px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); font-family: system-ui, sans-serif; font-size: 14px; min-width: 420px; max-width: 640px; width: min(90vw, 640px); color: #e2e8f0; }
+    #i18n-popover label { display: block; font-size: 12px; color: #94a3b8; margin-bottom: 2px; }
+    #i18n-popover .key { font-family: monospace; font-size: 12px; color: #7c9de4; margin-bottom: 8px; word-break: break-all; }
+    #i18n-popover textarea { width: 100%; box-sizing: border-box; background: #0f1215; border: 1px solid #394354; border-radius: 4px; padding: 8px 10px; color: #e2e8f0; font-size: 14px; margin-bottom: 4px; resize: vertical; min-height: 120px; max-height: 70vh; font-family: inherit; line-height: 1.5; }
+    #i18n-popover textarea:focus { outline: none; border-color: #7c9de4; }
+    #i18n-popover .hint { font-size: 11px; color: #64748b; margin-bottom: 6px; }
+    #i18n-popover .actions { display: flex; gap: 6px; justify-content: flex-end; }
+    #i18n-popover button { padding: 4px 12px; border-radius: 4px; border: none; cursor: pointer; font-size: 13px; }
+    #i18n-popover .btn-save { background: #557dde; color: white; }
+    #i18n-popover .btn-save:hover { background: #6b8fe5; }
+    #i18n-popover .btn-cancel { background: #2a3342; color: #94a3b8; }
+    #i18n-popover .btn-cancel:hover { background: #364259; color: #e2e8f0; }
+    #i18n-popover .status { font-size: 12px; color: #94a3b8; padding-top: 4px; }
+  `;
+  document.head.appendChild(style);
+}
+
+function extractInfo(text: string): { locale: string; key: string; value: string } | null {
+  const start = text.indexOf(MARK);
+  if (start === -1) return null;
+  const end = text.indexOf(MARK, start + 1);
+  if (end === -1) return null;
+  const decoded = decodeMeta(text.slice(start + 1, end));
+  const bar = decoded.indexOf("|");
+  if (bar === -1) return null;
+  return { locale: decoded.slice(0, bar), key: decoded.slice(bar + 1), value: text.slice(end + 1) };
+}
+
+function findI18nNode(el: HTMLElement): { node: Text; locale: string; key: string; value: string } | null {
+  for (const node of el.childNodes) {
+    if (node.nodeType !== Node.TEXT_NODE) continue;
+    const info = extractInfo(node.textContent || "");
+    if (info) return { node: node as Text, ...info };
+  }
+  return null;
+}
+
+function onHover(e: Event) {
+  const target = e.target as HTMLElement;
+  if (target.closest("#i18n-popover")) return;
+  const info = findI18nNode(target);
+  if (info) {
+    target.classList.add("i18n-edit-ready");
+  }
+}
+
+function onHoverOut(e: Event) {
+  const target = e.target as HTMLElement;
+  if (!target.closest("#i18n-popover")) {
+    target.classList.remove("i18n-edit-ready");
+  }
+}
+
+function onClick(e: Event) {
+  const target = e.target as HTMLElement;
+  if (target.closest("#i18n-popover")) return;
+  const info = findI18nNode(target);
+  if (info) {
+    e.preventDefault();
+    e.stopPropagation();
+    showPopover(target, info);
+  }
+}
+
+function showPopover(el: HTMLElement, info: { locale: string; key: string; node: Text; value: string }) {
+  activeEl = el;
+  removePopover();
+
+  const rect = el.getBoundingClientRect();
+  const popover = document.createElement("div");
+  popover.id = "i18n-popover";
+  popover.innerHTML = `
+    <div class="key">${info.locale} | ${info.key}</div>
+    <label for="i18n-input">Value</label>
+    <textarea id="i18n-input" rows="6">${escapeHtml(info.value)}</textarea>
+    <div class="hint">Enter to save · Shift+Enter newline · Esc cancel</div>
+    <div class="actions">
+      <button class="btn-cancel" id="i18n-cancel">Cancel</button>
+      <button class="btn-save" id="i18n-save">Save</button>
+    </div>
+    <div class="status" id="i18n-status"></div>
+  `;
+
+  document.body.appendChild(popover);
+
+  const pw = popover.offsetWidth;
+  const ph = popover.offsetHeight;
+  let left = Math.max(8, Math.min(rect.left, window.innerWidth - pw - 8));
+  let top = rect.bottom + 8;
+  if (top + ph > window.innerHeight) {
+    top = rect.top - ph - 8;
+  }
+  if (top < 8) top = 8;
+  popover.style.left = left + "px";
+  popover.style.top = top + "px";
+
+  const textarea = popover.querySelector("#i18n-input") as HTMLTextAreaElement;
+  textarea.focus();
+  textarea.select();
+
+  popover.querySelector("#i18n-cancel")?.addEventListener("click", removePopover);
+  popover.querySelector("#i18n-save")?.addEventListener("click", () => doSave(info, textarea.value));
+  textarea.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey && !e.metaKey) {
+      e.preventDefault();
+      doSave(info, textarea.value);
+    }
+    if (e.key === "Escape") removePopover();
+  });
+}
+
+async function doSave(info: { locale: string; key: string; node: Text; value: string }, value: string) {
+  const status = document.getElementById("i18n-status");
+  if (status) status.textContent = "Saving...";
+
+  try {
+    const res = await fetch(SAVE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ locale: info.locale, key: info.key, value }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    if (status) status.textContent = "Saved! Reloading...";
+    setTimeout(() => location.reload(), 500);
+  } catch (e) {
+    if (status) status.textContent = "Error: " + (e as Error).message;
+  }
+}
+
+function removePopover() {
+  document.getElementById("i18n-popover")?.remove();
+  activeEl = null;
+}
+
+function removeHighlights() {
+  for (const el of document.querySelectorAll(".i18n-edit-ready")) {
+    el.classList.remove("i18n-edit-ready");
+  }
+}
+
+function escapeHtml(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}

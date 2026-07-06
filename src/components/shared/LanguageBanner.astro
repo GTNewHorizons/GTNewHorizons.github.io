@@ -1,0 +1,67 @@
+---
+import { locales, getLocaleLabel } from "../../i18n";
+import type { Locale } from "../../i18n";
+
+const { locale = locales[0] } = Astro.props as { locale: Locale };
+const labels = Object.fromEntries(locales.map(l => [l, getLocaleLabel(l)]));
+---
+
+<div id="lang-banner" data-current-locale={locale} data-locales={locales.join(",")} data-labels={JSON.stringify(labels)} class="hidden">
+  <div class="container mx-auto px-3 flex items-center justify-between text-sm">
+    <span id="lang-banner-text"></span>
+    <div class="flex items-center gap-3">
+      <a id="lang-banner-link" href="" class="underline hover:no-underline font-medium"></a>
+      <button id="lang-banner-close" class="text-white/60 hover:text-white cursor-pointer" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #lang-banner {
+    background: #2a3342;
+    color: #e2e8f0;
+    padding: 0.375rem 0;
+    border-bottom: 1px solid #394354;
+    font-size: 0.875rem;
+  }
+</style>
+
+<script>
+  (function() {
+    const banner = document.getElementById("lang-banner");
+    if (!banner) return;
+
+    const currentLocale = banner.dataset.currentLocale || "";
+    const localeList = (banner.dataset.locales || "").split(",");
+    let labels = {};
+    try { labels = JSON.parse(banner.dataset.labels || "{}"); } catch(e) { labels = {}; }
+
+    const browserLang = navigator.language || navigator.languages?.[0] || "";
+
+    let detected = null;
+    for (let i = 0; i < localeList.length; i++) {
+      const code = localeList[i];
+      if (browserLang === code || browserLang.indexOf(code + "-") === 0 || browserLang.indexOf(code + "_") === 0) {
+        detected = code;
+        break;
+      }
+    }
+
+    if (detected && detected !== currentLocale && !localStorage.getItem("lang_banner_dismissed")) {
+      const text = document.getElementById("lang-banner-text");
+      const link = document.getElementById("lang-banner-link");
+
+      if (text && link) {
+        text.textContent = "You're viewing in " + (labels[currentLocale] || currentLocale) + ". ";
+        link.textContent = "Switch to " + (labels[detected] || detected);
+        link.href = window.location.pathname.replace(/^\/[^\/]+/, "/" + detected) + window.location.search + window.location.hash;
+        banner.classList.remove("hidden");
+      }
+    }
+
+    document.getElementById("lang-banner-close")?.addEventListener("click", function() {
+      banner.classList.add("hidden");
+      localStorage.setItem("lang_banner_dismissed", "true");
+    });
+  })();
+</script>

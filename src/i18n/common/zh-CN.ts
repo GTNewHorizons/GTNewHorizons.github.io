@@ -1,0 +1,31 @@
+export const common = {
+  _langName: "中文",
+  nav: {
+    downloads: "下载",
+    faq: "常见问题",
+    wiki: "Wiki",
+    github: "GitHub",
+    discord: "Discord",
+  },
+  footer: {
+    downloads: "下载",
+    downloadsPage: "下载页面",
+    technic: "Technic",
+    curseforge: "CurseForge",
+    versionHistory: "版本历史",
+    resources: "资源",
+    wiki: "Wiki",
+    faq: "常见问题",
+    community: "社区",
+    discordServer: "Discord 服务器",
+    github: "GitHub",
+    bugReports: "Bug 反馈",
+    poweredBy: "由 {generator} 驱动",
+    openSource: "开源项目，",
+    forkMe: "可分叉！",
+  },
+  banner: {
+    viewingIn: "你正在浏览{current}版。",
+    switchTo: "切换到{target}",
+  },
+};

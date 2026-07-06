@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import { useTranslations, locales } from "../../i18n";
+import type { Locale } from "../../i18n";
+import { faq as faqEn } from "../../i18n/faq/en";
+import { faq as faqZhCN } from "../../i18n/faq/zh-CN";
+
+const faqDict: Record<string, { items: { q: string; a: string }[] }> = { en: faqEn, "zh-CN": faqZhCN };
+
+export async function getStaticPaths() {
+  return locales.map(locale => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
+const faqItems = faqDict[locale]?.items ?? faqEn.items;
+---
+
+<BaseLayout locale={locale} title={t("faq.title")}>
+  <section class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
+    <div class="text-center mb-6 sm:mb-7">
+      <h1 class="text-2xl sm:text-4xl font-bold">{t("faq.title")}</h1>
+      <p class="text-gray-300 text-base sm:text-lg mt-1.5">{t("faq.subtitle")}</p>
+    </div>
+
+    <div class="mx-auto max-w-4xl space-y-3 sm:space-y-4">
+      {
+        faqItems.map((faq) => (
+          <details class="group rounded-xl bg-[#1a1f26] border border-gray-700">
+            <summary class="list-none px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between cursor-pointer select-none">
+              <span class="text-lg sm:text-xl font-semibold">{faq.q}</span>
+              <span class="ml-3 flex-shrink-0 rounded-lg bg-[#2a3342] p-1.5 text-custom-blue transition-transform group-open:rotate-180">
+                <Icon name="mdi:chevron-down" class="w-5 h-5" />
+              </span>
+            </summary>
+            <div class="px-3 sm:px-4 pb-4 text-gray-300 text-sm sm:text-base leading-relaxed">
+              <div set:html={faq.a} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

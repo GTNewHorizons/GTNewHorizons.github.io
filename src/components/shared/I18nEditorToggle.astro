@@ -1,0 +1,43 @@
+<button id="i18n-toggle" class="fixed bottom-20 right-8 z-[1001] w-12 h-12 rounded-full bg-[#2a3342] border border-[#394354] text-[#7c9de4] cursor-pointer flex items-center justify-center shadow-lg hover:bg-[#364259] transition-colors text-sm leading-none" title="Toggle i18n editor" aria-label="Toggle i18n editor">
+  ✎
+</button>
+
+<script>
+  (function() {
+    const btn = document.getElementById("i18n-toggle");
+    if (!btn) return;
+
+    const url = new URL(location.href);
+    let active = url.searchParams.has("edit_i18n");
+
+    if (active) {
+      btn.style.background = "#557dde";
+      btn.style.color = "white";
+      loadEditor();
+    }
+
+    btn.addEventListener("click", async () => {
+      active = !active;
+      const u = new URL(location.href);
+      if (active) {
+        u.searchParams.set("edit_i18n", "1");
+        history.replaceState(null, "", u.href);
+        btn.style.background = "#557dde";
+        btn.style.color = "white";
+        loadEditor();
+      } else {
+        u.searchParams.delete("edit_i18n");
+        history.replaceState(null, "", u.href);
+        btn.style.background = "";
+        btn.style.color = "";
+        const mod = await import("../../i18n/editor.ts");
+        mod.disableEditing();
+      }
+    });
+
+    async function loadEditor() {
+      const mod = await import("../../i18n/editor.ts");
+      mod.enableEditing();
+    }
+  })();
+</script>

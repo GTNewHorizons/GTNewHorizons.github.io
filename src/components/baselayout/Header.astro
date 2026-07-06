@@ -3,13 +3,19 @@ import Link from "../shared/Link.astro";
 import LogoNhWhite from "../../assets/logo-nh-white.svg";
 import { Icon } from "astro-icon/components";
 import config from "../../config";
+import LanguagePicker from "../shared/LanguagePicker.astro";
+import { useTranslations, localizePath } from "../../i18n";
+import type { Locale } from "../../i18n";
+
+const { locale = "en" } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
 ---
 
 <header class="bg-custom-dark text-white border-b border-gray-700">
   <div class="container mx-auto px-3">
     <div class="flex items-center justify-between h-14">
       <!-- Logo -->
-      <a href="/" class="flex items-center space-x-1.5">
+      <a href={localizePath(locale, "/")} class="flex items-center space-x-1.5">
         <LogoNhWhite class="h-12 w-12 flex-shrink-0" />
         <span class="text-lg font-audiowide">New Horizons</span>
       </a>
@@ -17,15 +23,15 @@ import config from "../../config";
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center space-x-6">
         <Link
-          href="/downloads"
+          href={localizePath(locale, "/downloads")}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
         >
           <Icon name="material-symbols:download-rounded" class="w-6 h-6" />
-          <span>Downloads</span>
+          <span>{t("common.nav.downloads")}</span>
         </Link>
-        <Link href="/faq" class="text-gray-300 hover:text-white transition-colors duration-200 text-lg"> FAQ </Link>
+        <Link href={localizePath(locale, "/faq")} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg"> {t("common.nav.faq")} </Link>
         <Link href={config.wikiUrl} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg" blank>
-          Wiki
+          {t("common.nav.wiki")}
         </Link>
         <Link
           href={config.githubUrl}
@@ -33,7 +39,7 @@ import config from "../../config";
           class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
         >
           <Icon name="mdi:github" class="w-6 h-6" />
-          <span>GitHub</span>
+          <span>{t("common.nav.github")}</span>
         </Link>
         <Link
           href={config.discordUrl}
@@ -41,8 +47,9 @@ import config from "../../config";
           class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
         >
           <Icon name="ic:baseline-discord" class="w-6 h-6" />
-          <span>Discord</span>
+          <span>{t("common.nav.discord")}</span>
         </Link>
+        <LanguagePicker locale={locale} />
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -63,24 +70,24 @@ import config from "../../config";
     <nav id="mobile-menu" class="md:hidden py-3 border-t border-gray-700 hidden">
       <div class="flex flex-col space-y-2">
         <Link
-          href="/downloads"
+          href={localizePath(locale, "/downloads")}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
         >
           <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
-          Downloads
+          {t("common.nav.downloads")}
         </Link>
         <Link
-          href="/faq"
+          href={localizePath(locale, "/faq")}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link"
         >
-          FAQ
+          {t("common.nav.faq")}
         </Link>
         <Link
           href={config.wikiUrl}
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link"
           blank
         >
-          Wiki
+          {t("common.nav.wiki")}
         </Link>
         <Link
           href={config.githubUrl}
@@ -88,7 +95,7 @@ import config from "../../config";
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
         >
           <Icon name="mdi:github" class="w-5 h-5" />
-          GitHub
+          {t("common.nav.github")}
         </Link>
         <Link
           href={config.discordUrl}
@@ -96,8 +103,11 @@ import config from "../../config";
           class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link flex items-center space-x-1.5 gap-1"
         >
           <Icon name="ic:baseline-discord" class="w-5 h-5" />
-          Discord
+          {t("common.nav.discord")}
         </Link>
+        <div class="pt-2 border-t border-gray-700">
+          <LanguagePicker locale={locale} />
+        </div>
       </div>
     </nav>
   </div>

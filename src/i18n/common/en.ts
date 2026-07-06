@@ -1,0 +1,31 @@
+export const common = {
+  _langName: "English",
+  nav: {
+    downloads: "Downloads",
+    faq: "FAQ",
+    wiki: "Wiki",
+    github: "GitHub",
+    discord: "Discord",
+  },
+  footer: {
+    downloads: "Downloads",
+    downloadsPage: "Downloads Page",
+    technic: "Technic",
+    curseforge: "CurseForge",
+    versionHistory: "Version History",
+    resources: "Resources",
+    wiki: "Wiki",
+    faq: "FAQ",
+    community: "Community",
+    discordServer: "Discord Server",
+    github: "GitHub",
+    bugReports: "Bug Reports",
+    poweredBy: "Powered by {generator}",
+    openSource: "Open source,",
+    forkMe: "fork me!",
+  },
+  banner: {
+    viewingIn: "You're viewing in {current}.",
+    switchTo: "Switch to {target}",
+  },
+};

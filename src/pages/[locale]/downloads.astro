@@ -1,56 +1,64 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import DownloadsCard from "../components/downloads/DownloadsCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DownloadsCard from "../../components/downloads/DownloadsCard.astro";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
-import technicImage from "../assets/downloads/technic.png";
-import curseforgeImage from "../assets/downloads/curseforge.png";
-import zipImage from "../assets/downloads/zip.png";
-import prismImage from "../assets/downloads/prism.png";
-import serverImage from "../assets/downloads/server.png";
-import config from "../config";
-import versions from "../../public/versions.json";
+import technicImage from "../../assets/downloads/technic.png";
+import curseforgeImage from "../../assets/downloads/curseforge.png";
+import zipImage from "../../assets/downloads/zip.png";
+import prismImage from "../../assets/downloads/prism.png";
+import serverImage from "../../assets/downloads/server.png";
+import config from "../../config";
+import versions from "../../../public/versions.json";
+import { useTranslations, locales, localizePath } from "../../i18n";
+import type { Locale } from "../../i18n";
 
+export async function getStaticPaths() {
+  return locales.map(locale => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = useTranslations(locale);
 const latestVersion = versions[config.latestVersion as keyof typeof versions];
 ---
 
-<BaseLayout title="Downloads">
+<BaseLayout locale={locale} title={t("downloads.title")}>
   <section class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
     <div class="text-center mb-6 sm:mb-7">
       <h1 class="text-2xl sm:text-4xl font-bold">
-        Download <span class="text-custom-blue font-audiowide">GregTech: New Horizons</span>
+        {t("downloads.title")}
       </h1>
       <p class="text-gray-300 text-base sm:text-lg mt-1.5">
-        Available for many platforms and launchers. Pick your distribution below
+        {t("downloads.subtitle")}
       </p>
     </div>
 
-    <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">Direct ZIP Downloads</h2>
+    <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">{t("downloads.directZip")}</h2>
     <div class="grid gap-3 sm:gap-4 md:grid-cols-3 mb-7">
       <DownloadsCard
-        title="Prism ZIPs"
+        title={t("downloads.prismZips")}
         links={[
           {
-            label: `Latest (${String(config.latestVersion)}) for Java 17-${latestVersion.maxJavaVersion}`,
+            label: t("downloads.latestForJava", { version: String(config.latestVersion), maxJava: String(latestVersion.maxJavaVersion) }),
             href: latestVersion.mmc?.java17_2XUrl!,
             icon: "material-symbols:download-rounded",
             external: true,
             bold: true,
           },
           {
-            label: `Latest (${String(config.latestVersion)}) for Java 8`,
+            label: t("downloads.latestForJava8", { version: String(config.latestVersion) }),
             href: latestVersion.mmc?.java8Url!,
             icon: "material-symbols:download-rounded",
             external: true,
           },
           {
-            label: "Version history",
-            href: "/version-history",
+            label: t("downloads.versionHistory"),
+            href: localizePath(locale, "/version-history"),
             icon: "mdi:open-in-new",
           },
         ]}
-        note="Recommended option"
+        note={t("downloads.recommended")}
         noteIcon="mdi:check-circle"
         noteColorClass="text-green-400"
         variant="highlight"
@@ -67,28 +75,28 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
       </DownloadsCard>
 
       <DownloadsCard
-        title="Server ZIPs"
+        title={t("downloads.serverZips")}
         links={[
           {
-            label: `Latest (${String(config.latestVersion)}) for Java 17-${latestVersion.maxJavaVersion}`,
+            label: t("downloads.latestForJava", { version: String(config.latestVersion), maxJava: String(latestVersion.maxJavaVersion) }),
             href: latestVersion.server?.java17_2XUrl!,
             icon: "material-symbols:download-rounded",
             external: true,
             bold: true,
           },
           {
-            label: `Latest (${String(config.latestVersion)}) for Java 8`,
+            label: t("downloads.latestForJava8", { version: String(config.latestVersion) }),
             href: latestVersion.server?.java8Url!,
             icon: "material-symbols:download-rounded",
             external: true,
           },
           {
-            label: "Version history",
-            href: "/version-history",
+            label: t("downloads.versionHistory"),
+            href: localizePath(locale, "/version-history"),
             icon: "mdi:open-in-new",
           },
         ]}
-        note="Recommended option"
+        note={t("downloads.recommended")}
         noteIcon="mdi:check-circle"
         noteColorClass="text-green-400"
         variant="highlight"
@@ -105,21 +113,21 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
       </DownloadsCard>
 
       <DownloadsCard
-        title="Vanilla Launcher ZIP"
+        title={t("downloads.vanillaZip")}
         links={[
           {
-            label: `Latest (${String(config.latestVersion)}) for Java 8`,
+            label: t("downloads.latestForJava8", { version: String(config.latestVersion) }),
             href: latestVersion.client?.java8Url!,
             icon: "material-symbols:download-rounded",
             external: true,
           },
           {
-            label: "Version history",
-            href: "/version-history",
+            label: t("downloads.versionHistory"),
+            href: localizePath(locale, "/version-history"),
             icon: "mdi:open-in-new",
           },
         ]}
-        note="Provided for advanced users."
+        note={t("downloads.providedForAdvanced")}
         noteIcon="mdi:alert-circle-outline"
         noteColorClass="text-amber-300"
         variant="solid"
@@ -136,13 +144,13 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
     </div>
 
     <div class="md:w-2/3">
-      <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">Launcher Downloads</h2>
+      <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">{t("downloads.launcherDownloads")}</h2>
     </div>
     <div class="grid gap-3 sm:gap-4 md:grid-cols-3 items-start">
       <DownloadsCard
-        title="Technic Launcher"
-        links={[{ label: "Modpack page", href: config.technicUrl, icon: "mdi:open-in-new", external: true }]}
-        note="Not recommended, provided for convenience."
+        title={t("downloads.technic")}
+        links={[{ label: t("downloads.modpackPage"), href: config.technicUrl, icon: "mdi:open-in-new", external: true }]}
+        note={t("downloads.notRecommended")}
         noteIcon="mdi:alert-circle-outline"
         noteColorClass="text-amber-300"
         variant="solid"
@@ -158,9 +166,9 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
       </DownloadsCard>
 
       <DownloadsCard
-        title="CurseForge"
-        links={[{ label: "Modpack page", href: config.curseforgeUrl, icon: "mdi:open-in-new", external: true }]}
-        note="Not recommended, provided for convenience."
+        title={t("downloads.curseforge")}
+        links={[{ label: t("downloads.modpackPage"), href: config.curseforgeUrl, icon: "mdi:open-in-new", external: true }]}
+        note={t("downloads.notRecommended")}
         noteIcon="mdi:alert-circle-outline"
         noteColorClass="text-amber-300"
         variant="solid"
@@ -181,12 +189,12 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
             <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
               <Icon name="mdi:headset" class="w-5 h-5 text-custom-blue" />
             </div>
-            <h3 class="text-lg sm:text-xl font-semibold">Need help?</h3>
+            <h3 class="text-lg sm:text-xl font-semibold">{t("downloads.needHelp")}</h3>
           </div>
 
           <div>
             <p class="text-gray-300 text-sm sm:text-base mb-2">
-              You can check our wiki for advice on installing and migrating
+              {t("downloads.wikiAdvice")}
             </p>
             <a
               href={config.installGuideUrl}
@@ -195,10 +203,10 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
               class="inline-flex items-center gap-1.5 text-custom-blue hover:underline mb-3 text-sm sm:text-base"
             >
               <Icon name="mdi:open-in-new" class="w-5 h-5" />
-              <span>Check our wiki</span>
+              <span>{t("downloads.checkWiki")}</span>
             </a>
             <p class="text-gray-300 text-sm sm:text-base mb-2">
-              Generic instructions didn't help? Join our Discord and ask for help there!
+              {t("downloads.discordHelp")}
             </p>
             <!-- Discord Button -->
             <a
@@ -207,7 +215,7 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
               class="inline-flex gap-1 sm:gap-1.5 items-center justify-center w-48 whitespace-nowrap bg-[#5864f2] hover:bg-[#587cf2] text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-base sm:text-lg md:text-xl transition-colors duration-200"
             >
               <Icon name="ic:baseline-discord" class="w-6 sm:w-7 h-6 sm:h-7" />
-              Join Discord
+              {t("downloads.joinDiscord")}
             </a>
           </div>
         </div>

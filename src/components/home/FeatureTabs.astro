@@ -2,6 +2,8 @@
 import FeatureTabButton from "./FeatureTabButton.astro";
 import FeatureTabContent from "./FeatureTabContent.astro";
 import FeatureTabBody from "./FeatureTabBody.astro";
+import { useTranslations } from "../../i18n";
+import type { Locale } from "../../i18n";
 
 import techAdventureImage from "../../assets/home/features/tech-adventure.png";
 import journeyImage from "../../assets/home/features/journey.png";
@@ -15,41 +17,43 @@ import playstylesIcon from "../../assets/home/features/icons/playstyles.png";
 import technicalIcon from "../../assets/home/features/icons/technical.gif";
 import communityIcon from "../../assets/home/features/icons/community.gif";
 
+const { locale = "en" } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
 const tabs = [
   {
     id: "techAdventure",
     iconImage: techAdventureIcon,
-    title: "The Ultimate Tech Adventure",
-    subtitle: "A modpack where effort pays off, and every step matters",
+    title: t("home.features.techAdventure.title"),
+    subtitle: t("home.features.techAdventure.subtitle"),
     image: techAdventureImage,
   },
   {
     id: "journey",
     iconImage: journeyIcon,
-    title: "Curated journey",
-    subtitle:
-      "Hundreds of mods, each a piece of a seamless puzzle, with over 3900 quests to guide you through each of them",
+    title: t("home.features.journey.title"),
+    subtitle: t("home.features.journey.subtitle"),
     image: journeyImage,
   },
   {
     id: "playstyles",
     iconImage: playstylesIcon,
-    title: "Numerous Playstyles Available",
-    subtitle: "Adapt your playing style as you see fit",
-    image: playstylesImage, // Spaghetti by Twilight Sparkles
+    title: t("home.features.playstyles.title"),
+    subtitle: t("home.features.playstyles.subtitle"),
+    image: playstylesImage,
   },
   {
     id: "technical",
     iconImage: technicalIcon,
-    title: "Technical Excellence",
-    subtitle: "From custom recipes to custom mods, purpose-built for GT:NH",
+    title: t("home.features.technical.title"),
+    subtitle: t("home.features.technical.subtitle"),
     image: technicalImage,
   },
   {
     id: "community",
     iconImage: communityIcon,
-    title: "A Technical, Supportive, and Worldwide Community",
-    subtitle: "An active playerbase fostering collaboration and support",
+    title: t("home.features.community.title"),
+    subtitle: t("home.features.community.subtitle"),
     image: communityImage,
   },
 ];
@@ -70,7 +74,7 @@ const tabs = [
             <FeatureTabButton as="div" id={t.id} iconImage={t.iconImage} title={t.title} subtitle={t.subtitle} />
           </summary>
           <FeatureTabContent forceVisible={true} id={t.id} iconImage={t.iconImage} title={t.title} image={t.image}>
-            <FeatureTabBody id={t.id} />
+            <FeatureTabBody locale={locale} id={t.id} />
           </FeatureTabContent>
         </details>
       ))
@@ -82,7 +86,7 @@ const tabs = [
     {
       tabs.map((t) => (
         <FeatureTabContent id={t.id} iconImage={t.iconImage} title={t.title} image={t.image}>
-          <FeatureTabBody id={t.id} />
+          <FeatureTabBody locale={locale} id={t.id} />
         </FeatureTabContent>
       ))
     }
