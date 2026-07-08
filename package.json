@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "LGPL-3.0",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "astro dev --host",
     "build": "node scripts/generate-en-barrel.mjs && astro build && node scripts/generate-translations.mjs",
@@ -24,7 +25,7 @@
     "tailwindcss": "4.3.2"
   },
   "engines": {
-    "node": ">=24.0.0",
+    "node": ">=22.0.0",
     "yarn": "^1.22.0"
   }
 }
