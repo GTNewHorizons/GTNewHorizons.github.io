@@ -1,4 +1,5 @@
 import { flatten } from "./flatten";
+import type { TranslationKey } from "./keys";
 
 const modules = import.meta.glob("/src/i18n/*/[^.]*.ts", { eager: true }) as Record<string, Record<string, unknown>>;
 
@@ -38,7 +39,7 @@ export function useLocalizePath(locale: Locale) {
 }
 
 export function useTranslations(locale: Locale) {
-  return (key: string, params?: Record<string, string>): string => {
+  return (key: TranslationKey, params?: Record<string, string>): string => {
     let value = dict[locale]?.[key];
     if (value === undefined) {
       value = dict[locales[0]]?.[key] ?? key;
