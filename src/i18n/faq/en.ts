@@ -4,7 +4,7 @@ export const faq = {
   items: [
     {
       q: "What launcher should I use?",
-      a: "GT:NH is availiable through <b>Prism</b>, Technic Launcher and CurseForge. While the last two launchers are convenient, they both have their own quirks, so the GT:NH Team strongly advise you to use <b>Prism</b>, as you will also be able to benefit from better performance if you install the Java 17-25 archive.",
+      a: "GT:NH is available through <b>Prism</b>, Technic Launcher and CurseForge. While the last two launchers are convenient, they both have their own quirks, so the GT:NH Team strongly advise you to use <b>Prism</b>, as you will also be able to benefit from better performance if you install the Java 17-25 archive.",
     },
     {
       q: "Which Java version should I use?",
