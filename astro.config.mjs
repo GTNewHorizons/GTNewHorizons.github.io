@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import i18nDevPlugin from "./vite-plugin-i18n-dev";
+import faqDevPlugin from "./vite-plugin-faq-dev";
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,6 +36,6 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss(), i18nDevPlugin()],
+    plugins: [tailwindcss(), i18nDevPlugin(), faqDevPlugin()],
   },
 });

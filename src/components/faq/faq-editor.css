@@ -1,0 +1,179 @@
+.faq-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #394354;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.faq-edit-btn {
+  background: #2a3342;
+  color: #7c9de4;
+}
+
+.faq-edit-btn:hover {
+  background: #364259;
+}
+
+.faq-delete-btn {
+  background: #422a2a;
+  color: #e47c7c;
+}
+
+.faq-delete-btn:hover {
+  background: #593636;
+}
+
+#faq-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px dashed #394354;
+  background: transparent;
+  color: #7c9de4;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+#faq-add-btn:hover {
+  background: rgba(124, 157, 228, 0.08);
+}
+
+#faq-editor-popover {
+  position: fixed;
+  z-index: 99999;
+  background: #1a1f26;
+  border: 1px solid #394354;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  min-width: 460px;
+  max-width: 720px;
+  width: min(92vw, 720px);
+  color: #e2e8f0;
+}
+
+#faq-editor-popover .field {
+  margin-bottom: 10px;
+}
+
+#faq-editor-popover label {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+#faq-editor-popover input[type="text"],
+#faq-editor-popover textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0f1215;
+  border: 1px solid #394354;
+  border-radius: 4px;
+  padding: 8px 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+#faq-editor-popover input[type="text"]:focus,
+#faq-editor-popover textarea:focus {
+  outline: none;
+  border-color: #7c9de4;
+}
+
+#faq-editor-popover textarea {
+  resize: vertical;
+  min-height: 180px;
+  font-family: "Space Grotesk Variable", "SF Mono", Monaco, "Cascadia Code", monospace;
+  line-height: 1.55;
+}
+
+#faq-editor-popover .row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#faq-editor-popover .row .field {
+  flex: 1;
+}
+
+#faq-editor-popover .checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding-top: 16px;
+}
+
+#faq-editor-popover .checkbox-field input[type="checkbox"] {
+  accent-color: #7c9de4;
+}
+
+#faq-editor-popover .hint {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+#faq-editor-popover .actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+#faq-editor-popover button {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#faq-editor-popover .btn-save {
+  background: #557dde;
+  color: white;
+}
+
+#faq-editor-popover .btn-save:hover {
+  background: #6b8fe5;
+}
+
+#faq-editor-popover .btn-cancel {
+  background: #2a3342;
+  color: #94a3b8;
+}
+
+#faq-editor-popover .btn-cancel:hover {
+  background: #364259;
+  color: #e2e8f0;
+}
+
+#faq-editor-popover .btn-delete-confirm {
+  background: #de5555;
+  color: white;
+}
+
+#faq-editor-popover .btn-delete-confirm:hover {
+  background: #e56b6b;
+}
+
+#faq-editor-popover .status {
+  font-size: 12px;
+  color: #94a3b8;
+  padding-top: 4px;
+}

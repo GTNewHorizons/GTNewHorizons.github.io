@@ -1,4 +1,7 @@
-const SAVE_URL = "/__i18n_save__";
+const API_PREFIX = "/__API__/i18n";
+const SAVE_URL = `${API_PREFIX}/save`;
+const RAW_URL = `${API_PREFIX}/raw`;
+const EN_DICT_URL = `${API_PREFIX}/en-dict`;
 
 const MARK = "\u2060";
 
@@ -139,7 +142,7 @@ function showPopover(el: HTMLElement, info: { locale: string; key: string; node:
 
   const textarea = popover.querySelector("#i18n-input") as HTMLTextAreaElement;
 
-  fetch("/__i18n_raw__?locale=" + encodeURIComponent(info.locale) + "&key=" + encodeURIComponent(info.key))
+  fetch(RAW_URL + "?locale=" + encodeURIComponent(info.locale) + "&key=" + encodeURIComponent(info.key))
     .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
     .then((raw) => {
       textarea.value = raw;
@@ -235,7 +238,7 @@ export async function toggleCompare(btn: HTMLElement, pageLocale: string) {
 
   let enDict: Record<string, string>;
   try {
-    enDict = await fetch("/__i18n_en_dict__").then((r) => r.json());
+    enDict = await fetch(EN_DICT_URL).then((r) => r.json());
   } catch {
     btn.style.background = "";
     btn.style.color = "";

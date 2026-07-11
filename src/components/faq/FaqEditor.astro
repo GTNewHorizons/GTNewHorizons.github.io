@@ -1,0 +1,19 @@
+---
+import "./faq-editor.css";
+
+const { locale = "en" } = Astro.props as { locale: string };
+---
+
+<div class="text-center mb-4">
+  <button id="faq-add-btn">+ Add FAQ</button>
+</div>
+
+<script>
+  (function () {
+    import("./faq-editor.ts").then((mod) => {
+      const pageLocale = location.pathname.split("/")[1] || "en";
+      mod.setLocale(pageLocale);
+      mod.init();
+    });
+  })();
+</script>

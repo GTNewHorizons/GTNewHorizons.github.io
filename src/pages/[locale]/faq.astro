@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 import { useTranslations, locales } from "../../i18n";
 import type { Locale } from "../../i18n";
-import { faq as faqEn } from "../../i18n/faq/en";
+import FaqEditor from "../../components/faq/FaqEditor.astro";
 
 export async function getStaticPaths() {
   return locales.map(locale => ({ params: { locale } }));
@@ -11,10 +11,52 @@ export async function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
-const faqItems = faqEn.items.map((_, i) => ({
-  q: t(`faq.items.${i}.q`),
-  a: t(`faq.items.${i}.a`),
-}));
+
+const faqModules = import.meta.glob('/src/content/faq/**/*.md', { eager: true });
+
+const byLocale: Record<string, Record<string, { frontmatter: { title: string }; Content: any }>> = {};
+
+for (const [path, mod] of Object.entries(faqModules)) {
+  const relative = path.replace('/src/content/faq/', '');
+  const slash = relative.indexOf('/');
+  if (slash === -1) continue;
+  const fileLocale = relative.slice(0, slash);
+  const filename = relative.slice(slash + 1);
+  if (!byLocale[fileLocale]) byLocale[fileLocale] = {};
+  byLocale[fileLocale][filename] = mod as any;
+}
+
+const enFaq = byLocale["en"] || {};
+const currentFaq = byLocale[locale] || {};
+
+const allFilenames = new Set<string>();
+for (const key of Object.keys(currentFaq)) allFilenames.add(key);
+for (const key of Object.keys(enFaq)) allFilenames.add(key);
+
+interface FaqItem {
+  filename: string;
+  title: string;
+  Content: any;
+  isNt: boolean;
+}
+
+const items: FaqItem[] = [];
+const sortedFilenames = [...allFilenames].sort();
+
+for (const filename of sortedFilenames) {
+  const isNt = filename.endsWith(".nt.md");
+  const localMod = currentFaq[filename];
+  const enMod = enFaq[filename];
+  const mod = localMod || (!isNt && enMod ? enMod : null);
+  if (!mod) continue;
+
+  items.push({
+    filename,
+    title: mod.frontmatter.title,
+    Content: mod.Content,
+    isNt,
+  });
+}
 ---
 
 <BaseLayout locale={locale} title={t("faq.title")}>
@@ -24,21 +66,42 @@ const faqItems = faqEn.items.map((_, i) => ({
       <p class="text-gray-300 text-base sm:text-lg mt-1.5">{t("faq.subtitle")}</p>
     </div>
 
-    <div class="mx-auto max-w-4xl space-y-3 sm:space-y-4">
+    {import.meta.env.DEV && <FaqEditor locale={locale} />}
+
+    <div id="faq-list" class="mx-auto max-w-4xl space-y-3 sm:space-y-4">
       {
-        faqItems.map((faq) => (
-          <details class="group rounded-xl bg-[#1a1f26] border border-gray-700">
-            <summary class="list-none px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between cursor-pointer select-none">
-              <span class="text-lg sm:text-xl font-semibold">{faq.q}</span>
-              <span class="ml-3 flex-shrink-0 rounded-lg bg-[#2a3342] p-1.5 text-custom-blue transition-transform group-open:rotate-180">
+        items.map((item) => (
+          <details
+            class="group rounded-xl bg-[#1a1f26] border border-gray-700"
+            data-faq-filename={item.filename}
+            data-faq-nt={String(item.isNt)}
+          >
+            <summary class="list-none px-3 sm:px-4 py-3 sm:py-4 flex items-center cursor-pointer select-none gap-3">
+              <span class="flex-1 text-lg sm:text-xl font-semibold">{item.title}</span>
+              {
+                import.meta.env.DEV && (
+                  <span class="faq-controls flex items-center gap-1.5">
+                    <button class="faq-edit-btn" title="Edit">✎</button>
+                    <button class="faq-delete-btn" title="Delete">✕</button>
+                  </span>
+                )
+              }
+              <span class="flex-shrink-0 rounded-lg bg-[#2a3342] p-1.5 text-custom-blue transition-transform group-open:rotate-180">
                 <Icon name="mdi:chevron-down" class="w-5 h-5" />
               </span>
             </summary>
-            <div class="px-3 sm:px-4 pb-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-              <div set:html={faq.a} />
+            <div class="px-3 sm:px-4 pb-4 text-gray-300 text-sm sm:text-base leading-relaxed faq-body">
+              <item.Content />
             </div>
           </details>
         ))
+      }
+      {
+        items.length === 0 && (
+          <div class="rounded-xl bg-[#1a1f26] border border-gray-700 p-4 text-center">
+            <p class="text-gray-300 text-base">{t("faq.noItems")}</p>
+          </div>
+        )
       }
     </div>
   </section>

@@ -32,6 +32,22 @@ async function buildEnDict(server: ViteDevServer): Promise<Record<string, string
   return dict;
 }
 
+function readJsonBody(req: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", (chunk: string) => (body += chunk));
+    req.on("end", () => {
+      try {
+        resolve(JSON.parse(body));
+      } catch (e) {
+        reject(e);
+      }
+    });
+  });
+}
+
+const PATH_PREFIX = "/__API__/i18n";
+
 export default function i18nDevPlugin(): Plugin {
   let server: ViteDevServer | undefined;
   let enDictCache: Record<string, string> | null = null;
@@ -48,17 +64,14 @@ export default function i18nDevPlugin(): Plugin {
     configureServer(s) {
       server = s;
 
-      s.middlewares.use("/__i18n_save__", async (req, res) => {
-        if (req.method !== "POST") {
-          res.statusCode = 405;
-          return res.end("Method not allowed");
-        }
+      s.middlewares.use(PATH_PREFIX, async (req, res) => {
+        const url = new URL(req.url || "", "http://localhost");
+        const path = url.pathname.replace(PATH_PREFIX, "") || "/";
 
-        let body = "";
-        req.on("data", (chunk) => (body += chunk));
-        req.on("end", () => {
-          try {
-            const { locale, key, value } = JSON.parse(body);
+        try {
+          // POST /__API__/i18n/save — save a translation value
+          if (path === "/save" && req.method === "POST") {
+            const { locale, key, value } = await readJsonBody(req);
             const [modName] = key.split(".");
             const filePath = join(process.cwd(), "src/i18n", modName, `${locale}.ts`);
 
@@ -75,52 +88,49 @@ export default function i18nDevPlugin(): Plugin {
             writeFileSync(filePath, generateCode(mod).code + "\n");
             enDictCache = null;
             s.ws.send({ type: "full-reload" });
-            res.end("ok");
-          } catch (e) {
-            res.statusCode = 500;
-            res.end(String(e));
+            return res.end("ok");
           }
-        });
-      });
 
-      s.middlewares.use("/__i18n_en_dict__", async (req, res) => {
-        if (req.method !== "GET") {
-          res.statusCode = 405;
-          return res.end("Method not allowed");
-        }
-        const dict = await getEnDict();
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify(dict));
-      });
+          // GET /__API__/i18n/en-dict — return English dictionary
+          if (path === "/en-dict" && req.method === "GET") {
+            const dict = await getEnDict();
+            res.setHeader("Content-Type", "application/json");
+            return res.end(JSON.stringify(dict));
+          }
 
-      s.middlewares.use("/__i18n_raw__", async (req, res) => {
-        if (req.method !== "GET") {
-          res.statusCode = 405;
-          return res.end("Method not allowed");
-        }
-        const url = new URL(req.url || "", "http://localhost");
-        const locale = url.searchParams.get("locale");
-        const key = url.searchParams.get("key");
-        if (!locale || !key) {
-          res.statusCode = 400;
-          return res.end("Missing locale or key");
-        }
-        const [modName] = key.split(".");
-        const filePath = join(process.cwd(), "src/i18n", modName, `${locale}.ts`);
-        try {
-          const mod = await s.ssrLoadModule(filePath);
-          const segs = key.split(".");
-          let val: unknown = mod;
-          for (const seg of segs) {
-            if (typeof val !== "object" || val === null) { val = undefined; break; }
-            val = (val as Record<string, unknown>)[seg];
+          // GET /__API__/i18n/raw?locale=...&key=... — return raw translation value
+          if (path === "/raw" && req.method === "GET") {
+            const locale = url.searchParams.get("locale");
+            const key = url.searchParams.get("key");
+            if (!locale || !key) {
+              res.statusCode = 400;
+              return res.end("Missing locale or key");
+            }
+            const [modName] = key.split(".");
+            const filePath = join(process.cwd(), "src/i18n", modName, `${locale}.ts`);
+            try {
+              const mod = await s.ssrLoadModule(filePath);
+              const segs = key.split(".");
+              let val: unknown = mod;
+              for (const seg of segs) {
+                if (typeof val !== "object" || val === null) { val = undefined; break; }
+                val = (val as Record<string, unknown>)[seg];
+              }
+              if (typeof val !== "string") {
+                res.statusCode = 404;
+                return res.end("Key not found");
+              }
+              res.setHeader("Content-Type", "text/plain; charset=utf-8");
+              return res.end(val);
+            } catch (e) {
+              res.statusCode = 500;
+              return res.end(String(e));
+            }
           }
-          if (typeof val !== "string") {
-            res.statusCode = 404;
-            return res.end("Key not found");
-          }
-          res.setHeader("Content-Type", "text/plain; charset=utf-8");
-          res.end(val);
+
+          // No matching endpoint
+          res.statusCode = 404;
+          res.end("Not found");
         } catch (e) {
           res.statusCode = 500;
           res.end(String(e));
