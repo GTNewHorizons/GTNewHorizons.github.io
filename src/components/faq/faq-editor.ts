@@ -71,11 +71,13 @@ async function openEditModal(filename: string, isNt: boolean) {
     title: entry.title,
     content: entry.content,
     onSave: async (newFilename, newIsNt, newTitle, newContent) => {
-      if (newFilename !== filename) {
-        await fetch(DELETE_ALL_URL, {
+      const oldBase = filename.replace(/\.(nt\.)?md$/, "");
+      if (newFilename !== oldBase) {
+        // Renamed: only delete old file from current locale
+        await fetch("/__API__/faq/delete", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ filename }),
+          body: JSON.stringify({ locale: currentLocale, filename }),
         });
       }
       const saveFilename = newIsNt
