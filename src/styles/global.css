@@ -6,3 +6,17 @@
   --font-audiowide: "Audiowide", "system-ui";
   --font-space-grotesk: "Space Grotesk Variable", "sans-serif";
 }
+
+@keyframes rotate {
+  from {
+    transform: perspective(800px) rotate3d(3, 5, 2, 0deg);
+  }
+  to {
+    transform: perspective(800px) rotate3d(3, 5, 2, 360deg);
+  }
+}
+
+.animate-rotate {
+  animation: rotate 5.14s linear infinite;
+  transform-style: preserve-3d;
+}
