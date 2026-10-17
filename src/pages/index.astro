@@ -31,7 +31,7 @@ import AgesWalkthrough from "../components/home/AgesWalkthrough.astro";
 
         <!-- Right Content - Logo -->
         <div class="flex justify-center lg:justify-end order-1 lg:order-2 lg:flex-1">
-          <Logo class="w-54 h-42 sm:w-60 sm:h-48 md:w-72 md:h-54 lg:w-96 lg:h-auto object-contain" />
+          <Logo id="hero-logo" class="w-54 h-42 sm:w-60 sm:h-48 md:w-72 md:h-54 lg:w-96 lg:h-auto object-contain" />
         </div>
       </div>
     </section>
@@ -56,4 +56,10 @@ import AgesWalkthrough from "../components/home/AgesWalkthrough.astro";
       <CallToAction />
     </section>
   </div>
+
+  <script>
+    if (new Date().getMonth() === 3 && new Date().getDate() === 1) {
+      document.getElementById("hero-logo")?.classList.add("animate-rotate");
+    }
+  </script>
 </BaseLayout>
