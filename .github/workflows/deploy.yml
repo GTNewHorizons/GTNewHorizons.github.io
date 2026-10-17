@@ -1,6 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches:
+      - master
   # Manual trigger from GitHub Actions tab
   workflow_dispatch:
 
