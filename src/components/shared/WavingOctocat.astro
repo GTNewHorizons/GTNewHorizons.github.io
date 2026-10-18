@@ -1,0 +1,62 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const maskId = `octocat-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+<svg class:list={["waving-octocat", className]} viewBox="19.7 12.1 144 144" fill="currentColor" aria-hidden="true">
+  <mask id={maskId}>
+    <circle cx="91.7" cy="84.1" r="60" fill="#fff"></circle>
+    <g fill="#000" transform="translate(177 0) scale(-1 1) rotate(45 84 90.5)">
+      <path
+        class="octo-arm"
+        stroke="#000"
+        stroke-width="5"
+        stroke-linejoin="round"
+        d="M122 109c15-9 9-19 9-19-3-7-2-11-2-11 1-7-3-2-3-2-4 5-2 11-2 11 3 10-5 15-9 16"
+      ></path>
+      <path
+        d="M135 115s-4 2-5 0l-14-14c-3-2-6-3-8-3 8-11 15-24-2-41-5-5-10-7-16-7-1-2-3-7-12-11 0 0-5 3-7 16-4 2-8 5-12 9s-7 8-9 12c-14 4-17 9-17 9 4 8 9 11 11 11 0 6 2 11 7 16 16 16 30 10 41 2 0 3 1 7 5 11l12 11c1 2-1 6-1 6z"
+      ></path>
+    </g>
+    <rect x="70" y="140" width="48" height="8" fill="#fff"></rect>
+    <rect x="77.8" y="135" width="29.8" height="30" fill="#000"></rect>
+  </mask>
+  <circle cx="91.7" cy="84.1" r="60" mask={`url(#${maskId})`}></circle>
+</svg>
+
+<style>
+  .octo-arm {
+    transform-origin: 124px 106px;
+  }
+
+  :global(a:hover) .octo-arm,
+  :global(a:focus-visible) .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+
+  @keyframes octocat-wave {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+    20%,
+    60% {
+      transform: rotate(25deg);
+    }
+    40%,
+    80% {
+      transform: rotate(-10deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(a:hover) .octo-arm,
+    :global(a:focus-visible) .octo-arm {
+      animation: none;
+    }
+  }
+</style>
