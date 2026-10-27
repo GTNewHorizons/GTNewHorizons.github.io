@@ -11,8 +11,9 @@ import prismImage from "../assets/downloads/prism.png";
 import serverImage from "../assets/downloads/server.png";
 import config from "../config";
 import versions from "../../public/versions.json";
+import type { VersionEntry } from "../types";
 
-const latestVersion = versions[config.latestVersion as keyof typeof versions];
+const latestVersion = versions[config.latestVersion] as VersionEntry;
 ---
 
 <BaseLayout title="Downloads">
@@ -135,77 +136,111 @@ const latestVersion = versions[config.latestVersion as keyof typeof versions];
       </DownloadsCard>
     </div>
 
-    <div class="md:w-2/3">
-      <h2 class="text-center text-xl sm:text-2xl font-semibold mb-3">Launcher Downloads</h2>
-    </div>
-    <div class="grid gap-3 sm:gap-4 md:grid-cols-3 items-start">
-      <DownloadsCard
-        title="Technic Launcher"
-        links={[{ label: "Modpack page", href: config.technicUrl, icon: "mdi:open-in-new", external: true }]}
-        variant="solid"
-      >
-        <div slot="image">
-          <Image
-            src={technicImage}
-            alt="Technic Launcher screenshot"
-            class="w-full h-full object-cover object-left-top block"
-            loading="eager"
-          />
-        </div>
-      </DownloadsCard>
-
-      <DownloadsCard
-        title="CurseForge"
-        links={[{ label: "Modpack page", href: config.curseforgeUrl, icon: "mdi:open-in-new", external: true }]}
-        variant="solid"
-      >
-        <div slot="image">
-          <Image
-            src={curseforgeImage}
-            alt="CurseForge screenshot"
-            class="w-full h-full object-cover object-left-top block"
-            loading="eager"
-          />
-        </div>
-      </DownloadsCard>
-
-      <div class="h-full">
-        <div class="rounded-xl p-3 sm:p-4 bg-[#1a1f26] border border-gray-700 h-full">
-          <div class="flex items-center gap-2 mb-2">
-            <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
-              <Icon name="mdi:headset" class="w-5 h-5 text-custom-blue" />
+    <div class="grid gap-3 sm:gap-4 md:grid-cols-3">
+      <section class="grid gap-3 sm:gap-4 md:col-span-2 md:row-span-2 md:grid-rows-subgrid" aria-labelledby="launcher-downloads">
+        <h2 id="launcher-downloads" class="text-center text-xl sm:text-2xl font-semibold">Launcher Downloads</h2>
+        <div class="grid gap-3 sm:gap-4 md:grid-cols-2">
+          <DownloadsCard
+            title="Technic Launcher"
+            links={[{ label: "Modpack page", href: config.technicUrl, icon: "mdi:open-in-new", external: true }]}
+            variant="solid"
+          >
+            <div slot="image">
+              <Image
+                src={technicImage}
+                alt="Technic Launcher screenshot"
+                class="w-full h-full object-cover object-left-top block"
+                loading="eager"
+              />
             </div>
-            <h3 class="text-lg sm:text-xl font-semibold">Need help?</h3>
-          </div>
+          </DownloadsCard>
 
-          <div>
-            <p class="text-gray-300 text-sm sm:text-base mb-2">
-              You can check our wiki for advice on installing and migrating
-            </p>
-            <a
-              href={config.installGuideUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 text-custom-blue hover:underline mb-3 text-sm sm:text-base"
-            >
-              <Icon name="mdi:open-in-new" class="w-5 h-5" />
-              <span>Check our wiki</span>
-            </a>
-            <p class="text-gray-300 text-sm sm:text-base mb-2">
-              Generic instructions didn't help? Join our Discord and ask for help there!
-            </p>
-            <!-- Discord Button -->
-            <a
-              href={config.discordUrl}
-              target="_blank"
-              class="inline-flex gap-1 sm:gap-1.5 items-center justify-center w-48 whitespace-nowrap bg-[#5864f2] hover:bg-[#587cf2] text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-base sm:text-lg md:text-xl transition-colors duration-200"
-            >
-              <Icon name="ic:baseline-discord" class="w-6 sm:w-7 h-6 sm:h-7" />
-              Join Discord
-            </a>
-          </div>
+          <DownloadsCard
+            title="CurseForge"
+            links={[{ label: "Modpack page", href: config.curseforgeUrl, icon: "mdi:open-in-new", external: true }]}
+            variant="solid"
+          >
+            <div slot="image">
+              <Image
+                src={curseforgeImage}
+                alt="CurseForge screenshot"
+                class="w-full h-full object-cover object-left-top block"
+                loading="eager"
+              />
+            </div>
+          </DownloadsCard>
         </div>
-      </div>
+      </section>
+
+      <section class="grid gap-3 sm:gap-4 md:row-span-2 md:grid-rows-subgrid" aria-labelledby="mobile-downloads">
+        <h2 id="mobile-downloads" class="text-center text-xl sm:text-2xl font-semibold">Mobile Downloads</h2>
+        <DownloadsCard
+          title="GTNH Mobile"
+          links={[
+            {
+              label: `Latest (${String(config.latestVersion)}) for Mobile`,
+              href: latestVersion.mobileUrl!,
+              icon: "material-symbols:download-rounded",
+              external: true,
+              bold: true,
+            },
+            {
+              label: "Version history",
+              href: "/version-history",
+              icon: "mdi:open-in-new",
+            },
+            {
+              label: "Installation guide",
+              href: config.mobileInstallGuideUrl,
+              icon: "mdi:open-in-new",
+              external: true,
+            },
+          ]}
+          note="Requires Android 10+ and Amethyst Launcher"
+          noteIcon="mdi:alert-circle-outline"
+          noteColorClass="text-amber-300"
+          variant="solid"
+        >
+          <div slot="image" class="flex items-center justify-center h-full bg-linear-to-br from-[#2a3342] to-[#1c2330]">
+            <Icon name="mdi:cellphone" class="w-16 h-16 sm:w-20 sm:h-20 text-custom-blue" aria-hidden="true" />
+          </div>
+        </DownloadsCard>
+      </section>
+
+      <aside class="md:col-span-3 grid items-start gap-3 sm:gap-4 md:grid-cols-3 rounded-xl p-3 sm:p-4 bg-[#1a1f26] border border-gray-700" aria-labelledby="downloads-help">
+        <div class="md:col-span-3 flex items-center gap-2">
+          <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-[#2a3342]">
+            <Icon name="mdi:headset" class="w-5 h-5 text-custom-blue" />
+          </div>
+          <h3 id="downloads-help" class="text-lg sm:text-xl font-semibold">Need help?</h3>
+        </div>
+
+        <p class="text-gray-300 text-sm sm:text-base">
+          You can check our wiki for advice on{" "}
+          <a
+            href={config.installGuideUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-custom-blue hover:underline"
+          >
+            installing and migrating
+          </a>.
+        </p>
+
+        <p class="text-gray-300 text-sm sm:text-base">
+          Generic instructions didn't help? Join our Discord and ask for help there!
+        </p>
+
+        <a
+          href={config.discordUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="self-center justify-self-center inline-flex gap-1 sm:gap-1.5 items-center justify-center whitespace-nowrap bg-[#5864f2] hover:bg-[#587cf2] text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-base sm:text-lg md:text-xl transition-colors duration-200"
+        >
+          <Icon name="ic:baseline-discord" class="w-6 sm:w-7 h-6 sm:h-7" />
+          Join Discord
+        </a>
+      </aside>
     </div>
   </section>
 </BaseLayout>

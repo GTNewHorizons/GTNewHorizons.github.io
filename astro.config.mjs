@@ -28,6 +28,7 @@ export default defineConfig({
           "calendar",
           "server",
           "laptop",
+          "cellphone",
         ],
         "material-symbols": ["download-rounded", "folder-zip-outline"],
       },

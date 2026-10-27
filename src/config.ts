@@ -3,6 +3,7 @@ import type { Config } from "./types";
 const config: Config = {
   technicUrl: "https://www.technicpack.net/modpack/mcnewhorizons.677387",
   curseforgeUrl: "https://www.curseforge.com/minecraft/modpacks/gt-new-horizons",
+  mobileInstallGuideUrl: "https://wiki.gtnewhorizons.com/wiki/Mobile",
   wikiUrl: "https://wiki.gtnewhorizons.com/wiki/Main_Page",
   installGuideUrl: "https://wiki.gtnewhorizons.com/wiki/Installing_and_Migrating",
   discordUrl: "https://discord.gg/gtnh",
