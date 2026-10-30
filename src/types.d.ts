@@ -1,8 +1,13 @@
+import type versions from "../public/versions.json";
+
 export type VersionKey = keyof typeof versions;
 
 export type Config = {
   technicUrl: string;
+  technicLauncherUrl: string;
   curseforgeUrl: string;
+  curseforgeLauncherUrl: string;
+  mobileInstallGuideUrl: string;
   wikiUrl: string;
   installGuideUrl: string;
   discordUrl: string;
@@ -17,6 +22,7 @@ export type VersionEntry = {
   description?: string;
   releaseDate?: string; // YYYY/MM/DD
   maxJavaVersion?: number; // e.g., 21 or 25
+  mobileUrl?: string;
   mmc?: {
     java8Url?: string;
     java17_2XUrl?: string;
