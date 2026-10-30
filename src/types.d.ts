@@ -4,7 +4,9 @@ export type VersionKey = keyof typeof versions;
 
 export type Config = {
   technicUrl: string;
+  technicLauncherUrl: string;
   curseforgeUrl: string;
+  curseforgeLauncherUrl: string;
   mobileInstallGuideUrl: string;
   wikiUrl: string;
   installGuideUrl: string;

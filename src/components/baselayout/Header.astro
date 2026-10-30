@@ -15,13 +15,16 @@ import config from "../../config";
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center space-x-6">
+      <nav class="hidden xl:flex items-center space-x-6">
         <Link
           href="/downloads"
           class="text-gray-300 hover:text-white transition-colors duration-200 text-lg flex items-center space-x-1.5"
         >
           <Icon name="material-symbols:download-rounded" class="w-6 h-6" />
           <span>Downloads</span>
+        </Link>
+        <Link href="/server-providers" class="text-gray-300 hover:text-white transition-colors duration-200 text-lg">
+          Server providers
         </Link>
         <Link href="/faq" class="text-gray-300 hover:text-white transition-colors duration-200 text-lg"> FAQ </Link>
         <Link href={config.wikiUrl} class="text-gray-300 hover:text-white transition-colors duration-200 text-lg" blank>
@@ -48,7 +51,7 @@ import config from "../../config";
       <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-button"
-        class="md:hidden flex items-center justify-center w-6 h-6"
+        class="xl:hidden flex items-center justify-center w-6 h-6"
         aria-label="Toggle menu"
       >
         <div class="space-y-0.5">
@@ -60,7 +63,7 @@ import config from "../../config";
     </div>
 
     <!-- Mobile Navigation -->
-    <nav id="mobile-menu" class="md:hidden py-3 border-t border-gray-700 hidden">
+    <nav id="mobile-menu" class="xl:hidden py-3 border-t border-gray-700 hidden">
       <div class="flex flex-col space-y-2">
         <Link
           href="/downloads"
@@ -68,6 +71,12 @@ import config from "../../config";
         >
           <Icon name="material-symbols:download-rounded" class="w-5 h-5" />
           Downloads
+        </Link>
+        <Link
+          href="/server-providers"
+          class="text-gray-300 hover:text-white transition-colors duration-200 text-base py-1.5 mobile-nav-link"
+        >
+          Server providers
         </Link>
         <Link
           href="/faq"

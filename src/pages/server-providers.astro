@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import reiznorAd from "../assets/server-providers/reiznor.webp";
+import wabbanodeAd from "../assets/server-providers/wabbanode.webp";
+---
+
+<BaseLayout title="Official GT:NH server providers" description="Official GT:NH server provider information.">
+  <main class="container mx-auto px-3 sm:px-4 py-6 sm:py-9">
+    <div class="mx-auto max-w-3xl text-left mb-6 sm:mb-7">
+      <h1 class="text-2xl sm:text-4xl font-bold">Official GT:NH server providers</h1>
+      <p class="mx-auto max-w-3xl text-gray-300 text-base sm:text-lg mt-3">
+        Tired of fighting your server instead of building your factory? Leave frustrating experiences with generic
+        hosts behind and choose one of our official GT:NH partners. Bring your friends, dream up your megabase,
+        and make your next milestone happen. From your first steam machine to the Stargate, give your adventure
+        a home worth committing to.
+      </p>
+      <p class="mx-auto max-w-3xl text-gray-300 text-base sm:text-lg mt-3">
+        GT:NH already gives you enough problems to solve. Hosting shouldn't be another one. Our partners offer
+        setups tailored to the pack, which we've tried and tested ourselves, to ensure it meets the performance
+        required by our modpack.
+      </p>
+    </div>
+
+    <div class="mx-auto max-w-4xl space-y-6">
+      <a href="https://reizorhosting.com/gtnh-hosting" target="_blank" rel="noopener noreferrer" class="block">
+        <Image
+          src={reiznorAd}
+          alt="Reizor Hosting: GT:NH servers with Ryzen 9 CPUs, dedicated resources, a version switcher, and Java optimizations. From $11.25/month; use code GTNH for 25% off your first invoice."
+          class="mx-auto block w-full h-auto max-w-full rounded-xl"
+        />
+      </a>
+      <a href="https://wabbanode.com/affiliate/gtnewhorizons?ref=webpage" target="_blank" rel="noopener noreferrer" class="block">
+        <Image
+          src={wabbanodeAd}
+          alt="Wabbanode: use code GTNH for 25% off premium server hosting."
+          class="mx-auto block w-full h-auto max-w-full rounded-xl"
+        />
+      </a>
+    </div>
+  </main>
+</BaseLayout>
