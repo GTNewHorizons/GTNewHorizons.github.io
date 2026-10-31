@@ -13,7 +13,7 @@ const config: Config = {
   bugReportsUrl: "https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues",
   repoUrl: "https://github.com/GTNewHorizons/GTNewHorizons.github.io",
   // Will be used for the Downloads page, should point to a valid version
-  latestVersion: "2.8.4",
+  latestVersion: "2.9.0",
 };
 
 export default config;

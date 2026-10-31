@@ -1,4 +1,22 @@
 {
+    "2.9.0": {
+    "title": "Stable release",
+    "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.8.4%20to%202.9.0.md\">Click here to get the changelog</a>.",
+    "releaseDate": "2026/10/31",
+    "maxJavaVersion": 26,
+    "mobileUrl": "https://downloads.gtnewhorizons.com/Mobile/GT_New_Horizons_2.9.0.mrpack",
+    "mmc": {
+      "java8Url": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.9.0_Java_8.zip",
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.9.0_Java_17-26.zip"
+    },
+    "server": {
+      "java8Url": "https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.9.0_Server_Java_8.zip",
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.9.0_Server_Java_17-26.zip"
+    },
+    "client": {
+      "java8Url": "https://downloads.gtnewhorizons.com/ClientPacks/GT_New_Horizons_2.9.0_Client_Java_8.zip"
+    }
+  },
     "2.9.0-RC-2": {
     "title": "Beta release",
     "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.9.0-RC-1%20to%202.9.0-RC-2.md\">Click here to get the changelog</a>.",
@@ -93,7 +111,6 @@
     "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.8.3%20to%202.8.4.md\">Click here to get the changelog</a>.",
     "releaseDate": "2025/12/23",
     "maxJavaVersion": 25,
-    "mobileUrl": "https://downloads.gtnewhorizons.com/Mobile/betas/GT_New_Horizons_2.9.0-RC-2.mrpack",
     "mmc": {
       "java8Url": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.4_Java_8.zip",
       "java17_2XUrl": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.8.4_Java_17-25.zip"
