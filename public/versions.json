@@ -1,4 +1,21 @@
-{
+{  "2.9.2": {
+    "title": "Stable release",
+    "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.9.1%20to%202.9.2.md\">Click here to get the changelog</a>.",
+    "releaseDate": "2026/11/25",
+    "maxJavaVersion": 26,
+    "mobileUrl": "https://downloads.gtnewhorizons.com/Mobile/GT_New_Horizons_2.9.2.mrpack",
+    "mmc": {
+      "java8Url": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.9.2_Java_8.zip",
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/Multi_mc_downloads/GT_New_Horizons_2.9.2_Java_17-26.zip"
+    },
+    "server": {
+      "java8Url": "https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.9.2_Server_Java_8.zip",
+      "java17_2XUrl": "https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.9.2_Server_Java_17-26.zip"
+    },
+    "client": {
+      "java8Url": "https://downloads.gtnewhorizons.com/ClientPacks/GT_New_Horizons_2.9.2_Client_Java_8.zip"
+    }
+  },
   "2.9.1": {
     "title": "Stable release",
     "description": "<a class=\"underline text-blue-400 hover:text-blue-200\" target=\"_blank\" href=\"https://github.com/GTNewHorizons/DreamAssemblerXXL/blob/master/releases/changelogs/changelog%20from%202.9.0%20to%202.9.1.md\">Click here to get the changelog</a>.",
