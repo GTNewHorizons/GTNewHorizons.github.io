@@ -17,7 +17,6 @@ export default defineConfig({
         // Only include the icons we need for bundle optimization
         ic: ["baseline-discord"],
         mdi: [
-          "github",
           "arrow-left-bold",
           "arrow-right-bold",
           "open-in-new",
